@@ -1,0 +1,62 @@
+#ifndef COMMON_H
+#define COMMON_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+#include <sys/msg.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <time.h>
+#include <errno.h>
+#include <string.h>
+#include <fcntl.h>
+#include <stdbool.h>
+
+//Stale projektowe
+#define PROJECT_ID 'E'
+#define PATH_NAME "."
+
+//Limity
+#define MAX_KANDYDATOW 1200
+#define MIEJSCA_NA_UCZELNI 120
+#define MAX_W_SALI_A 3
+#define MAX_W_SALI_B 3
+
+//Statusy kandydata
+#define STATUS_NOWY 0
+#define STATUS_ODRZUCONY_MATURA 1
+#define STATUS_DOPUSCZONY 2
+#define STATUS_OBLAL_TEORIE 3
+#define STATUS_ZDAL_TEORIE 4
+#define STATUS_ZAKONCZYL 5
+
+//Struktura kandydata
+typedef struct {
+    pid_t pid;
+    int id_kandydata;
+    bool zdana_matura;
+    bool powtarza_egzamin;
+    int ocena_teoria;
+    int ocena_praktyka;
+    int status;
+} KandydatDane;
+
+//Struktura pamieci dzielonej
+typedef struct {
+    KandydatDane studenci[MAX_KANDYDATOW];
+    int liczba_kandydatow;
+    bool ewakuacja;
+} PamiecDzielona;
+
+//Funkcja do obslugi bledow
+void report_error_and_exit(const char *msg) {
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+#endif
