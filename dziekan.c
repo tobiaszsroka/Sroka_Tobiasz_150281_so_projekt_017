@@ -2,10 +2,19 @@
 #include <time.h>
 
 int id_pamieci = -1;
+int id_semaforow = -1;
 PamiecDzielona *wspolna_pamiec = NULL;
 
 int losuj(int min, int max) {
     return min + rand() % (max - min + 1);
+}
+
+//Funkcja do ustawiania semaforow
+void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
+    if (semctl(sem_id, sem_num, SETVAL, wartosc) == -1) {
+	perror("Blad ustawiania semafora);
+	exit(1);
+    }
 }
 
 //Funkcja sprzatajaca(Ctrl+C, koniec programu)
@@ -22,6 +31,11 @@ void sprzatanie(int signal) {
         printf("[Dziekan] Pamiec usunieta.\n");
     }
 
+    if (id_semaforow != -1) {
+	semctl(id_semaforow, 0, IPC_RMID);
+	printf("[Dziekan] Semafory usuniete.\n");
+    }
+
     if (signal != 0) {
        printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
        exit(0);
@@ -34,7 +48,7 @@ int main() {
     signal(SIGINT, sprzatanie);
 
     printf("=========================================\n");
-    printf("[Dziekan] PRZYGOTOWANIE DANYCH\n");
+    printf("[Dziekan] PRZYGOTOWANIE DO EGZAMINU\n");
     printf("=========================================\n");
 
     printf("[Dziekan] Tworzenie pamięci dzielonej...\n");
@@ -51,7 +65,7 @@ int main() {
     wspolna_pamiec->liczba_kandydatow = MAX_KANDYDATOW;
     wspolna_pamiec->ewakuacja = 0;
 
-    printf("[Dziekan] Generowanie bazy kandydatów...\n"); 
+    printf("[Dziekan] Weryfikacja dokumentow i losowanie danych...\n"); 
     for (int i = 0; i < MAX_KANDYDATOW; i++) {
         wspolna_pamiec->studenci[i].id_kandydata = i + 1;
         wspolna_pamiec->studenci[i].ocena_teoria = 0;
@@ -78,22 +92,33 @@ int main() {
         }
     }
 
-    printf("[Dziekan] Baza danych gotowa. Testuję na próbce procesów...\n");
+    //Tworzenie semaforow
+    printf("[Dziekan] Tworzenie semaforow...\n");
+    id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0666, | IPC_CREAT);
+    if (id_semaforow == -1) report_error_and_exit("Blad semget");
 
-    //Uruchomienie kilku procesów testowych
-    for (int i = 0; i < 3; i++) {
+    ustaw_semafor(id_semaforow, SEM_DOSTEP_PAMIEC, 1);
+    ustaw_semafor(id_semaforow, SEM_SALA_A, MAX_W_SALI_A);
+    ustaw_semafor(id_semaforow, SEM_SALA_B, MAX_W_SALI_B);
+
+    //Uruchamianie procesow
+    printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
+ 
+    for (int i = 0; i < MAX_KANDYDATOW; i++) {
         pid_t pid = fork();
         if (pid == 0) {
             char id_str[10];
             sprintf(id_str, "%d", i);
             execl("./kandydat", "kandydat", id_str, NULL);
+	    perror("Blad execl kandydat");
             exit(1);
         }
+	if (i % 5 == 0) usleep(50000);
     }
 
-    for(int i=0; i<3; i++) wait(NULL);
+    while (wait(NULL) > 0);
 
-    printf("[Dziekan] Testy OK. Sprzątam.\n");
+    printf("[Dziekan] Wszyscy wyszli. Koniec symulacji\n");
     sprzatanie(0);
     return 0;
 }
