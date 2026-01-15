@@ -5,7 +5,6 @@ void semafor_operacja(int sem_id, int sem_num, int op) {
     bufor_semafora.sem_num = sem_num;
     bufor_semafora.sem_op = op;
     bufor_semafora.sem_flg = 0;
-
     if (semop(sem_id, &bufor_semafora, 1) == -1) {
 	if (errno != EINTR) perror("Blad semop");
 	exit(1);
@@ -29,7 +28,6 @@ int main(int argc, char *argv[]) {
 
     PamiecDzielona *pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (pamiec == (void*) -1) report_error_and_exit("Blad shmat kandydat");
-
     KandydatDane *ja = &pamiec->studenci[moj_id];
     ja->pid = getpid();
 
@@ -40,12 +38,39 @@ int main(int argc, char *argv[]) {
 	exit(0);
     }
 
-    printf("[Kandydat %d] Czekam w kolejce do sali A...\n", moj_id);
-    semafor_operacja(id_semaforow, SEM_SALA_A, -1);
-    printf(" >> [Kandydat %d] WSZEDLEM do SALI A! (Pisze egzamin...)\n", moj_id);
-    sleep(1 + rand() % 3);
-    printf(" << [Kandydat %d] WYCHODZE z Sali A.\n", moj_id);
-    semafor_operacja(id_semaforow, SEM_SALA_A, 1);
+    if (ja->powtarza_egzamin == 1) {
+    	printf("[Kandydat %d] Powtarzam rok (teoria zaliczona). Ide od razu do Sali B.\n", moj_id);
+    }
+    else {
+	printf("[Kandydat %d] Czekam na wejscie do komisji A (Teoria)...\n", moj_id);
+
+	semafor_operacja(id_semaforow, SEM_SALA_A, -1);
+	printf(" >> [Kandydat %d] Pisze egzamin teoretyczny...\n", moj_id);
+	sleep(1 + rand() % 2);
+	ja->ocena_teoria = rand() % 101;
+ 	printf(" <<  [Kandydat %d] Wyszedlem z Sali A. Wynik: %d%%\n", moj_id, ja->ocena_teoria);
+	semafor_operacja(id_semaforow, SEM_SALA_A, 1);
+
+	//Sprawdzenie czy zdany egzamin
+	if (ja->ocena_teoria < 30) {
+	    printf("[Kandydat %d] Oblalem teorie. Do widzenia!\n", moj_id);
+	    ja->status = STATUS_OBLAL_TEORIE;
+	    shmdt(pamiec);
+	    exit(0);
+	}
+	ja->status = STATUS_ZDAL_TEORIE;
+    }
+
+    printf("[Kandydat %d] Czekam na wejscie do komisji B (Praktyka)...\n", moj_id);
+    semafor_operacja(id_semaforow, SEM_SALA_B, -1);
+    printf(" >> [Kandydat %d] Zdaje egzamin praktyczny...\n", moj_id);
+    sleep(1 + rand() % 2);
+    ja->ocena_praktyka = rand() % 101;
+    printf(" << [Kandydat %d] Koniec praktyki. Wynik: %d%%\n", moj_id, ja->ocena_praktyka);
+    semafor_operacja(id_semaforow, SEM_SALA_B, 1);
+
+    ja->status = STATUS_ZAKONCZYL;
+
 
     shmdt(pamiec);
     return 0;
