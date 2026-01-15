@@ -12,7 +12,7 @@ int losuj(int min, int max) {
 //Funkcja do ustawiania semaforow
 void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
     if (semctl(sem_id, sem_num, SETVAL, wartosc) == -1) {
-	perror("Blad ustawiania semafora);
+	perror("Blad ustawiania semafora");
 	exit(1);
     }
 }
@@ -94,7 +94,7 @@ int main() {
 
     //Tworzenie semaforow
     printf("[Dziekan] Tworzenie semaforow...\n");
-    id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0666, | IPC_CREAT);
+    id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0666 | IPC_CREAT);
     if (id_semaforow == -1) report_error_and_exit("Blad semget");
 
     ustaw_semafor(id_semaforow, SEM_DOSTEP_PAMIEC, 1);
@@ -117,8 +117,47 @@ int main() {
     }
 
     while (wait(NULL) > 0);
-
     printf("[Dziekan] Wszyscy wyszli. Koniec symulacji\n");
+
+    printf("\n=========================================\n");
+    printf("[Dziekan] KONIEC EGZAMINU. PUBLIKACJA WYNIKÓW:\n");
+    printf("=========================================\n");
+    printf("ID   | Matura | Teoria | Praktyka | Status\n");
+    printf("-----|--------|--------|----------|----------\n");
+
+    int przyjeci = 0;
+
+    for (int i = 0; i < MAX_KANDYDATOW; i++) {
+        KandydatDane *k = &wspolna_pamiec->studenci[i];
+        char status_str[30];
+
+          if (k->zdana_matura == 0) {
+            strcpy(status_str, "BRAK MATURY");
+        } else if (k->status == STATUS_OBLAL_TEORIE) {
+            strcpy(status_str, "OBLANY (Teoria)");
+        } else if (k->status == STATUS_ZAKONCZYL && k->ocena_praktyka < 30) {
+             strcpy(status_str, "OBLANY (Praktyka)");
+        } else if (k->status == STATUS_ZAKONCZYL && k->ocena_praktyka >= 30) {
+             strcpy(status_str, "PRZYJĘTY");
+             przyjeci++;
+        } else {
+            strcpy(status_str, "NIEUKOŃCZONY");
+        }
+
+        printf("%04d | %-6s | %3d%%   | %3d%%      | %s\n",
+            k->id_kandydata,
+            k->zdana_matura ? "TAK" : "NIE",
+            k->ocena_teoria,
+            k->ocena_praktyka,
+            status_str
+        );
+    }
+
+    printf("=========================================\n");
+    printf("PODSUMOWANIE: Przyjęto %d kandydatów na %d miejsc.\n", przyjeci, MIEJSCA_NA_UCZELNI);
+    printf("=========================================\n");
+
     sprzatanie(0);
     return 0;
 }
+
