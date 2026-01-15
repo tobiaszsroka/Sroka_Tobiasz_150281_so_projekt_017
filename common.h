@@ -27,6 +27,12 @@
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
 
+//Statusy semaforow
+#define SEM_DOSTEP_PAMIEC 0
+#define SEM_SALA_A 1
+#define SEM_SALA_B 2
+#define LICZBA_SEMAFOROW 3
+
 //Statusy kandydata
 #define STATUS_NOWY 0
 #define STATUS_ODRZUCONY_MATURA 1
