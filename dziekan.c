@@ -80,6 +80,7 @@ int main() {
     //Generowanie listy
     wspolna_pamiec->liczba_kandydatow = MAX_KANDYDATOW;
     wspolna_pamiec->ewakuacja = 0;
+    wspolna_pamiec->studenci_zakonczeni = 0;
 
     printf("[Dziekan] Weryfikacja dokumentow i losowanie danych...\n"); 
     for (int i = 0; i < MAX_KANDYDATOW; i++) {

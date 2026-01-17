@@ -22,8 +22,8 @@
 #define PATH_NAME "."
 
 //Limity
-#define MAX_KANDYDATOW 1200
-#define MIEJSCA_NA_UCZELNI 120
+#define MAX_KANDYDATOW 120
+#define MIEJSCA_NA_UCZELNI 20
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
 
@@ -56,7 +56,8 @@ typedef struct {
 typedef struct {
     KandydatDane studenci[MAX_KANDYDATOW];
     int liczba_kandydatow;
-    bool ewakuacja;
+    int ewakuacja;
+    int studenci_zakonczeni;
 } PamiecDzielona;
 
 //Funkcja do obslugi bledow
