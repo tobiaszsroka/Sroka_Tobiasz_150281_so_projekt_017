@@ -23,7 +23,7 @@ void sprzatanie(int signal) {
 
     if (wspolna_pamiec != NULL) {
         shmdt(wspolna_pamiec);
-	printf("[Dziekan] Pamiec odlaczona.\n");
+	    printf("[Dziekan] Pamiec odlaczona.\n");
     }
 
     if (id_pamieci != -1) {
@@ -32,14 +32,30 @@ void sprzatanie(int signal) {
     }
 
     if (id_semaforow != -1) {
-	semctl(id_semaforow, 0, IPC_RMID);
-	printf("[Dziekan] Semafory usuniete.\n");
+	    semctl(id_semaforow, 0, IPC_RMID);
+	    printf("[Dziekan] Semafory usuniete.\n");
     }
 
     if (signal != 0) {
        printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
        exit(0);
     }
+}
+
+//Funckja tworzaca ranking studentow
+int porownaj_kandydatow(const void *a, const void *b) {
+    KandydatDane *k1 = (KandydatDane *)a;
+    KandydatDane *k2 = (KandydatDane *)b;
+
+    if (k1->status != STATUS_ZAKONCZYL && k2->status == STATUS_ZAKONCZYL)
+        return 1;
+    if (k1->status == STATUS_ZAKONCZYL && k2->status != STATUS_ZAKONCZYL)
+        return -1;
+    
+    int suma1 = k1->ocena_teoria + k1->ocena_praktyka;
+    int suma2 = k2->ocena_teoria + k2->ocena_praktyka;
+
+    return suma2 - suma1;
 }
 
 
@@ -117,45 +133,48 @@ int main() {
     }
 
     while (wait(NULL) > 0);
-    printf("[Dziekan] Wszyscy wyszli. Koniec symulacji\n");
+    printf("\n[Dziekan] Egzaminy zakończone. Trwa obliczanie rankingu...\n");
 
-    printf("\n=========================================\n");
-    printf("[Dziekan] KONIEC EGZAMINU. PUBLIKACJA WYNIKÓW:\n");
-    printf("=========================================\n");
-    printf("ID   | Matura | Teoria | Praktyka | Status\n");
-    printf("-----|--------|--------|----------|----------\n");
+    //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
+    qsort(wspolna_pamiec->studenci, MAX_KANDYDATOW, sizeof(KandydatDane), porownaj_kandydatow);
 
-    int przyjeci = 0;
+    printf("\n====================================================================\n");
+    printf("| POZ  | ID   | MAT | PUNKTY (T+P) | STATUS            |\n");
+    printf("====================================================================\n");
+
+    int licznik_przyjetych = 0;
 
     for (int i = 0; i < MAX_KANDYDATOW; i++) {
         KandydatDane *k = &wspolna_pamiec->studenci[i];
-        char status_str[30];
+        int suma = k->ocena_teoria + k->ocena_praktyka;
+        char status_str[40];
 
-          if (k->zdana_matura == 0) {
+        if (k->zdana_matura == 0) {
             strcpy(status_str, "BRAK MATURY");
         } else if (k->status == STATUS_OBLAL_TEORIE) {
             strcpy(status_str, "OBLANY (Teoria)");
         } else if (k->status == STATUS_ZAKONCZYL && k->ocena_praktyka < 30) {
              strcpy(status_str, "OBLANY (Praktyka)");
-        } else if (k->status == STATUS_ZAKONCZYL && k->ocena_praktyka >= 30) {
-             strcpy(status_str, "PRZYJĘTY");
-             przyjeci++;
+        } else if (k->status == STATUS_ZAKONCZYL) {
+            if (licznik_przyjetych < MIEJSCA_NA_UCZELNI) {
+                strcpy(status_str, "PRZYJĘTY");
+                licznik_przyjetych++;
+            } else {
+                strcpy(status_str, "NIEPRZYJĘTY (BRAK MIEJSC)");
+            }
         } else {
-            strcpy(status_str, "NIEUKOŃCZONY");
+             strcpy(status_str, "NIEUKOŃCZONY");
         }
 
-        printf("%04d | %-6s | %3d%%   | %3d%%      | %s\n",
-            k->id_kandydata,
-            k->zdana_matura ? "TAK" : "NIE",
-            k->ocena_teoria,
-            k->ocena_praktyka,
-            status_str
-        );
+        if (MAX_KANDYDATOW <= 50 || i < 20 || i > MAX_KANDYDATOW - 5) {
+            printf("| #%03d | %04d | %-3s | %3d pkt      | %-17s |\n",
+                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", suma, status_str);
+        }
+        if (MAX_KANDYDATOW > 50 && i == 20) printf("| ...  | ...  | ... | ...          | ...               |\n");
     }
 
-    printf("=========================================\n");
-    printf("PODSUMOWANIE: Przyjęto %d kandydatów na %d miejsc.\n", przyjeci, MIEJSCA_NA_UCZELNI);
-    printf("=========================================\n");
+    printf("====================================================================\n");
+    printf("STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
 
     sprzatanie(0);
     return 0;
