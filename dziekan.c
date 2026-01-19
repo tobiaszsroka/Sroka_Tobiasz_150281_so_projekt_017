@@ -50,7 +50,7 @@ void zaradz_ewakuacje(int sig) {
 
     if (wspolna_pamiec != NULL)
         wspolna_pamiec->ewakuacja = 1;
-        
+
     kill(0, SIGUSR1);
 }
 
@@ -155,10 +155,20 @@ int main() {
     }
 
     while (wait(NULL) > 0);
-    printf("\n[Dziekan] Egzaminy zakonczone (lub przerwane). Raport:\n");
+    printf("\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
 
     //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
     qsort(wspolna_pamiec->studenci, MAX_KANDYDATOW, sizeof(KandydatDane), porownaj_kandydatow);
+
+    FILE *plik = fopen("wyniki.txt", "w");
+    if (plik == NULL) {
+        perror("Blad otwarcia pliku raportu");
+    } else {
+        fprintf(plik, "RAPORT Z EGZAMINU WSTEPNEGO\n");
+        fprintf(plik, "====================================================================\n");
+        fprintf(plik, "| POZ  | ID   | MAT | PUNKTY (T+P) | STATUS            |\n");
+        fprintf(plik, "====================================================================\n");        
+    }
 
     printf("\n====================================================================\n");
     printf("| POZ  | ID   | MAT | PUNKTY (T+P) | STATUS            |\n");
@@ -189,6 +199,11 @@ int main() {
              strcpy(status_str, "NIEUKOŃCZONY");
         }
 
+        if (plik != NULL) {
+            fprintf(plik, "| #%03d | %04d | %-3s | %3d pkt      | %-17s |\n",
+                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", suma, status_str);
+        }
+
         if (MAX_KANDYDATOW <= 50 || i < 20 || i > MAX_KANDYDATOW - 5) {
             printf("| #%03d | %04d | %-3s | %3d pkt      | %-17s |\n",
                 i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", suma, status_str);
@@ -198,6 +213,13 @@ int main() {
 
     printf("====================================================================\n");
     printf("STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
+    printf("Raport zapisano w pliku 'wyniki.txt'.\n");
+
+    if (plik != NULL) {
+        fprintf(plik, "====================================================================\n");
+        fprintf(plik, "STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
+        fclose(plik);
+    }
 
     sprzatanie(0);
     return 0;
