@@ -5,18 +5,6 @@ int id_pamieci = -1;
 int id_semaforow = -1;
 PamiecDzielona *wspolna_pamiec = NULL;
 
-int losuj(int min, int max) {
-    return min + rand() % (max - min + 1);
-}
-
-//Funkcja do ustawiania semaforow
-void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
-    if (semctl(sem_id, sem_num, SETVAL, wartosc) == -1) {
-	perror("Blad ustawiania semafora");
-	exit(1);
-    }
-}
-
 //Funkcja sprzatajaca(Ctrl+C, koniec programu)
 void sprzatanie(int signal) {
     printf("[Dziekan] Rozpoczynam sprzatanie zasobow...\n");
@@ -42,6 +30,30 @@ void sprzatanie(int signal) {
     }
 }
 
+int losuj(int min, int max) {
+    return min + rand() % (max - min + 1);
+}
+
+//Funkcja do ustawiania semaforow
+void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
+    if (semctl(sem_id, sem_num, SETVAL, wartosc) == -1) {
+	perror("Blad ustawiania semafora");
+	exit(1);
+    }
+}
+
+//Funkcja uruchamiajaca ewakuacje(Ctrl+Z)
+void zaradz_ewakuacje(int sig) {
+    printf("\n\n#####################################################\n");
+    printf("[Dziekan] !!! ALARM !!! OGLASZAM EWAKUACJE !!! (Sygnal %d)\n", sig);
+    printf("#####################################################\n\n");
+
+    if (wspolna_pamiec != NULL)
+        wspolna_pamiec->ewakuacja = 1;
+        
+    kill(0, SIGUSR1);
+}
+
 //Funckja tworzaca ranking studentow
 int porownaj_kandydatow(const void *a, const void *b) {
     KandydatDane *k1 = (KandydatDane *)a;
@@ -54,17 +66,20 @@ int porownaj_kandydatow(const void *a, const void *b) {
     
     int suma1 = k1->ocena_teoria + k1->ocena_praktyka;
     int suma2 = k2->ocena_teoria + k2->ocena_praktyka;
-
     return suma2 - suma1;
 }
 
 
 int main() {
     srand(time(NULL));
+
     signal(SIGINT, sprzatanie);
+    signal(SIGTSTP, zaradz_ewakuacje);
+    signal(SIGUSR1, SIG_IGN);
 
     printf("=========================================\n");
-    printf("[Dziekan] PRZYGOTOWANIE DO EGZAMINU\n");
+    printf("[Dziekan] ROZPOCZYNAM EGZAMIN (Miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
+    printf(">> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<\n");
     printf("=========================================\n");
 
     printf("[Dziekan] Tworzenie pamięci dzielonej...\n");
@@ -82,12 +97,13 @@ int main() {
     wspolna_pamiec->ewakuacja = 0;
     wspolna_pamiec->studenci_zakonczeni = 0;
 
-    printf("[Dziekan] Weryfikacja dokumentow i losowanie danych...\n"); 
+    printf("[Dziekan] Rejestracja kandydatow...\n"); 
     for (int i = 0; i < MAX_KANDYDATOW; i++) {
         wspolna_pamiec->studenci[i].id_kandydata = i + 1;
         wspolna_pamiec->studenci[i].ocena_teoria = 0;
         wspolna_pamiec->studenci[i].ocena_praktyka = 0;
         wspolna_pamiec->studenci[i].pid = 0;
+        wspolna_pamiec->studenci[i].status = STATUS_NOWY;
 
         //2% nie ma matury
         if (losuj(1, 100) <= 2) {
@@ -96,7 +112,6 @@ int main() {
             printf(" -> Kandydat %d: BRAK MATURY\n", i+1);
         } else {
             wspolna_pamiec->studenci[i].zdana_matura = 1;
-            wspolna_pamiec->studenci[i].status = STATUS_NOWY;
         }
 
         //2% powtarza (tylko jeśli mają maturę)
@@ -118,10 +133,16 @@ int main() {
     ustaw_semafor(id_semaforow, SEM_SALA_A, MAX_W_SALI_A);
     ustaw_semafor(id_semaforow, SEM_SALA_B, MAX_W_SALI_B);
 
+    if (fork() == 0) { 
+        execl("./komisja", "komisja", "A", NULL); 
+        exit(1); }
+    if (fork() == 0) { 
+        execl("./komisja", "komisja", "B", NULL);
+        exit(1); }
+
     //Uruchamianie procesow
     printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
- 
-    for (int i = 0; i < MAX_KANDYDATOW; i++) {
+     for (int i = 0; i < MAX_KANDYDATOW; i++) {
         pid_t pid = fork();
         if (pid == 0) {
             char id_str[10];
@@ -130,11 +151,11 @@ int main() {
 	    perror("Blad execl kandydat");
             exit(1);
         }
-	if (i % 5 == 0) usleep(50000);
+	if (i % 10 == 0) usleep(20000);
     }
 
     while (wait(NULL) > 0);
-    printf("\n[Dziekan] Egzaminy zakończone. Trwa obliczanie rankingu...\n");
+    printf("\n[Dziekan] Egzaminy zakonczone (lub przerwane). Raport:\n");
 
     //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
     qsort(wspolna_pamiec->studenci, MAX_KANDYDATOW, sizeof(KandydatDane), porownaj_kandydatow);
@@ -144,13 +165,14 @@ int main() {
     printf("====================================================================\n");
 
     int licznik_przyjetych = 0;
-
     for (int i = 0; i < MAX_KANDYDATOW; i++) {
         KandydatDane *k = &wspolna_pamiec->studenci[i];
         int suma = k->ocena_teoria + k->ocena_praktyka;
         char status_str[40];
 
-        if (k->zdana_matura == 0) {
+        if (wspolna_pamiec->ewakuacja == 1 && k->status != STATUS_ZAKONCZYL) {
+            strcpy(status_str, "EWAKUACJA");
+        }else if (k->zdana_matura == 0) {
             strcpy(status_str, "BRAK MATURY");
         } else if (k->status == STATUS_OBLAL_TEORIE) {
             strcpy(status_str, "OBLANY (Teoria)");
@@ -180,4 +202,3 @@ int main() {
     sprzatanie(0);
     return 0;
 }
-
