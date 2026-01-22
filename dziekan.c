@@ -142,17 +142,39 @@ int main() {
 
     //Uruchamianie procesow
     printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
+    printf("ID   | PID   | STATUS WEJSCIA\n");
+    printf("-----|-------|---------------\n");
+
      for (int i = 0; i < MAX_KANDYDATOW; i++) {
         pid_t pid = fork();
+        if (pid < 0) {
+        perror("Blad fork");
+        exit(1);
+}
         if (pid == 0) {
             char id_str[10];
             sprintf(id_str, "%d", i);
             execl("./kandydat", "kandydat", id_str, NULL);
 	    perror("Blad execl kandydat");
             exit(1);
+        } else {
+            wspolna_pamiec->studenci[i].pid = pid;
+
+            if (wspolna_pamiec->studenci[i].zdana_matura == 0) {
+                if (MAX_KANDYDATOW <= 50 || i < 10 || i > MAX_KANDYDATOW - 5)
+                    printf("%04d | %5d | ODRZUCONY (Brak matury)\n", i+1, pid);
+            } else {
+                if (MAX_KANDYDATOW <= 50 || i < 10 || i > MAX_KANDYDATOW - 5)
+                    printf("%04d | %5d | WPUSZCZONY NA EGZAMIN\n", i+1, pid);
+            }
         }
-	if (i % 10 == 0) usleep(20000);
+
+	    if (i % 10 == 0) 
+            usleep(20000);
     }
+
+     if (MAX_KANDYDATOW > 50)
+         printf("... (reszta kandydatow wchodzi) ...\n");
 
     while (wait(NULL) > 0);
     printf("\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
