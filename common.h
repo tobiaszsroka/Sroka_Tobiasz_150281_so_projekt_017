@@ -33,7 +33,9 @@
 #define SEM_DOSTEP_PAMIEC 0
 #define SEM_SALA_A 1
 #define SEM_SALA_B 2
-#define LICZBA_SEMAFOROW 3
+#define SEM_KRZESLO_A 3
+#define SEM_KRZESLO_B 4
+#define LICZBA_SEMAFOROW 5
 
 //Statusy kandydata
 #define STATUS_NOWY 0

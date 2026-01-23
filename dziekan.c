@@ -132,6 +132,8 @@ int main() {
     ustaw_semafor(id_semaforow, SEM_DOSTEP_PAMIEC, 1);
     ustaw_semafor(id_semaforow, SEM_SALA_A, MAX_W_SALI_A);
     ustaw_semafor(id_semaforow, SEM_SALA_B, MAX_W_SALI_B);
+    ustaw_semafor(id_semaforow, SEM_KRZESLO_A, 1);
+    ustaw_semafor(id_semaforow, SEM_KRZESLO_B, 1);
 
     if (fork() == 0) { 
         execl("./komisja", "komisja", "A", NULL); 

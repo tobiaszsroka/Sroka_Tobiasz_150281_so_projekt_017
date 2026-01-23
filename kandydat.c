@@ -82,50 +82,37 @@ int main(int argc, char *argv[]) {
     } 
     else {
         if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do komisji A (Teoria)...\n", moj_id);
-        
         semafor_operacja(sem_id_global, SEM_SALA_A, -1);
         
-        if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A.\n", moj_id);
+        if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A. Przygotowuje sie (Ti)...\n", moj_id);
+        sleep(1);
 
-        // Oczekiwanie na pytania
-        if (rand() % 100 < 20) { 
-             if (szczegoly) printf("    [Kandydat %d] Czekam na pytania (egzaminator sie spoznia)...\n", moj_id);
-             usleep(500000);
-        }
+        if (szczegoly) printf("    [Kandydat %d] Czekam na zwolnienie miejsca przed komisja...\n", moj_id);
+        semafor_operacja(sem_id_global, SEM_KRZESLO_A, -1);
 
-        //5 pytan
+        // Symulacja zadawania pytan
         int suma_pkt = 0;
         for (int i = 0; i < LICZBA_PYTAN_A; i++) {
-            int id_egzaminatora = i;
-            int id_tresci = rand() % 100;
+            if (rand() % 100 < 5) usleep(100000);
+
+            int nr_pytania = 1 + rand() % 999;
             
             if (szczegoly) {
                 drukuj_czas();
-                printf("[Komisja A] Pytanie %d | Egzaminator %d | Zadaje tresc nr %d\n", i+1, id_egzaminatora, id_tresci);
+                printf("[Komisja A] Egzaminator %d zadaje pytanie nr %d...\n", i+1, nr_pytania);
             }
-
-            usleep(100000 + rand()%200000); 
-
-            int pkt = 0;
-            if (rand() % 100 == 0) {
-                if (szczegoly) {
-                    drukuj_czas();
-                    printf("[Komisja A] TIMEOUT! Dyskwalifikacja w pytaniu %d.\n", i+1);
-                }
-                pkt = 0;
-            } else {
-                pkt = rand() % 101;
-                if (szczegoly) {
-                    drukuj_czas();
-                    printf("[Komisja A] Odpowiedz: OK | Egzaminator %d ocenia: %d pkt\n", id_egzaminatora, pkt);
-                }
-            }
+            usleep(100000); //Odpowiadanie
+            
+            int pkt = rand() % 101;
             suma_pkt += pkt;
         }
-        
         ja->ocena_teoria = suma_pkt / LICZBA_PYTAN_A;
 
+        //Zwolnienie miejsca przed komisja
+        semafor_operacja(sem_id_global, SEM_KRZESLO_A, 1);
         if (szczegoly) printf(" << [Kandydat %d] Wyszedlem z A. Srednia: %d%%\n", moj_id, ja->ocena_teoria);
+        
+        // Wyjście z sali
         semafor_operacja(sem_id_global, SEM_SALA_A, 1);
 
         if (ja->ocena_teoria < 30) {
@@ -136,35 +123,31 @@ int main(int argc, char *argv[]) {
     }
 
     //Komisja B
-    if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do komisji B (Praktyka)...\n", moj_id);
-    
+    if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do B...\n", moj_id);
     semafor_operacja(sem_id_global, SEM_SALA_B, -1);
     
-    if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali B.\n", moj_id);
+    if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali B. Przygotowuje sie (Ti)...\n", moj_id);
+    sleep(1);
 
-    //3 pytania 
+    if (szczegoly) printf("    [Kandydat %d] Czekam na wolne miejsce przed komisja B...\n", moj_id);
+    semafor_operacja(sem_id_global, SEM_KRZESLO_B, -1);
+
     int suma_pkt = 0;
     for (int i = 0; i < LICZBA_PYTAN_B; i++) {
-        int id_egzaminatora = i;
-        int id_tresci = rand() % 200 + 500;
-        
-        if (szczegoly) {
-            drukuj_czas();
-            printf("[Komisja B] Pytanie %d | Egzaminator %d | Zadanie praktyczne nr %d\n", i+1, id_egzaminatora, id_tresci);
-        }
-        
-        usleep(200000);
 
-        int pkt = rand() % 101;
+        int nr_zadania = 1 + rand() % 99;
+
         if (szczegoly) {
             drukuj_czas();
-            printf("[Komisja B] Wynik czastkowy: %d pkt\n", pkt);
+            printf("[Komisja B] Egzaminator %d zleca zadanie praktyczne nr %d...\n", i+1, nr_zadania);
         }
-        suma_pkt += pkt;
+        usleep(150000);
+        suma_pkt += rand() % 101;
     }
-
     ja->ocena_praktyka = suma_pkt / LICZBA_PYTAN_B;
 
+    semafor_operacja(sem_id_global, SEM_KRZESLO_B, 1);
+    
     if (szczegoly) printf(" << [Kandydat %d] Koniec praktyki. Srednia: %d%%\n", moj_id, ja->ocena_praktyka);
     semafor_operacja(sem_id_global, SEM_SALA_B, 1);
 
