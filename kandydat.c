@@ -27,19 +27,19 @@ void semafor_operacja(int sem_id, int sem_num, int op) {
 
 void zakoncz_proces(int sig) {
     if (sig == SIGUSR1) {
-	char *msg = "!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n";
-    write(STDOUT_FILENO, msg, 44);
-    if (pamiec_global != NULL) {
-        shmdt(pamiec_global);
-    }
-    exit(0);
+        char *msg = "!!! [Kandydat] SLYSZE ALARM! UCIEKAM! !!!\n";
+        write(STDOUT_FILENO, msg, strlen(msg));
+        if (pamiec_global != NULL) {
+            shmdt(pamiec_global);
+        }
+        exit(0);
     }
     
     if (pamiec_global != NULL) {
-    semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
-    pamiec_global->studenci_zakonczeni++;
-    semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
-    shmdt(pamiec_global);
+        semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
+        pamiec_global->studenci_zakonczeni++;
+        semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
+        shmdt(pamiec_global);
     }
 
     exit(0);    
@@ -60,19 +60,16 @@ int main(int argc, char *argv[]) {
     int id_pamieci = shmget(klucz, 0, 0);
     sem_id_global = semget(klucz, 0, 0);
 
-    if (id_pamieci == -1 || sem_id_global == -1) {
-        report_error_and_exit("Blad IPC w kandydat");
-    }
+    if (id_pamieci == -1 || sem_id_global == -1) report_error_and_exit("Blad IPC");
 
     pamiec_global = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     KandydatDane *ja = &pamiec_global->studenci[moj_id];
     ja->pid = getpid();
 
-    int szczegoly = (moj_id < 5) ? 1 : 0;
+    int szczegoly = (moj_id < 5) ? 1 : 0; 
 
     // Weryfikacja matury
     if (ja->zdana_matura == 0) {
-        printf("[Kandydat %d] Brak matury. Koncze.\n", moj_id);
         zakoncz_proces(0);
     }
 
@@ -82,38 +79,63 @@ int main(int argc, char *argv[]) {
     } 
     else {
         if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do komisji A (Teoria)...\n", moj_id);
-        semafor_operacja(sem_id_global, SEM_SALA_A, -1);
         
-        if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A. Przygotowuje sie (Ti)...\n", moj_id);
-        sleep(1);
+        semafor_operacja(sem_id_global, SEM_SALA_A, -1);
+        if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A.\n", moj_id);
 
-        if (szczegoly) printf("    [Kandydat %d] Czekam na zwolnienie miejsca przed komisja...\n", moj_id);
+        //Symulacja spoznienia komisji
+        if (rand() % 100 < 20) { 
+             if (szczegoly) printf("    [Kandydat %d] Czekam az czlonkowie komisji przygotuja pytania (spoznienie)...\n", moj_id);
+             usleep(500000); 
+        }
+
+        int otrzymane_pytania[LICZBA_PYTAN_A];
+        for(int i=0; i<LICZBA_PYTAN_A; i++) {
+            otrzymane_pytania[i] = 1 + rand() % 50; 
+        }
+        if (szczegoly) printf("    [Kandydat %d] Otrzymalem %d pytan. Rozpoczynam przygotowanie (Ti)...\n", moj_id, LICZBA_PYTAN_A);
+
+        sleep(1); 
+
+        if (szczegoly) printf("    [Kandydat %d] Gotowy. Czekam na zwolnienie miejsca przed komisja...\n", moj_id);
+
         semafor_operacja(sem_id_global, SEM_KRZESLO_A, -1);
 
-        // Symulacja zadawania pytan
         int suma_pkt = 0;
+        
+        //Petla zadawania pytan
         for (int i = 0; i < LICZBA_PYTAN_A; i++) {
-            if (rand() % 100 < 5) usleep(100000);
+            // Symulacja szukania pytania przez egzaminatora
+            if (rand() % 100 < 10) {
+                 if (szczegoly) { drukuj_czas(); printf("    [Kandydat %d] Egzaminator szuka pytań... (Czekam)\n", moj_id); }
+                 usleep(300000);
+            }
 
-            int nr_pytania = 1 + rand() % 999;
-            
             if (szczegoly) {
                 drukuj_czas();
-                printf("[Komisja A] Egzaminator %d zadaje pytanie nr %d...\n", i+1, nr_pytania);
+                printf("[Komisja A] [Kandydat %d] Egzaminator %d zadaje pytanie nr %d...\n", 
+                       moj_id, i+1, otrzymane_pytania[i]);
             }
-            usleep(100000); //Odpowiadanie
-            
-            int pkt = rand() % 101;
-            suma_pkt += pkt;
-        }
-        ja->ocena_teoria = suma_pkt / LICZBA_PYTAN_A;
 
-        //Zwolnienie miejsca przed komisja
-        semafor_operacja(sem_id_global, SEM_KRZESLO_A, 1);
-        if (szczegoly) printf(" << [Kandydat %d] Wyszedlem z A. Srednia: %d%%\n", moj_id, ja->ocena_teoria);
+            usleep(100000); 
+            int ocena = rand() % 101;
+            suma_pkt += ocena;
+
+            if (szczegoly) {
+                drukuj_czas();
+                printf("[Komisja A] [Kandydat %d] Członek nr %d ocenia odpowiedź na pyt. %d -> %d%%\n", 
+                       moj_id, i+1, otrzymane_pytania[i], ocena);
+            }
+        } 
         
-        // Wyjście z sali
-        semafor_operacja(sem_id_global, SEM_SALA_A, 1);
+        ja->ocena_teoria = suma_pkt / LICZBA_PYTAN_A;
+        
+        if (szczegoly) printf("    [Komisja A] [Kandydat %d] Przewodniczący ustalił ocenę końcową: %d%%\n", moj_id, ja->ocena_teoria);
+
+        semafor_operacja(sem_id_global, SEM_KRZESLO_A, 1);
+        
+        if (szczegoly) printf(" << [Kandydat %d] Opuszczam Salę A.\n", moj_id);
+        semafor_operacja(sem_id_global, SEM_SALA_A, 1); 
 
         if (ja->ocena_teoria < 30) {
             ja->status = STATUS_OBLAL_TEORIE;
@@ -124,31 +146,52 @@ int main(int argc, char *argv[]) {
 
     //Komisja B
     if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do B...\n", moj_id);
-    semafor_operacja(sem_id_global, SEM_SALA_B, -1);
     
-    if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali B. Przygotowuje sie (Ti)...\n", moj_id);
+    semafor_operacja(sem_id_global, SEM_SALA_B, -1);
+    if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali B.\n", moj_id);
+
+    if (rand() % 100 < 20) { 
+         if (szczegoly) printf("    [Kandydat %d] Czekam na przygotowanie stanowiska (komisja B sie spoznia)...\n", moj_id);
+         usleep(500000); 
+    }
+    
+    int otrzymane_zadania[LICZBA_PYTAN_B];
+    for(int i=0; i<LICZBA_PYTAN_B; i++) {
+        otrzymane_zadania[i] = 100 + rand() % 50;
+    }
+    if (szczegoly) printf("    [Kandydat %d] Otrzymalem zadania. Przygotowuje sie (Ti)...\n", moj_id);
+
     sleep(1);
 
-    if (szczegoly) printf("    [Kandydat %d] Czekam na wolne miejsce przed komisja B...\n", moj_id);
+    if (szczegoly) printf("    [Kandydat %d] Czekam na weryfikacje zadan przez komisje...\n", moj_id);
+    
     semafor_operacja(sem_id_global, SEM_KRZESLO_B, -1);
 
     int suma_pkt = 0;
     for (int i = 0; i < LICZBA_PYTAN_B; i++) {
-
-        int nr_zadania = 1 + rand() % 99;
-
         if (szczegoly) {
             drukuj_czas();
-            printf("[Komisja B] Egzaminator %d zleca zadanie praktyczne nr %d...\n", i+1, nr_zadania);
+            printf("[Komisja B] [Kandydat %d] Egzaminator %d zleca zadanie praktyczne nr %d...\n", 
+                   moj_id, i+1, otrzymane_zadania[i]);
         }
-        usleep(150000);
-        suma_pkt += rand() % 101;
+
+        usleep(150000); 
+        int ocena = rand() % 101;
+        suma_pkt += ocena;
+        
+        if (szczegoly) {
+            drukuj_czas();
+            printf("[Komisja B] [Kandydat %d] Członek nr %d ocenia zadanie %d -> %d%%\n", 
+                   moj_id, i+1, otrzymane_zadania[i], ocena);
+        }
     }
+
     ja->ocena_praktyka = suma_pkt / LICZBA_PYTAN_B;
+    if (szczegoly) printf("    [Komisja B] [Kandydat %d] Przewodniczący ustalił ocenę końcową: %d%%\n", moj_id, ja->ocena_praktyka);
 
     semafor_operacja(sem_id_global, SEM_KRZESLO_B, 1);
     
-    if (szczegoly) printf(" << [Kandydat %d] Koniec praktyki. Srednia: %d%%\n", moj_id, ja->ocena_praktyka);
+    if (szczegoly) printf(" << [Kandydat %d] Koniec praktyki. Wychodzę.\n", moj_id);
     semafor_operacja(sem_id_global, SEM_SALA_B, 1);
 
     ja->status = STATUS_ZAKONCZYL;
