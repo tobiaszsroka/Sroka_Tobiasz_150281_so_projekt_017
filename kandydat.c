@@ -1,9 +1,19 @@
 #include "common.h"
 #include <string.h>
+#include <sys/time.h>
 
 PamiecDzielona *pamiec_global = NULL;
 int sem_id_global = 0;
 int moj_id_global = 0;
+
+void drukuj_czas() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    struct tm *tm_info = localtime(&tv.tv_sec);
+    char buffer[20];
+    strftime(buffer, 20, "%H:%M:%S", tm_info);
+    printf("[%s.%03ld] ", buffer, tv.tv_usec / 1000);
+}
 
 void semafor_operacja(int sem_id, int sem_num, int op) {
     struct sembuf bufor_semafora;
@@ -58,40 +68,104 @@ int main(int argc, char *argv[]) {
     KandydatDane *ja = &pamiec_global->studenci[moj_id];
     ja->pid = getpid();
 
+    int szczegoly = (moj_id < 5) ? 1 : 0;
+
     // Weryfikacja matury
     if (ja->zdana_matura == 0) {
         printf("[Kandydat %d] Brak matury. Koncze.\n", moj_id);
         zakoncz_proces(0);
     }
 
-    if (ja->powtarza_egzamin == 1) {
-        printf("[Kandydat %d] Powtarzam rok (teoria zaliczona). Ide od razu do Sali B.\n", moj_id);
-    }
+    //Komisja A
+     if (ja->powtarza_egzamin == 1) {
+        if (szczegoly) printf("[Kandydat %d] Powtarzam rok (teoria zaliczona). Ide do Sali B.\n", moj_id);
+    } 
     else {
-        printf("[Kandydat %d] Czekam na wejscie do komisji A (Teoria)...\n", moj_id);
-
+        if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do komisji A (Teoria)...\n", moj_id);
+        
         semafor_operacja(sem_id_global, SEM_SALA_A, -1);
-        printf(" >> [Kandydat %d] Pisze egzamin teoretyczny...\n", moj_id);
-        sleep(1 + rand() % 2);
-        ja->ocena_teoria = rand() % 101;
-        printf(" <<  [Kandydat %d] Wyszedlem z Sali A. Wynik: %d%%\n", moj_id, ja->ocena_teoria);
+        
+        if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A.\n", moj_id);
+
+        // Oczekiwanie na pytania
+        if (rand() % 100 < 20) { 
+             if (szczegoly) printf("    [Kandydat %d] Czekam na pytania (egzaminator sie spoznia)...\n", moj_id);
+             usleep(500000);
+        }
+
+        //5 pytan
+        int suma_pkt = 0;
+        for (int i = 0; i < LICZBA_PYTAN_A; i++) {
+            int id_egzaminatora = i;
+            int id_tresci = rand() % 100;
+            
+            if (szczegoly) {
+                drukuj_czas();
+                printf("[Komisja A] Pytanie %d | Egzaminator %d | Zadaje tresc nr %d\n", i+1, id_egzaminatora, id_tresci);
+            }
+
+            usleep(100000 + rand()%200000); 
+
+            int pkt = 0;
+            if (rand() % 100 == 0) {
+                if (szczegoly) {
+                    drukuj_czas();
+                    printf("[Komisja A] TIMEOUT! Dyskwalifikacja w pytaniu %d.\n", i+1);
+                }
+                pkt = 0;
+            } else {
+                pkt = rand() % 101;
+                if (szczegoly) {
+                    drukuj_czas();
+                    printf("[Komisja A] Odpowiedz: OK | Egzaminator %d ocenia: %d pkt\n", id_egzaminatora, pkt);
+                }
+            }
+            suma_pkt += pkt;
+        }
+        
+        ja->ocena_teoria = suma_pkt / LICZBA_PYTAN_A;
+
+        if (szczegoly) printf(" << [Kandydat %d] Wyszedlem z A. Srednia: %d%%\n", moj_id, ja->ocena_teoria);
         semafor_operacja(sem_id_global, SEM_SALA_A, 1);
 
-        // Sprawdzenie czy zdany egzamin
         if (ja->ocena_teoria < 30) {
-            printf("[Kandydat %d] Oblalem teorie. Do widzenia!\n", moj_id);
             ja->status = STATUS_OBLAL_TEORIE;
             zakoncz_proces(0);
         }
         ja->status = STATUS_ZDAL_TEORIE;
     }
 
-    printf("[Kandydat %d] Czekam na wejscie do komisji B (Praktyka)...\n", moj_id);
+    //Komisja B
+    if (szczegoly) printf("[Kandydat %d] Czekam na wejscie do komisji B (Praktyka)...\n", moj_id);
+    
     semafor_operacja(sem_id_global, SEM_SALA_B, -1);
-    printf(" >> [Kandydat %d] Zdaje egzamin praktyczny...\n", moj_id);
-    sleep(1 + rand() % 2);
-    ja->ocena_praktyka = rand() % 101;
-    printf(" << [Kandydat %d] Koniec praktyki. Wynik: %d%%\n", moj_id, ja->ocena_praktyka);
+    
+    if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali B.\n", moj_id);
+
+    //3 pytania 
+    int suma_pkt = 0;
+    for (int i = 0; i < LICZBA_PYTAN_B; i++) {
+        int id_egzaminatora = i;
+        int id_tresci = rand() % 200 + 500;
+        
+        if (szczegoly) {
+            drukuj_czas();
+            printf("[Komisja B] Pytanie %d | Egzaminator %d | Zadanie praktyczne nr %d\n", i+1, id_egzaminatora, id_tresci);
+        }
+        
+        usleep(200000);
+
+        int pkt = rand() % 101;
+        if (szczegoly) {
+            drukuj_czas();
+            printf("[Komisja B] Wynik czastkowy: %d pkt\n", pkt);
+        }
+        suma_pkt += pkt;
+    }
+
+    ja->ocena_praktyka = suma_pkt / LICZBA_PYTAN_B;
+
+    if (szczegoly) printf(" << [Kandydat %d] Koniec praktyki. Srednia: %d%%\n", moj_id, ja->ocena_praktyka);
     semafor_operacja(sem_id_global, SEM_SALA_B, 1);
 
     ja->status = STATUS_ZAKONCZYL;

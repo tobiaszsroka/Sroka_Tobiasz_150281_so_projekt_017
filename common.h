@@ -22,10 +22,12 @@
 #define PATH_NAME "."
 
 //Limity
-#define MAX_KANDYDATOW 120
-#define MIEJSCA_NA_UCZELNI 20
+#define MAX_KANDYDATOW 30
+#define MIEJSCA_NA_UCZELNI 10
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
+#define LICZBA_PYTAN_A 5
+#define LICZBA_PYTAN_B 3
 
 //Statusy semaforow
 #define SEM_DOSTEP_PAMIEC 0
