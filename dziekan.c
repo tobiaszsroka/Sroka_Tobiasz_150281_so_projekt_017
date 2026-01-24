@@ -189,14 +189,15 @@ int main() {
         perror("Blad otwarcia pliku raportu");
     } else {
         fprintf(plik, "RAPORT Z EGZAMINU WSTEPNEGO\n");
-        fprintf(plik, "====================================================================\n");
-        fprintf(plik, "| POZ  | ID   | MAT | PUNKTY (T+P) | STATUS            |\n");
-        fprintf(plik, "====================================================================\n");        
+        fprintf(plik, "========================================================================================\n");
+        fprintf(plik, "| POZ  |  ID  | MATURA | TEORIA | PRAKT. | SUMA(T+P) | STATUS                      |\n");
+        fprintf(plik, "========================================================================================\n");
     }
 
-    printf("\n====================================================================\n");
-    printf("| POZ  | ID   | MAT | PUNKTY (T+P) | STATUS            |\n");
-    printf("====================================================================\n");
+    printf("\n========================================================================================\n");
+    printf("| POZ  |  ID  | MATURA | TEORIA | PRAKT. | SUMA(T+P) | STATUS                      |\n");
+    printf("========================================================================================\n");
+
 
     int licznik_przyjetych = 0;
     for (int i = 0; i < MAX_KANDYDATOW; i++) {
@@ -224,15 +225,17 @@ int main() {
         }
 
         if (plik != NULL) {
-            fprintf(plik, "| #%03d | %04d | %-3s | %3d pkt      | %-17s |\n",
-                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", suma, status_str);
+            fprintf(plik, "| #%03d | %04d | %-3s |  %3d%%  |  %3d%%  |  %3d | %-17s |\n",
+                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
+                k->ocena_teoria, k->ocena_praktyka, suma, status_str);
         }
 
         if (MAX_KANDYDATOW <= 50 || i < 20 || i > MAX_KANDYDATOW - 5) {
-            printf("| #%03d | %04d | %-3s | %3d pkt      | %-17s |\n",
-                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", suma, status_str);
+            printf("| #%03d | %04d |  %-4s  |  %3d%%  |  %3d%%  |    %3d    | %-27s |\n",
+                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
+                k->ocena_teoria, k->ocena_praktyka, suma, status_str);
         }
-        if (MAX_KANDYDATOW > 50 && i == 20) printf("| ...  | ...  | ... | ...          | ...               |\n");
+        if (MAX_KANDYDATOW > 50 && i == 20) printf("| ...  | ...  |  ...   |  ...   |  ...   |    ...    | ...                         |\n");
     }
 
     printf("====================================================================\n");
