@@ -5,13 +5,20 @@ int id_pamieci = -1;
 int id_semaforow = -1;
 PamiecDzielona *wspolna_pamiec = NULL;
 
+// Definicja unii dla semctl (zeby nie bylo warningow)
+union semun {
+    int val;
+    struct semid_ds *buf;
+    unsigned short *array;
+};
+
 //Funkcja sprzatajaca(Ctrl+C, koniec programu)
 void sprzatanie(int signal) {
     printf("[Dziekan] Rozpoczynam sprzatanie zasobow...\n");
 
     if (wspolna_pamiec != NULL) {
         shmdt(wspolna_pamiec);
-	    printf("[Dziekan] Pamiec odlaczona.\n");
+        printf("[Dziekan] Pamiec odlaczona.\n");
     }
 
     if (id_pamieci != -1) {
@@ -20,8 +27,8 @@ void sprzatanie(int signal) {
     }
 
     if (id_semaforow != -1) {
-	    semctl(id_semaforow, 0, IPC_RMID);
-	    printf("[Dziekan] Semafory usuniete.\n");
+        semctl(id_semaforow, 0, IPC_RMID);
+        printf("[Dziekan] Semafory usuniete.\n");
     }
 
     if (signal != 0) {
@@ -34,11 +41,13 @@ int losuj(int min, int max) {
     return min + rand() % (max - min + 1);
 }
 
-//Funkcja do ustawiania semaforow
+//Funkcja do ustawiania semaforow (poprawiona z union)
 void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
-    if (semctl(sem_id, sem_num, SETVAL, wartosc) == -1) {
-	perror("Blad ustawiania semafora");
-	exit(1);
+    union semun arg;
+    arg.val = wartosc;
+    if (semctl(sem_id, sem_num, SETVAL, arg) == -1) {
+        perror("Blad ustawiania semafora");
+        exit(1);
     }
 }
 
@@ -144,39 +153,36 @@ int main() {
 
     //Uruchamianie procesow
     printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
+    
     printf("ID   | PID   | STATUS WEJSCIA\n");
     printf("-----|-------|---------------\n");
+
 
      for (int i = 0; i < MAX_KANDYDATOW; i++) {
         pid_t pid = fork();
         if (pid < 0) {
-        perror("Blad fork");
-        exit(1);
-}
+            perror("Blad fork");
+            exit(1);
+        }
         if (pid == 0) {
             char id_str[10];
             sprintf(id_str, "%d", i);
             execl("./kandydat", "kandydat", id_str, NULL);
-	    perror("Blad execl kandydat");
+            perror("Blad execl kandydat");
             exit(1);
         } else {
             wspolna_pamiec->studenci[i].pid = pid;
-
+            
             if (wspolna_pamiec->studenci[i].zdana_matura == 0) {
-                if (MAX_KANDYDATOW <= 50 || i < 10 || i > MAX_KANDYDATOW - 5)
-                    printf("%04d | %5d | ODRZUCONY (Brak matury)\n", i+1, pid);
+                printf("%04d | %5d | ODRZUCONY (Brak matury)\n", i+1, pid);
             } else {
-                if (MAX_KANDYDATOW <= 50 || i < 10 || i > MAX_KANDYDATOW - 5)
-                    printf("%04d | %5d | WPUSZCZONY NA EGZAMIN\n", i+1, pid);
+                printf("%04d | %5d | WPUSZCZONY NA EGZAMIN\n", i+1, pid);
             }
         }
 
-	    if (i % 10 == 0) 
-            usleep(20000);
+        if (i % 10 == 0) 
+            usleep(2000);
     }
-
-     if (MAX_KANDYDATOW > 50)
-         printf("... (reszta kandydatow wchodzi) ...\n");
 
     while (wait(NULL) > 0);
     printf("\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
@@ -230,12 +236,9 @@ int main() {
                 k->ocena_teoria, k->ocena_praktyka, suma, status_str);
         }
 
-        if (MAX_KANDYDATOW <= 50 || i < 20 || i > MAX_KANDYDATOW - 5) {
-            printf("| #%03d | %04d |  %-4s  |  %3d%%  |  %3d%%  |    %3d    | %-27s |\n",
-                i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
-                k->ocena_teoria, k->ocena_praktyka, suma, status_str);
-        }
-        if (MAX_KANDYDATOW > 50 && i == 20) printf("| ...  | ...  |  ...   |  ...   |  ...   |    ...    | ...                         |\n");
+        printf("| #%03d | %04d |  %-4s  |  %3d%%  |  %3d%%  |    %3d    | %-27s |\n",
+            i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
+            k->ocena_teoria, k->ocena_praktyka, suma, status_str);
     }
 
     printf("====================================================================\n");
