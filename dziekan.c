@@ -107,8 +107,8 @@ int main() {
     if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { perror("Signal error"); exit(1); }
 
     printf("=========================================\n");
-    printf("[Dziekan] ROZPOCZYNAM EGZAMIN (Miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
-    printf("[Dziekan] Liczba kandydatów (z common.h): %d\n", MAX_KANDYDATOW);
+    printf("[Dziekan] ROZPOCZYNAM EGZAMIN (Liczba miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
+    printf("[Dziekan] Liczba kandydatów: %d\n", MAX_KANDYDATOW);
     printf(">> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<\n");
     printf("=========================================\n");
 
@@ -214,15 +214,30 @@ int main() {
             usleep(250000);
     }
 
-    while (1) {
+    int studenci_obsluzeni = 0;
+    while (studenci_obsluzeni < MAX_KANDYDATOW) {
         pid_t w = wait(NULL);
+        
         if (w == -1) {
-            if (errno == ECHILD) break; 
+            if (errno == ECHILD) break;
             if (errno == EINTR) continue; 
             perror("Wait error");
             break;
         }
+
+        if (w != pid_ka && w != pid_kb) {
+            studenci_obsluzeni++;
+        } 
     }
+
+    printf("\n[Dziekan] Wszyscy studenci zakonczyli egzaminy. Zamykam komisje...\n");
+
+    kill(pid_ka, SIGUSR1);
+    kill(pid_kb, SIGUSR1);
+
+    wait(NULL);
+    wait(NULL);
+
 
     printf("\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
 

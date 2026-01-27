@@ -3,6 +3,7 @@
 int czy_pracowac = 1;
 char *typ_komisji_global = "?"; 
 int id_kolejki = -1;
+PamiecDzielona *pamiec = NULL;
 
 // Funkcja do wysylania komunikatow
 void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
@@ -20,7 +21,11 @@ void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
 
 void obsluga_ewakuacji(int sig) {
     if (sig == SIGUSR1) {
-        printf("\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
+        if (pamiec != NULL && pamiec->ewakuacja == 1) {
+            printf("\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
+        } else {
+            printf("[Komisja %s] Dziekan zarządził koniec egzaminów. Zamykam biuro.\n", typ_komisji_global);
+        }
         czy_pracowac = 0;
         exit(0);
     }
@@ -100,9 +105,10 @@ int main(int argc, char *argv[]) {
         }
 
         int pid_studenta = msg_odebrana.nadawca_pid;
+        int id_studenta = msg_odebrana.dane;
 
         //Logika egzaminu
-        printf("[Komisja %s] Przygotowuje pytania dla kandydata PID %d...\n", typ_komisji, pid_studenta);
+        printf("[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta, pid_studenta);
         usleep(losuj(10000, 50000)); 
 
         wyslij_komunikat(id_kolejki, pid_studenta, ETAP_PYTANIA);
@@ -120,7 +126,7 @@ int main(int argc, char *argv[]) {
         int ocena_finalna = suma_ocen / liczba_czlonkow;
 
         wyslij_komunikat(id_kolejki, pid_studenta, ocena_finalna);
-        printf("[Komisja %s] Kandydat PID %d oceniony na: %d%%\n", typ_komisji, pid_studenta, ocena_finalna);
+        printf("[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta, pid_studenta, ocena_finalna);
     }
 
     //Sprzatanie
