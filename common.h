@@ -46,6 +46,12 @@
 #define STATUS_ZDAL_TEORIE 4
 #define STATUS_ZAKONCZYL 5
 
+//Typy komunikatow dla komisj
+#define MSG_TYP_KOMISJA_A 1
+#define MSG_TYP_KOMISJA_B 2
+#define ETAP_PYTANIA 1
+#define ETAP_OCENA 2
+
 //Struktura kandydata
 typedef struct {
     pid_t pid;

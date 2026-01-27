@@ -2,13 +2,34 @@
 
 int czy_pracowac = 1;
 char *typ_komisji_global = "?"; 
+int id_kolejki = -1;
+
+// Funkcja do wysylania komunikatow
+void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
+    Komunikat msg;
+    msg.mtype = typ_adresata;
+    msg.nadawca_pid = getpid();
+    msg.dane = dane;
+    
+    if (msgsnd(id_kolejki, &msg, sizeof(msg) - sizeof(long), 0) == -1) {
+        if (errno != EINTR && errno != EIDRM) {
+            perror("[Komisja] Blad msgsnd");
+        }
+    }
+}
 
 void obsluga_ewakuacji(int sig) {
     if (sig == SIGUSR1) {
         printf("\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
         czy_pracowac = 0;
+        exit(0);
     }
 }
+
+int losuj(int min, int max) {
+    return min + rand() % (max - min + 1);
+}
+
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -36,7 +57,8 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    int id_pamieci = shmget(klucz, 0, 0);
+    //Pamiec dzielona
+    int id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600);
     if (id_pamieci == -1) {
         perror("[Komisja] Blad shmget (czy Dziekan dziala?)");
         exit(1);
@@ -48,7 +70,19 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    id_kolejki = msgget(klucz, 0600);
+    if (id_kolejki == -1) {
+        perror("[Komisja] Blad msgget - brak kolejki komunikatow");
+        exit(1);
+    }
+
+    // Konfiguracja pod typ komisji (A lub B)
+    long moj_kanal_nasluchu = (strcmp(typ_komisji, "A") == 0) ? MSG_TYP_KOMISJA_A : MSG_TYP_KOMISJA_B;
+    int liczba_czlonkow = (strcmp(typ_komisji, "A") == 0) ? 5 : 3;
+
     printf("[Komisja %s] (PID: %d) Czekam na kandydatów.\n", typ_komisji, getpid());
+
+    Komunikat msg_odebrana;
 
 	//Praca komisji
     while (czy_pracowac) {
@@ -56,20 +90,44 @@ int main(int argc, char *argv[]) {
             printf("[Komisja %s] Zauważono flagę ewakuacji!\n", typ_komisji);
              break;
         }
-        if (pamiec->studenci_zakonczeni >= pamiec->liczba_kandydatow) {
-            printf("[Komisja %s] Wszyscy obsluzeni. Koniec pracy.\n", typ_komisji);
+
+        //Czekamy na wiadomosc od studenta
+        if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_kanal_nasluchu, 0) == -1) {
+            if (errno == EINTR) continue;
+            if (errno == EIDRM) break;   
+            perror("[Komisja] Blad msgrcv");
             break;
         }
-        if (rand() % 100 < 2) {
-            printf("[Komisja %s] Generuje nowe pytania...\n", typ_komisji);
+
+        int pid_studenta = msg_odebrana.nadawca_pid;
+
+        //Logika egzaminu
+        printf("[Komisja %s] Przygotowuje pytania dla kandydata PID %d...\n", typ_komisji, pid_studenta);
+        usleep(losuj(10000, 50000)); 
+
+        wyslij_komunikat(id_kolejki, pid_studenta, ETAP_PYTANIA);
+
+        //Czekamy na odpowiedzi studenta
+        if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_kanal_nasluchu, 0) == -1) {
+            if (errno != EINTR) perror("[Komisja] Blad msgrcv (odpowiedz)");
+            break;
         }
 
-        usleep(100000); 
+        int suma_ocen = 0;
+        for(int k=0; k<liczba_czlonkow; k++) {
+            suma_ocen += losuj(0, 100); 
+        }
+        int ocena_finalna = suma_ocen / liczba_czlonkow;
+
+        wyslij_komunikat(id_kolejki, pid_studenta, ocena_finalna);
+        printf("[Komisja %s] Kandydat PID %d oceniony na: %d%%\n", typ_komisji, pid_studenta, ocena_finalna);
     }
 
+    //Sprzatanie
     if (shmdt(pamiec) == -1) {
         perror("[Komisja] Blad shmdt");
     }
     
+    printf("[Komisja %s] Koniec pracy.\n", typ_komisji);
     return 0;
 }
