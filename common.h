@@ -16,14 +16,15 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdbool.h>
+#include <sys/msg.h>
 
 //Stale projektowe
 #define PROJECT_ID 'E'
 #define PATH_NAME "."
 
 //Limity
-#define MAX_KANDYDATOW 120
-#define MIEJSCA_NA_UCZELNI 12
+#define MAX_KANDYDATOW 10
+#define MIEJSCA_NA_UCZELNI 2
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
 #define LICZBA_PYTAN_A 5
@@ -63,6 +64,13 @@ typedef struct {
     int ewakuacja;
     int studenci_zakonczeni;
 } PamiecDzielona;
+
+//Struktura komunikatu: mtype = 1 (do Komisji A), 2 (do Komisji B), PID (do Studenta)
+typedef struct {
+    long mtype;     
+    int nadawca_pid;  
+    int dane;         
+} Komunikat;
 
 //Funkcja do obslugi bledow
 void report_error_and_exit(const char *msg) {

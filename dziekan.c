@@ -3,6 +3,7 @@
 
 int id_pamieci = -1;
 int id_semaforow = -1;
+int id_kolejki = -1;
 PamiecDzielona *wspolna_pamiec = NULL;
 
 union semun {
@@ -36,6 +37,15 @@ void sprzatanie(int signal) {
             perror("Blad usuwania semaforow");
         } else {
             printf("[Dziekan] Semafory usuniete.\n");
+        }
+    }
+
+    //Usuwanie kolejki komunikatow
+    if (id_kolejki != -1) {
+        if (msgctl(id_kolejki, IPC_RMID, NULL) == -1) {
+             perror("Blad usuwania kolejki komunikatow");
+        } else {
+             printf("[Dziekan] Kolejka komunikatow usunieta.\n");
         }
     }
 
@@ -106,13 +116,12 @@ int main() {
     key_t klucz = ftok(PATH_NAME, PROJECT_ID);
     if (klucz == -1) report_error_and_exit("Blad ftok");
 
-    id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0666 | IPC_CREAT);
+    id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600 | IPC_CREAT);
     if (id_pamieci == -1) report_error_and_exit("Błąd shmget");
-
     wspolna_pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (wspolna_pamiec == (void*) -1) report_error_and_exit("Błąd shmat");
 
-    //Generowanie listy
+    //Inicjalizacja pamieci
     wspolna_pamiec->liczba_kandydatow = MAX_KANDYDATOW;
     wspolna_pamiec->ewakuacja = 0;
     wspolna_pamiec->studenci_zakonczeni = 0;
@@ -146,7 +155,7 @@ int main() {
 
     //Tworzenie semaforow
     printf("[Dziekan] Tworzenie semaforow...\n");
-    id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0666 | IPC_CREAT);
+    id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0600 | IPC_CREAT);
     if (id_semaforow == -1) report_error_and_exit("Blad semget");
 
     ustaw_semafor(id_semaforow, SEM_DOSTEP_PAMIEC, 1);
@@ -154,6 +163,11 @@ int main() {
     ustaw_semafor(id_semaforow, SEM_SALA_B, MAX_W_SALI_B);
     ustaw_semafor(id_semaforow, SEM_KRZESLO_A, 1);
     ustaw_semafor(id_semaforow, SEM_KRZESLO_B, 1);
+
+    //Tworzenie kolejki komunikatow
+    printf("[Dziekan] Tworzenie kolejki komunikatow...\n");
+    id_kolejki = msgget(klucz, 0600 | IPC_CREAT);
+    if (id_kolejki == -1) report_error_and_exit("Blad msgget");
 
     pid_t pid_ka = fork();
     if (pid_ka == 0) { execl("./komisja", "komisja", "A", NULL); exit(1); }
