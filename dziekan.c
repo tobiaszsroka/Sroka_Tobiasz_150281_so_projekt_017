@@ -5,7 +5,6 @@ int id_pamieci = -1;
 int id_semaforow = -1;
 PamiecDzielona *wspolna_pamiec = NULL;
 
-// Definicja unii dla semctl (zeby nie bylo warningow)
 union semun {
     int val;
     struct semid_ds *buf;
@@ -17,23 +16,33 @@ void sprzatanie(int signal) {
     printf("[Dziekan] Rozpoczynam sprzatanie zasobow...\n");
 
     if (wspolna_pamiec != NULL) {
-        shmdt(wspolna_pamiec);
-        printf("[Dziekan] Pamiec odlaczona.\n");
+        if (shmdt(wspolna_pamiec) == -1) {
+            perror("Blad shmdt");
+        } else {
+            printf("[Dziekan] Pamiec odlaczona.\n");
+        }
     }
 
     if (id_pamieci != -1) {
-        shmctl(id_pamieci, IPC_RMID, NULL);
-        printf("[Dziekan] Pamiec usunieta.\n");
+        if (shmctl(id_pamieci, IPC_RMID, NULL) == -1) {
+            perror("Blad usuwania pamieci");
+        } else {
+            printf("[Dziekan] Pamiec usunieta.\n");
+        }
     }
 
     if (id_semaforow != -1) {
-        semctl(id_semaforow, 0, IPC_RMID);
-        printf("[Dziekan] Semafory usuniete.\n");
+        if (semctl(id_semaforow, 0, IPC_RMID) == -1) {
+            perror("Blad usuwania semaforow");
+        } else {
+            printf("[Dziekan] Semafory usuniete.\n");
+        }
     }
 
+    printf("[Dziekan] Zasoby zwolnione.\n");
     if (signal != 0) {
-       printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
-       exit(0);
+        printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
+        exit(0);
     }
 }
 
@@ -41,7 +50,6 @@ int losuj(int min, int max) {
     return min + rand() % (max - min + 1);
 }
 
-//Funkcja do ustawiania semaforow (poprawiona z union)
 void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
     union semun arg;
     arg.val = wartosc;
@@ -60,7 +68,9 @@ void zaradz_ewakuacje(int sig) {
     if (wspolna_pamiec != NULL)
         wspolna_pamiec->ewakuacja = 1;
 
-    kill(0, SIGUSR1);
+    if (kill(0, SIGUSR1) == -1) {
+        perror("Blad kill (ewakuacja)");
+    }
 }
 
 //Funckja tworzaca ranking studentow
@@ -82,12 +92,13 @@ int porownaj_kandydatow(const void *a, const void *b) {
 int main() {
     srand(time(NULL));
 
-    signal(SIGINT, sprzatanie);
-    signal(SIGTSTP, zaradz_ewakuacje);
-    signal(SIGUSR1, SIG_IGN);
+    if (signal(SIGINT, sprzatanie) == SIG_ERR) { perror("Signal error"); exit(1); }
+    if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { perror("Signal error"); exit(1); }
+    if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { perror("Signal error"); exit(1); }
 
     printf("=========================================\n");
     printf("[Dziekan] ROZPOCZYNAM EGZAMIN (Miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
+    printf("[Dziekan] Liczba kandydatów (z common.h): %d\n", MAX_KANDYDATOW);
     printf(">> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<\n");
     printf("=========================================\n");
 
@@ -144,12 +155,13 @@ int main() {
     ustaw_semafor(id_semaforow, SEM_KRZESLO_A, 1);
     ustaw_semafor(id_semaforow, SEM_KRZESLO_B, 1);
 
-    if (fork() == 0) { 
-        execl("./komisja", "komisja", "A", NULL); 
-        exit(1); }
-    if (fork() == 0) { 
-        execl("./komisja", "komisja", "B", NULL);
-        exit(1); }
+    pid_t pid_ka = fork();
+    if (pid_ka == 0) { execl("./komisja", "komisja", "A", NULL); exit(1); }
+    else if (pid_ka == -1) { perror("Blad fork Komisja A"); sprzatanie(1); }
+
+    pid_t pid_kb = fork();
+    if (pid_kb == 0) { execl("./komisja", "komisja", "B", NULL); exit(1); }
+    else if (pid_kb == -1) { perror("Blad fork Komisja B"); sprzatanie(1); }
 
     //Uruchamianie procesow
     printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
@@ -167,6 +179,10 @@ int main() {
         if (pid == 0) {
             char id_str[10];
             sprintf(id_str, "%d", i);
+            if (sprintf(id_str, "%d", i) < 0) {
+                perror("Blad sprintf");
+                exit(1);
+            }
             execl("./kandydat", "kandydat", id_str, NULL);
             perror("Blad execl kandydat");
             exit(1);
@@ -181,10 +197,19 @@ int main() {
         }
 
         if (i % 10 == 0) 
-            usleep(2000);
+            usleep(250000);
     }
 
-    while (wait(NULL) > 0);
+    while (1) {
+        pid_t w = wait(NULL);
+        if (w == -1) {
+            if (errno == ECHILD) break; 
+            if (errno == EINTR) continue; 
+            perror("Wait error");
+            break;
+        }
+    }
+
     printf("\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
 
     //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
@@ -248,7 +273,9 @@ int main() {
     if (plik != NULL) {
         fprintf(plik, "====================================================================\n");
         fprintf(plik, "STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
-        fclose(plik);
+        if (fclose(plik) == EOF) {
+            perror("Blad fclose(wyniki.txt)");
+        }
     }
 
     sprzatanie(0);

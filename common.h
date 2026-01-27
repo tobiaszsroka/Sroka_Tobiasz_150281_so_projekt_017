@@ -22,8 +22,8 @@
 #define PATH_NAME "."
 
 //Limity
-#define MAX_KANDYDATOW 30
-#define MIEJSCA_NA_UCZELNI 10
+#define MAX_KANDYDATOW 120
+#define MIEJSCA_NA_UCZELNI 12
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
 #define LICZBA_PYTAN_A 5

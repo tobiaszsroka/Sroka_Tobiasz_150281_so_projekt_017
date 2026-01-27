@@ -27,10 +27,14 @@ void semafor_operacja(int sem_id, int sem_num, int op) {
 
 void zakoncz_proces(int sig) {
     if (sig == SIGUSR1) {
-        char *msg = "!!! [Kandydat] SLYSZE ALARM! UCIEKAM! !!!\n";
+        char msg[128];
+        snprintf(msg, sizeof(msg), "\n!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n", moj_id_global);
         write(STDOUT_FILENO, msg, strlen(msg));
+        
         if (pamiec_global != NULL) {
-            shmdt(pamiec_global);
+            if (shmdt(pamiec_global) == -1) {
+                perror("[Kandydat] Blad shmdt przy ewakuacji");
+            }
         }
         exit(0);
     }
@@ -39,36 +43,44 @@ void zakoncz_proces(int sig) {
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
         pamiec_global->studenci_zakonczeni++;
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
-        shmdt(pamiec_global);
+        if (shmdt(pamiec_global) == -1) perror("Blad shmdt");
     }
 
     exit(0);    
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) exit(1);
+    if (argc < 2) {
+        fprintf(stderr, "[Kandydat %d] Błąd krytyczny: Nie podano ID kandydata w argumentach!\n", moj_id_global);
+        exit(1);
+    }
+
     int moj_id = atoi(argv[1]);
     moj_id_global = moj_id;
 
-    signal(SIGTSTP, SIG_IGN);
-    signal(SIGUSR1, zakoncz_proces);
+    if (signal(SIGTSTP, SIG_IGN) == SIG_ERR) { perror("Signal error"); exit(1); }
+    if (signal(SIGUSR1, zakoncz_proces) == SIG_ERR) { perror("Signal error"); exit(1); }
 
     srand(time(NULL) ^ getpid());
 
-    // Pobranie zasobow
+    //Pobranie zasobow
     key_t klucz = ftok(PATH_NAME, PROJECT_ID);
-    int id_pamieci = shmget(klucz, 0, 0);
-    sem_id_global = semget(klucz, 0, 0);
+    if (klucz == -1) report_error_and_exit("Blad ftok");
 
-    if (id_pamieci == -1 || sem_id_global == -1) report_error_and_exit("Blad IPC");
+    int id_pamieci = shmget(klucz, 0, 0);
+    if (id_pamieci == -1) report_error_and_exit("Blad shmget");
+
+    sem_id_global = semget(klucz, 0, 0);
+    if (sem_id_global == -1) report_error_and_exit("Blad semget");
 
     pamiec_global = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
+    if (pamiec_global == (void*) -1) report_error_and_exit("Blad shmat");
+
     KandydatDane *ja = &pamiec_global->studenci[moj_id];
     ja->pid = getpid();
 
-    int szczegoly = (moj_id < 5) ? 1 : 0; 
+    int szczegoly = 1; 
 
-    // Weryfikacja matury
     if (ja->zdana_matura == 0) {
         zakoncz_proces(0);
     }
@@ -83,10 +95,9 @@ int main(int argc, char *argv[]) {
         semafor_operacja(sem_id_global, SEM_SALA_A, -1);
         if (szczegoly) printf(" >> [Kandydat %d] Wszedlem do Sali A.\n", moj_id);
 
-        //Symulacja spoznienia komisji
         if (rand() % 100 < 20) { 
              if (szczegoly) printf("    [Kandydat %d] Czekam az czlonkowie komisji przygotuja pytania (spoznienie)...\n", moj_id);
-             usleep(500000); 
+             usleep(2000); 
         }
 
         int otrzymane_pytania[LICZBA_PYTAN_A];
@@ -95,7 +106,7 @@ int main(int argc, char *argv[]) {
         }
         if (szczegoly) printf("    [Kandydat %d] Otrzymalem %d pytan. Rozpoczynam przygotowanie (Ti)...\n", moj_id, LICZBA_PYTAN_A);
 
-        sleep(1); 
+        usleep(1000000); 
 
         if (szczegoly) printf("    [Kandydat %d] Gotowy. Czekam na zwolnienie miejsca przed komisja...\n", moj_id);
 
@@ -103,9 +114,7 @@ int main(int argc, char *argv[]) {
 
         int suma_pkt = 0;
         
-        //Petla zadawania pytan
         for (int i = 0; i < LICZBA_PYTAN_A; i++) {
-            // Symulacja szukania pytania przez egzaminatora
             if (rand() % 100 < 10) {
                  if (szczegoly) { drukuj_czas(); printf("    [Kandydat %d] Egzaminator szuka pytań... (Czekam)\n", moj_id); }
                  usleep(300000);
@@ -117,7 +126,7 @@ int main(int argc, char *argv[]) {
                        moj_id, i+1, otrzymane_pytania[i]);
             }
 
-            usleep(100000); 
+            usleep(1000); 
             int ocena = rand() % 101;
             suma_pkt += ocena;
 
@@ -152,7 +161,7 @@ int main(int argc, char *argv[]) {
 
     if (rand() % 100 < 20) { 
          if (szczegoly) printf("    [Kandydat %d] Czekam na przygotowanie stanowiska (komisja B sie spoznia)...\n", moj_id);
-         usleep(500000); 
+         usleep(2000); 
     }
     
     int otrzymane_zadania[LICZBA_PYTAN_B];
@@ -161,7 +170,7 @@ int main(int argc, char *argv[]) {
     }
     if (szczegoly) printf("    [Kandydat %d] Otrzymalem zadania. Przygotowuje sie (Ti)...\n", moj_id);
 
-    sleep(1);
+    usleep(1000000);
 
     if (szczegoly) printf("    [Kandydat %d] Czekam na weryfikacje zadan przez komisje...\n", moj_id);
     
@@ -175,7 +184,7 @@ int main(int argc, char *argv[]) {
                    moj_id, i+1, otrzymane_zadania[i]);
         }
 
-        usleep(150000); 
+        usleep(300000); 
         int ocena = rand() % 101;
         suma_pkt += ocena;
         
