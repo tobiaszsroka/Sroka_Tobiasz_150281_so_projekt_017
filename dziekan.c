@@ -16,6 +16,7 @@ union semun {
 void sprzatanie(int signal) {
     printf("[Dziekan] Rozpoczynam sprzatanie zasobow...\n");
 
+    //Odlaczenie pamieci dzielonej
     if (wspolna_pamiec != NULL) {
         if (shmdt(wspolna_pamiec) == -1) {
             perror("Blad shmdt");
@@ -24,6 +25,7 @@ void sprzatanie(int signal) {
         }
     }
 
+    //Usuniecie segmentu pamieci dzielonej
     if (id_pamieci != -1) {
         if (shmctl(id_pamieci, IPC_RMID, NULL) == -1) {
             perror("Blad usuwania pamieci");
@@ -32,6 +34,7 @@ void sprzatanie(int signal) {
         }
     }
 
+    //Usuniecie semaforow
     if (id_semaforow != -1) {
         if (semctl(id_semaforow, 0, IPC_RMID) == -1) {
             perror("Blad usuwania semaforow");
@@ -40,7 +43,7 @@ void sprzatanie(int signal) {
         }
     }
 
-    //Usuwanie kolejki komunikatow
+    //Usuwniecie kolejki komunikatow
     if (id_kolejki != -1) {
         if (msgctl(id_kolejki, IPC_RMID, NULL) == -1) {
              perror("Blad usuwania kolejki komunikatow");
@@ -50,6 +53,8 @@ void sprzatanie(int signal) {
     }
 
     printf("[Dziekan] Zasoby zwolnione.\n");
+
+    //Zakoncz proces jesli wywolano przez sygnal (Ctrl+C)
     if (signal != 0) {
         printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
         exit(0);
@@ -102,9 +107,23 @@ int porownaj_kandydatow(const void *a, const void *b) {
 int main() {
     srand(time(NULL));
 
-    if (signal(SIGINT, sprzatanie) == SIG_ERR) { perror("Signal error"); exit(1); }
-    if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { perror("Signal error"); exit(1); }
-    if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { perror("Signal error"); exit(1); }
+    //SIGINT(CTRL+C)
+    if (signal(SIGINT, sprzatanie) == SIG_ERR) { 
+        perror("Signal error"); 
+        exit(1); 
+    }
+    
+    //SIGTSTP(CTRL+Z)
+    if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { 
+        perror("Signal error"); 
+        exit(1); 
+    }
+
+    //SIGUSR1(dziekan nie reaguje na wlsany sygnal ewakuacji)
+    if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { 
+        perror("Signal error"); 
+        exit(1); 
+    }
 
     printf("=========================================\n");
     printf("[Dziekan] ROZPOCZYNAM EGZAMIN (Liczba miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
@@ -113,13 +132,19 @@ int main() {
     printf("=========================================\n");
 
     printf("[Dziekan] Tworzenie pamięci dzielonej...\n");
+
+    //Generowanie klucza IPC
     key_t klucz = ftok(PATH_NAME, PROJECT_ID);
-    if (klucz == -1) report_error_and_exit("Blad ftok");
+    if (klucz == -1) 
+        report_error_and_exit("Blad ftok");
 
     id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600 | IPC_CREAT);
-    if (id_pamieci == -1) report_error_and_exit("Błąd shmget");
+    if (id_pamieci == -1) 
+        report_error_and_exit("Błąd shmget");
+
     wspolna_pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
-    if (wspolna_pamiec == (void*) -1) report_error_and_exit("Błąd shmat");
+    if (wspolna_pamiec == (void*) -1) 
+        report_error_and_exit("Błąd shmat");
 
     //Inicjalizacja pamieci
     wspolna_pamiec->liczba_kandydatow = MAX_KANDYDATOW;
@@ -167,17 +192,31 @@ int main() {
     //Tworzenie kolejki komunikatow
     printf("[Dziekan] Tworzenie kolejki komunikatow...\n");
     id_kolejki = msgget(klucz, 0600 | IPC_CREAT);
-    if (id_kolejki == -1) report_error_and_exit("Blad msgget");
+    if (id_kolejki == -1) 
+        report_error_and_exit("Blad msgget");
 
+    //Tworzenie procesow komisji
     pid_t pid_ka = fork();
-    if (pid_ka == 0) { execl("./komisja", "komisja", "A", NULL); exit(1); }
-    else if (pid_ka == -1) { perror("Blad fork Komisja A"); sprzatanie(1); }
+    if (pid_ka == 0) { 
+        execl("./komisja", "komisja", "A", NULL); 
+        exit(1); 
+    }
+    else if (pid_ka == -1) { 
+        perror("Blad fork Komisja A"); 
+        sprzatanie(1); 
+    }
 
     pid_t pid_kb = fork();
-    if (pid_kb == 0) { execl("./komisja", "komisja", "B", NULL); exit(1); }
-    else if (pid_kb == -1) { perror("Blad fork Komisja B"); sprzatanie(1); }
+    if (pid_kb == 0) { 
+        execl("./komisja", "komisja", "B", NULL); 
+        exit(1); 
+    }
+    else if (pid_kb == -1) { 
+        perror("Blad fork Komisja B"); 
+        sprzatanie(1); 
+    }
 
-    //Uruchamianie procesow
+    //Uruchamianie procesow kandydatow
     printf("[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
     
     printf("ID   | PID   | STATUS WEJSCIA\n");
@@ -186,6 +225,7 @@ int main() {
 
      for (int i = 0; i < MAX_KANDYDATOW; i++) {
         pid_t pid = fork();
+
         if (pid < 0) {
             perror("Blad fork");
             exit(1);
@@ -265,6 +305,7 @@ int main() {
         int suma = k->ocena_teoria + k->ocena_praktyka;
         char status_str[40];
 
+        //Okreslenie statusu kandydata
         if (wspolna_pamiec->ewakuacja == 1 && k->status != STATUS_ZAKONCZYL) {
             strcpy(status_str, "EWAKUACJA");
         }else if (k->zdana_matura == 0) {
@@ -284,6 +325,7 @@ int main() {
              strcpy(status_str, "NIEUKOŃCZONY");
         }
 
+        //Zapis do pliku i wyswietlanie na ekran
         if (plik != NULL) {
             fprintf(plik, "| #%03d | %04d | %-3s |  %3d%%  |  %3d%%  |  %3d | %-17s |\n",
                 i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 

@@ -4,8 +4,9 @@ int czy_pracowac = 1;
 char *typ_komisji_global = "?"; 
 int id_kolejki = -1;
 PamiecDzielona *pamiec = NULL;
+int sem_id_global = -1;
 
-// Funkcja do wysylania komunikatow
+// Funkcja do wysylania wiadomosci przez kolejke komunikatow
 void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
     Komunikat msg;
     msg.mtype = typ_adresata;
@@ -35,19 +36,32 @@ int losuj(int min, int max) {
     return min + rand() % (max - min + 1);
 }
 
+void semafor_operacja(int sem_id, int sem_num, int op) {
+    struct sembuf bufor_semafora;
+    bufor_semafora.sem_num = sem_num;
+    bufor_semafora.sem_op = op;
+    bufor_semafora.sem_flg = 0;
+    if (semop(sem_id, &bufor_semafora, 1) == -1) {
+        if (errno != EINTR) perror("Blad semop");
+    }
+}
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "[Komisja] Błąd: Brak argumentu typu komisji!\n");
         return 1;
     }
+
     char *typ_komisji = argv[1];
     typ_komisji_global = typ_komisji;
 
+    //Konczy prace komisji
     if (signal(SIGUSR1, obsluga_ewakuacji) == SIG_ERR) {
         perror("Blad signal SIGUSR1");
         exit(1);
     }
+
+    //(CTRL+Z) ignoruj
     if (signal(SIGTSTP, SIG_IGN) == SIG_ERR) {
         perror("Blad signal SIGTSTP");
         exit(1);
@@ -75,6 +89,14 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    //Pobieramy ID semaforow
+    sem_id_global = semget(klucz, 0, 0); 
+    if (sem_id_global == -1) { 
+        perror("[Komisja] Blad semget"); 
+        exit(1); 
+    }
+
+    //Pobieramy ID kolejki komunikatow
     id_kolejki = msgget(klucz, 0600);
     if (id_kolejki == -1) {
         perror("[Komisja] Blad msgget - brak kolejki komunikatow");
@@ -108,7 +130,7 @@ int main(int argc, char *argv[]) {
         int id_studenta = msg_odebrana.dane;
 
         //Logika egzaminu
-        printf("[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta, pid_studenta);
+        printf("[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta + 1, pid_studenta);
         usleep(losuj(10000, 50000)); 
 
         wyslij_komunikat(id_kolejki, pid_studenta, ETAP_PYTANIA);
@@ -125,8 +147,25 @@ int main(int argc, char *argv[]) {
         }
         int ocena_finalna = suma_ocen / liczba_czlonkow;
 
+        //Zapis do pamieci przez komisje        
+        semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
+        
+        //Modyfikacja pamieci dzielonej
+        if (moj_kanal_nasluchu == MSG_TYP_KOMISJA_A) {
+            pamiec->studenci[id_studenta].ocena_teoria = ocena_finalna;
+            if (ocena_finalna < 30) 
+                pamiec->studenci[id_studenta].status = STATUS_OBLAL_TEORIE;
+            else 
+                pamiec->studenci[id_studenta].status = STATUS_ZDAL_TEORIE;
+        } else {
+            pamiec->studenci[id_studenta].ocena_praktyka = ocena_finalna;
+            pamiec->studenci[id_studenta].status = STATUS_ZAKONCZYL;
+        }
+        
+        semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
+
         wyslij_komunikat(id_kolejki, pid_studenta, ocena_finalna);
-        printf("[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta, pid_studenta, ocena_finalna);
+        printf("[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta + 1, pid_studenta, ocena_finalna);
     }
 
     //Sprzatanie
