@@ -12,15 +12,6 @@ typedef struct {
     int nr_pytania;
 } PytanieSymulacja;
 
-void drukuj_czas() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    struct tm *tm_info = localtime(&tv.tv_sec);
-    char buffer[20];
-    strftime(buffer, 20, "%H:%M:%S", tm_info);
-    printf("[%s.%03ld] ", buffer, tv.tv_usec / 1000);
-}
-
 void semafor_operacja(int sem_id, int sem_num, int op) {
     struct sembuf bufor_semafora;
     bufor_semafora.sem_num = sem_num;
@@ -34,9 +25,7 @@ void semafor_operacja(int sem_id, int sem_num, int op) {
 //Funkcja konczaca proces kandydata
 void zakoncz_proces(int sig) {
     if (sig == SIGUSR1) {
-        char msg[128];
-        snprintf(msg, sizeof(msg), "\n!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n", moj_id_global + 1);
-        write(STDOUT_FILENO, msg, strlen(msg));
+        loguj(sem_id_global, KOLOR_CZERWONY, "\n!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n", moj_id_global + 1);
         
         if (pamiec_global != NULL) {
             if (shmdt(pamiec_global) == -1) {
@@ -75,15 +64,17 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
 
     int liczba_egzaminatorow = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? 5 : 3;
     
+    char *kolor_sali = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
+
     if (szczegoly) 
-        printf("[Kandydat %d] Czekam na wejscie do %s...\n", moj_id_global + 1, nazwa_sali);
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Czekam na wejscie do %s...\n", moj_id_global + 1, nazwa_sali);
 
     semafor_operacja(sem_id_global, sem_sala, -1);
 
     if (szczegoly) 
-        printf(" >> [Kandydat %d] Wszedlem do %s.\n", moj_id_global + 1, nazwa_sali);
+        loguj(sem_id_global, KOLOR_NIEBIESKI, " >> [Kandydat %d] Wszedlem do %s.\n", moj_id_global + 1, nazwa_sali);
 
-    if (szczegoly) printf("    [Kandydat %d] Czekam na wolne krzeslo przed komisja...\n", moj_id_global + 1);
+    if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Czekam na wolne krzeslo przed komisja...\n", moj_id_global + 1);
 
     semafor_operacja(sem_id_global, sem_krzeslo, -1);
 
@@ -96,8 +87,8 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
 
     //Zgloszenie sie do komisji
     if (szczegoly) { 
-        drukuj_czas(); 
-        printf("[Kandydat %d] Zglaszam sie do komisji...\n", moj_id_global + 1); }
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Zglaszam sie do komisji...\n", moj_id_global + 1); 
+    }
     
     msg_wysylana.mtype = typ_komisji_msg;
     msg_wysylana.nadawca_pid = moj_pid;
@@ -111,7 +102,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     }
 
     
-    if (szczegoly) printf("    [Kandydat %d] Czekam az komisja przygotuje pytania...\n", moj_id_global + 1);
+    if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Czekam az komisja przygotuje pytania...\n", moj_id_global + 1);
 
     if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_pid, 0) == -1) {
         if (errno != EINTR) perror("Blad msgrcv pytania");
@@ -134,8 +125,8 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     int wylosowane_pytania[liczba_pytan];
 
     if (szczegoly) {
-        drukuj_czas();
-        printf("[%s] [Kandydat %d] Czekam na pytania...\n", nazwa_sali, moj_id_global + 1);
+        // Czekanie na pytania to mysl kandydata - Niebieski
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[%s] [Kandydat %d] Czekam na pytania...\n", nazwa_sali, moj_id_global + 1);
     }
 
     for (int i = 0; i < liczba_pytan; i++) {
@@ -152,16 +143,14 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
         zestaw[i].nr_pytania = nr;
 
         if (szczegoly) {
-            drukuj_czas();
-            printf("[%s] Egzaminator %d zadał pytanie nr %d kandydatowi %d.\n", 
+            loguj(sem_id_global, kolor_sali, "[%s] Egzaminator %d zadał pytanie nr %d kandydatowi %d.\n", 
                    nazwa_sali, zestaw[i].id_egzaminatora + 1, zestaw[i].nr_pytania, moj_id_global + 1); 
         }
     }
 
     //Przygotowanie do odpowiedzi(Ti)
     if (szczegoly) {
-        drukuj_czas();
-        printf("[%s] [Kandydat %d] Otrzymałem wszystkie pytania. Przygotowuję się (czas Ti)...\n", nazwa_sali, moj_id_global + 1);
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[%s] [Kandydat %d] Otrzymałem wszystkie pytania. Przygotowuję się (czas Ti)...\n", nazwa_sali, moj_id_global + 1);
     }
     usleep(200000); 
     
@@ -171,20 +160,19 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
         usleep(20000); 
 
         if (szczegoly) {
-            drukuj_czas();
-            printf("[%s] Egzaminator %d ocenil odpowiedz na pytanie nr %d kandydata %d na %d%%.\n", 
+            loguj(sem_id_global, kolor_sali, "[%s] Egzaminator %d ocenil odpowiedz na pytanie nr %d kandydata %d na %d%%.\n", 
                    nazwa_sali, zestaw[i].id_egzaminatora + 1, zestaw[i].nr_pytania, moj_id_global + 1, ocena);
         }
     }
 
-    if (szczegoly) printf("    [Kandydat %d] Odpowiedzi zakonczone. Przekazuje komisji do oceny...\n", moj_id_global + 1);
+    if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Odpowiedzi zakonczone. Przekazuje komisji do oceny...\n", moj_id_global + 1);
     
     msg_wysylana.mtype = typ_komisji_msg;
     msg_wysylana.nadawca_pid = moj_pid;
     msg_wysylana.dane = 0; 
     msgsnd(msg_id_global, &msg_wysylana, sizeof(msg_wysylana)-sizeof(long), 0);
 
-    if (szczegoly) { drukuj_czas(); printf("[Kandydat %d] Czekam na werdykt...\n", moj_id_global + 1); }
+    if (szczegoly) { loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Czekam na werdykt...\n", moj_id_global + 1); }
 
     if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_pid, 0) == -1) {
          if (errno != EINTR) perror("Blad msgrcv wynik");
@@ -194,14 +182,14 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     int ocena_oficjalna = msg_odebrana.dane;
 
     if (szczegoly) {
-        drukuj_czas(); 
-        printf("[%s] [Kandydat %d] Przewodniczący ustalił ocenę końcową: %d%%\n", 
+        // Werdykt ustala przewodniczacy - kolor sali
+        loguj(sem_id_global, kolor_sali, "[%s] [Kandydat %d] Przewodniczący ustalił ocenę końcową: %d%%\n", 
                nazwa_sali, moj_id_global + 1, ocena_oficjalna);
     }
 
     // Zwolnienie zasobow
     semafor_operacja(sem_id_global, sem_krzeslo, 1);
-    if (szczegoly) printf(" << [Kandydat %d] Opuszczam %s.\n", moj_id_global + 1, nazwa_sali);
+    if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, " << [Kandydat %d] Opuszczam %s.\n", moj_id_global + 1, nazwa_sali);
     semafor_operacja(sem_id_global, sem_sala, 1);
 
     return ocena_oficjalna;
@@ -274,12 +262,11 @@ int main(int argc, char *argv[]) {
     int szczegoly = 1; 
 
     if (szczegoly) {
-        drukuj_czas();
-        printf("[Kandydat %d] Czekam przed wejściem. (Matura: %s)\n", moj_id + 1, ja->zdana_matura ? "TAK" : "NIE");
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Czekam przed wejściem. (Matura: %s)\n", moj_id + 1, ja->zdana_matura ? "TAK" : "NIE");
     }
 
     if (ja->zdana_matura == 0) {
-        if(szczegoly) printf("[Kandydat %d] Brak matury. Wracam do domu.\n", moj_id + 1);
+        if(szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Brak matury. Wracam do domu.\n", moj_id + 1);
         zakoncz_proces(0);
     }
 
@@ -290,11 +277,11 @@ int main(int argc, char *argv[]) {
         if (ocena == -1) zakoncz_proces(SIGUSR1); //Ewakuacja
 
         if (ja->status == STATUS_OBLAL_TEORIE) {
-            if(szczegoly) printf("[Kandydat %d] Oblalem teorie (%d%%). Koniec.\n", moj_id + 1, ocena);
+            if(szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Oblalem teorie (%d%%). Koniec.\n", moj_id + 1, ocena);
             zakoncz_proces(0);
         }
     } else {
-        if (szczegoly) printf("[Kandydat %d] Powtarzam rok (teoria zaliczona). Ide do Sali B.\n", moj_id + 1);
+        if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Powtarzam rok (teoria zaliczona). Ide do Sali B.\n", moj_id + 1);
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
         ja->status = STATUS_ZDAL_TEORIE;
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
@@ -306,7 +293,7 @@ int main(int argc, char *argv[]) {
         
         if (ocena == -1) zakoncz_proces(SIGUSR1);
         
-        if(szczegoly) printf("[Kandydat %d] Koniec egzaminu (Praktyka: %d%%). Wychodze.\n", moj_id + 1, ocena);
+        if(szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Koniec egzaminu (Praktyka: %d%%). Wychodze.\n", moj_id + 1, ocena);
     }
 
     zakoncz_proces(0);

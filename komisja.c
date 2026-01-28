@@ -22,10 +22,15 @@ void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
 
 void obsluga_ewakuacji(int sig) {
     if (sig == SIGUSR1) {
+        // Ustalamy kolor komisji w handlerze
+        char *kolor_komisji = (strcmp(typ_komisji_global, "A") == 0) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
+
         if (pamiec != NULL && pamiec->ewakuacja == 1) {
-            printf("\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
+            // Ewakuacja -> CZERWONY
+            loguj(sem_id_global, KOLOR_CZERWONY, "\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
         } else {
-            printf("[Komisja %s] Dziekan zarządził koniec egzaminów. Zamykam biuro.\n", typ_komisji_global);
+            // Normalny koniec -> KOLOR KOMISJI
+            loguj(sem_id_global, kolor_komisji, "[Komisja %s] Dziekan zarządził koniec egzaminów. Zamykam biuro.\n", typ_komisji_global);
         }
         czy_pracowac = 0;
         exit(0);
@@ -55,6 +60,9 @@ int main(int argc, char *argv[]) {
     char *typ_komisji = argv[1];
     typ_komisji_global = typ_komisji;
 
+    // Wybor koloru w zaleznosci od typu komisji (A=Magenta, B=Zielony dla kontrastu)
+    char *moj_kolor = (strcmp(typ_komisji, "A") == 0) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
+
     //Konczy prace komisji
     if (signal(SIGUSR1, obsluga_ewakuacji) == SIG_ERR) {
         perror("Blad signal SIGUSR1");
@@ -83,7 +91,8 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    PamiecDzielona *pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
+    // Przypisanie do zmiennej globalnej (usunieto typ 'PamiecDzielona*' zeby nie przyslaniac globalnej)
+    pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (pamiec == (void*) -1) {
         perror("[Komisja] Blad shmat");
         exit(1);
@@ -107,14 +116,14 @@ int main(int argc, char *argv[]) {
     long moj_kanal_nasluchu = (strcmp(typ_komisji, "A") == 0) ? MSG_TYP_KOMISJA_A : MSG_TYP_KOMISJA_B;
     int liczba_czlonkow = (strcmp(typ_komisji, "A") == 0) ? 5 : 3;
 
-    printf("[Komisja %s] (PID: %d) Czekam na kandydatów.\n", typ_komisji, getpid());
+    loguj(sem_id_global, moj_kolor, "[Komisja %s] (PID: %d) Czekam na kandydatów.\n", typ_komisji, getpid());
 
     Komunikat msg_odebrana;
 
 	//Praca komisji
     while (czy_pracowac) {
         if (pamiec->ewakuacja == 1) {
-            printf("[Komisja %s] Zauważono flagę ewakuacji!\n", typ_komisji);
+            loguj(sem_id_global, KOLOR_CZERWONY, "[Komisja %s] Zauważono flagę ewakuacji!\n", typ_komisji);
              break;
         }
 
@@ -130,7 +139,7 @@ int main(int argc, char *argv[]) {
         int id_studenta = msg_odebrana.dane;
 
         //Logika egzaminu
-        printf("[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta + 1, pid_studenta);
+        loguj(sem_id_global, moj_kolor, "[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta + 1, pid_studenta);
         usleep(losuj(10000, 50000)); 
 
         wyslij_komunikat(id_kolejki, pid_studenta, ETAP_PYTANIA);
@@ -165,7 +174,7 @@ int main(int argc, char *argv[]) {
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
 
         wyslij_komunikat(id_kolejki, pid_studenta, ocena_finalna);
-        printf("[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta + 1, pid_studenta, ocena_finalna);
+        loguj(sem_id_global, moj_kolor, "[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta + 1, pid_studenta, ocena_finalna);
     }
 
     //Sprzatanie
@@ -173,6 +182,6 @@ int main(int argc, char *argv[]) {
         perror("[Komisja] Blad shmdt");
     }
     
-    printf("[Komisja %s] Koniec pracy.\n", typ_komisji);
+    loguj(sem_id_global, moj_kolor, "[Komisja %s] Koniec pracy.\n", typ_komisji);
     return 0;
 }

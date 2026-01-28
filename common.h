@@ -1,5 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
+#define _POSIX_C_SOURCE 200809L // Wlacza obsluge czasu (CLOCK_REALTIME)
+#define _DEFAULT_SOURCE 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,10 +18,20 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <sys/msg.h>
+#include <stdarg.h>
 
 //Stale projektowe
 #define PROJECT_ID 'E'
 #define PATH_NAME "."
+
+// KOLORY ANSI DO TERMINALA
+#define KOLOR_RESET   "\033[0m"
+#define KOLOR_CZERWONY "\033[1;31m" // Błędy / Odrzucenia
+#define KOLOR_ZIELONY  "\033[1;32m" // Sukcesy
+#define KOLOR_ZOLTY    "\033[1;33m" // Dziekan
+#define KOLOR_NIEBIESKI "\033[1;34m" // Kandydat
+#define KOLOR_MAGENTA  "\033[1;35m" // Komisja A
+#define KOLOR_CYJAN    "\033[1;36m" // Komisja B
 
 //Limity
 #define MAX_KANDYDATOW 10
@@ -35,7 +47,8 @@
 #define SEM_SALA_B 2
 #define SEM_KRZESLO_A 3
 #define SEM_KRZESLO_B 4
-#define LICZBA_SEMAFOROW 5
+#define SEM_STDOUT 5
+#define LICZBA_SEMAFOROW 6
 
 //Statusy kandydata
 #define STATUS_NOWY 0
@@ -77,10 +90,48 @@ typedef struct {
     int dane;         
 } Komunikat;
 
+//---Funkcje pomocnicze---
+
 //Funkcja do obslugi bledow
 void report_error_and_exit(const char *msg) {
     perror(msg);
     exit(EXIT_FAILURE);
+}
+
+//Pomocnik do operacji na semaforach
+void semafor_operacja_z_id(int sem_id, int sem_num, int op) {
+    struct sembuf bufor;
+    bufor.sem_num = sem_num;
+    bufor.sem_op = op;
+    bufor.sem_flg = 0;
+    if (semop(sem_id, &bufor, 1) == -1) {
+        if (errno != EINTR && errno != EIDRM) perror("Blad semop");
+    }
+}
+
+//Funkcja do synchronizacji i kolorowania wyjscia terminala
+static void loguj(int sem_id, const char *kolor, const char *format, ...) {
+    semafor_operacja_z_id(sem_id, SEM_STDOUT, -1);
+    
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    
+    struct tm *tm_info = localtime(&ts.tv_sec);
+    char buffer[20];
+    strftime(buffer, 20, "%H:%M:%S", tm_info);
+
+    //Wypisz prefix (Czas + Kolor)
+    printf("[%s.%03ld] %s", buffer, ts.tv_nsec / 1000000, kolor);
+
+    //Obsluga zmiennej liczby argumentow
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+
+    printf("%s", KOLOR_RESET);
+
+    semafor_operacja_z_id(sem_id, SEM_STDOUT, 1);
 }
 
 #endif

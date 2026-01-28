@@ -2,15 +2,15 @@ RAPORT Z EGZAMINU WSTEPNEGO
 ========================================================================================
 | POZ  |  ID  | MATURA | TEORIA | PRAKT. | SUMA(T+P) | STATUS                      |
 ========================================================================================
-| #001 | 0004 | TAK |   58%  |   63%  |  121 | PRZYJĘTY         |
-| #002 | 0010 | TAK |   54%  |   64%  |  118 | PRZYJĘTY         |
-| #003 | 0005 | TAK |   70%  |   45%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #004 | 0007 | TAK |   51%  |   63%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #005 | 0001 | TAK |   45%  |   66%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #006 | 0009 | TAK |   56%  |   50%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #007 | 0002 | TAK |   55%  |   41%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #008 | 0008 | TAK |   36%  |   54%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #009 | 0003 | TAK |   50%  |   32%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #010 | 0006 | TAK |   17%  |    0%  |   17 | OBLANY (Teoria)   |
+| #001 | 0002 | TAK |   78%  |   59%  |  137 | PRZYJĘTY         |
+| #002 | 0003 | TAK |   71%  |   62%  |  133 | PRZYJĘTY         |
+| #003 | 0004 | TAK |   76%  |   51%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #004 | 0010 | TAK |   52%  |   67%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #005 | 0001 | TAK |   45%  |   52%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #006 | 0005 | TAK |   56%  |   41%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #007 | 0008 | TAK |   41%  |   54%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #008 | 0007 | TAK |   40%  |   50%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #009 | 0009 | TAK |   50%  |   34%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #010 | 0006 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
 ====================================================================
 STATYSTYKA: Miejsc: 2, Przyjęto: 2.
