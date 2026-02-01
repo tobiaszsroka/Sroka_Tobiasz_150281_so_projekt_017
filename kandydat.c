@@ -12,16 +12,6 @@ typedef struct {
     int nr_pytania;
 } PytanieSymulacja;
 
-void semafor_operacja(int sem_id, int sem_num, int op) {
-    struct sembuf bufor_semafora;
-    bufor_semafora.sem_num = sem_num;
-    bufor_semafora.sem_op = op;
-    bufor_semafora.sem_flg = 0;
-    if (semop(sem_id, &bufor_semafora, 1) == -1) {
-        if (errno != EINTR && errno != EIDRM) perror("Blad semop");
-    }
-}
-
 //Funkcja konczaca proces kandydata
 void zakoncz_proces(int sig) {
     if (sig == SIGUSR1) {

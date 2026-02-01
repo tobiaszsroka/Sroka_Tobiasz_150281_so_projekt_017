@@ -34,8 +34,8 @@
 #define KOLOR_CYJAN    "\033[1;36m" // Komisja B
 
 //Limity
-#define MAX_KANDYDATOW 10
-#define MIEJSCA_NA_UCZELNI 2
+#define MAX_KANDYDATOW 1200
+#define MIEJSCA_NA_UCZELNI 120
 #define MAX_W_SALI_A 3
 #define MAX_W_SALI_B 3
 #define LICZBA_PYTAN_A 5
@@ -99,19 +99,24 @@ void report_error_and_exit(const char *msg) {
 }
 
 //Pomocnik do operacji na semaforach
-void semafor_operacja_z_id(int sem_id, int sem_num, int op) {
+static void semafor_operacja(int sem_id, int sem_num, int op) {
     struct sembuf bufor;
     bufor.sem_num = sem_num;
     bufor.sem_op = op;
-    bufor.sem_flg = 0;
-    if (semop(sem_id, &bufor, 1) == -1) {
-        if (errno != EINTR && errno != EIDRM) perror("Blad semop");
+    bufor.sem_flg = SEM_UNDO; // <--- SEM_UNDO!
+    
+    while (semop(sem_id, &bufor, 1) == -1) {
+        if (errno != EINTR && errno != EIDRM && errno != EINVAL) {
+             perror("Blad semop");
+             break;
+        }
+        if (errno == EIDRM || errno == EINVAL) break;
     }
 }
 
 //Funkcja do synchronizacji i kolorowania wyjscia terminala
 static void loguj(int sem_id, const char *kolor, const char *format, ...) {
-    semafor_operacja_z_id(sem_id, SEM_STDOUT, -1);
+    semafor_operacja(sem_id, SEM_STDOUT, -1);
     
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
@@ -131,7 +136,7 @@ static void loguj(int sem_id, const char *kolor, const char *format, ...) {
 
     printf("%s", KOLOR_RESET);
 
-    semafor_operacja_z_id(sem_id, SEM_STDOUT, 1);
+    semafor_operacja(sem_id, SEM_STDOUT, 1);
 }
 
 #endif

@@ -41,15 +41,6 @@ int losuj(int min, int max) {
     return min + rand() % (max - min + 1);
 }
 
-void semafor_operacja(int sem_id, int sem_num, int op) {
-    struct sembuf bufor_semafora;
-    bufor_semafora.sem_num = sem_num;
-    bufor_semafora.sem_op = op;
-    bufor_semafora.sem_flg = 0;
-    if (semop(sem_id, &bufor_semafora, 1) == -1) {
-        if (errno != EINTR) perror("Blad semop");
-    }
-}
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {

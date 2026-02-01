@@ -2,15 +2,1205 @@ RAPORT Z EGZAMINU WSTEPNEGO
 ========================================================================================
 | POZ  |  ID  | MATURA | TEORIA | PRAKT. | SUMA(T+P) | STATUS                      |
 ========================================================================================
-| #001 | 0002 | TAK |   78%  |   59%  |  137 | PRZYJĘTY         |
-| #002 | 0003 | TAK |   71%  |   62%  |  133 | PRZYJĘTY         |
-| #003 | 0004 | TAK |   76%  |   51%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #004 | 0010 | TAK |   52%  |   67%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #005 | 0001 | TAK |   45%  |   52%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #006 | 0005 | TAK |   56%  |   41%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #007 | 0008 | TAK |   41%  |   54%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #008 | 0007 | TAK |   40%  |   50%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #009 | 0009 | TAK |   50%  |   34%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
-| #010 | 0006 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #001 | 0250 | TAK |   87%  |   78%  |  165 | PRZYJĘTY         |
+| #002 | 0233 | TAK |   94%  |   68%  |  162 | PRZYJĘTY         |
+| #003 | 0520 | TAK |   85%  |   73%  |  158 | PRZYJĘTY         |
+| #004 | 0153 | TAK |   91%  |   64%  |  155 | PRZYJĘTY         |
+| #005 | 0649 | TAK |   87%  |   68%  |  155 | PRZYJĘTY         |
+| #006 | 0370 | TAK |   77%  |   77%  |  154 | PRZYJĘTY         |
+| #007 | 0850 | TAK |   89%  |   64%  |  153 | PRZYJĘTY         |
+| #008 | 0418 | TAK |   73%  |   79%  |  152 | PRZYJĘTY         |
+| #009 | 0456 | TAK |   59%  |   93%  |  152 | PRZYJĘTY         |
+| #010 | 0780 | TAK |   76%  |   76%  |  152 | PRZYJĘTY         |
+| #011 | 0518 | TAK |   82%  |   68%  |  150 | PRZYJĘTY         |
+| #012 | 0468 | TAK |   58%  |   91%  |  149 | PRZYJĘTY         |
+| #013 | 0427 | TAK |   75%  |   73%  |  148 | PRZYJĘTY         |
+| #014 | 0500 | TAK |   53%  |   95%  |  148 | PRZYJĘTY         |
+| #015 | 0143 | TAK |   60%  |   87%  |  147 | PRZYJĘTY         |
+| #016 | 1140 | TAK |   77%  |   70%  |  147 | PRZYJĘTY         |
+| #017 | 0008 | TAK |   56%  |   90%  |  146 | PRZYJĘTY         |
+| #018 | 1010 | TAK |   71%  |   74%  |  145 | PRZYJĘTY         |
+| #019 | 1141 | TAK |   81%  |   64%  |  145 | PRZYJĘTY         |
+| #020 | 1157 | TAK |   72%  |   73%  |  145 | PRZYJĘTY         |
+| #021 | 0021 | TAK |   56%  |   88%  |  144 | PRZYJĘTY         |
+| #022 | 0960 | TAK |   74%  |   70%  |  144 | PRZYJĘTY         |
+| #023 | 0017 | TAK |   58%  |   85%  |  143 | PRZYJĘTY         |
+| #024 | 0257 | TAK |   59%  |   84%  |  143 | PRZYJĘTY         |
+| #025 | 0308 | TAK |   48%  |   95%  |  143 | PRZYJĘTY         |
+| #026 | 0336 | TAK |   59%  |   84%  |  143 | PRZYJĘTY         |
+| #027 | 0763 | TAK |   71%  |   72%  |  143 | PRZYJĘTY         |
+| #028 | 0775 | TAK |   75%  |   68%  |  143 | PRZYJĘTY         |
+| #029 | 0859 | TAK |   70%  |   73%  |  143 | PRZYJĘTY         |
+| #030 | 0976 | TAK |   63%  |   80%  |  143 | PRZYJĘTY         |
+| #031 | 0978 | TAK |   90%  |   53%  |  143 | PRZYJĘTY         |
+| #032 | 1011 | TAK |   79%  |   64%  |  143 | PRZYJĘTY         |
+| #033 | 0925 | TAK |   56%  |   86%  |  142 | PRZYJĘTY         |
+| #034 | 0075 | TAK |   52%  |   89%  |  141 | PRZYJĘTY         |
+| #035 | 0716 | TAK |   65%  |   76%  |  141 | PRZYJĘTY         |
+| #036 | 1012 | TAK |   69%  |   72%  |  141 | PRZYJĘTY         |
+| #037 | 1162 | TAK |   68%  |   73%  |  141 | PRZYJĘTY         |
+| #038 | 0036 | TAK |   50%  |   90%  |  140 | PRZYJĘTY         |
+| #039 | 0235 | TAK |   73%  |   67%  |  140 | PRZYJĘTY         |
+| #040 | 0375 | TAK |   59%  |   81%  |  140 | PRZYJĘTY         |
+| #041 | 0798 | TAK |   75%  |   65%  |  140 | PRZYJĘTY         |
+| #042 | 1081 | TAK |   77%  |   63%  |  140 | PRZYJĘTY         |
+| #043 | 0111 | TAK |   58%  |   81%  |  139 | PRZYJĘTY         |
+| #044 | 0188 | TAK |   74%  |   65%  |  139 | PRZYJĘTY         |
+| #045 | 0267 | TAK |   66%  |   73%  |  139 | PRZYJĘTY         |
+| #046 | 0014 | TAK |   57%  |   81%  |  138 | PRZYJĘTY         |
+| #047 | 0097 | TAK |   57%  |   81%  |  138 | PRZYJĘTY         |
+| #048 | 0172 | TAK |   71%  |   67%  |  138 | PRZYJĘTY         |
+| #049 | 0294 | TAK |   65%  |   73%  |  138 | PRZYJĘTY         |
+| #050 | 0391 | TAK |   65%  |   73%  |  138 | PRZYJĘTY         |
+| #051 | 0474 | TAK |   70%  |   68%  |  138 | PRZYJĘTY         |
+| #052 | 0509 | TAK |   69%  |   69%  |  138 | PRZYJĘTY         |
+| #053 | 0575 | TAK |   64%  |   74%  |  138 | PRZYJĘTY         |
+| #054 | 0046 | TAK |   55%  |   82%  |  137 | PRZYJĘTY         |
+| #055 | 0494 | TAK |   72%  |   65%  |  137 | PRZYJĘTY         |
+| #056 | 0508 | TAK |   67%  |   70%  |  137 | PRZYJĘTY         |
+| #057 | 0549 | TAK |   67%  |   70%  |  137 | PRZYJĘTY         |
+| #058 | 0600 | TAK |   61%  |   76%  |  137 | PRZYJĘTY         |
+| #059 | 0711 | TAK |   86%  |   51%  |  137 | PRZYJĘTY         |
+| #060 | 1086 | TAK |   64%  |   73%  |  137 | PRZYJĘTY         |
+| #061 | 0190 | TAK |   55%  |   81%  |  136 | PRZYJĘTY         |
+| #062 | 0255 | TAK |   62%  |   74%  |  136 | PRZYJĘTY         |
+| #063 | 0397 | TAK |   80%  |   56%  |  136 | PRZYJĘTY         |
+| #064 | 0529 | TAK |   86%  |   50%  |  136 | PRZYJĘTY         |
+| #065 | 0539 | TAK |   63%  |   73%  |  136 | PRZYJĘTY         |
+| #066 | 0601 | TAK |   70%  |   66%  |  136 | PRZYJĘTY         |
+| #067 | 1032 | TAK |   53%  |   83%  |  136 | PRZYJĘTY         |
+| #068 | 1033 | TAK |   65%  |   71%  |  136 | PRZYJĘTY         |
+| #069 | 1127 | TAK |   84%  |   52%  |  136 | PRZYJĘTY         |
+| #070 | 1163 | TAK |   73%  |   63%  |  136 | PRZYJĘTY         |
+| #071 | 0212 | TAK |   66%  |   69%  |  135 | PRZYJĘTY         |
+| #072 | 0724 | TAK |   76%  |   59%  |  135 | PRZYJĘTY         |
+| #073 | 0738 | TAK |   70%  |   65%  |  135 | PRZYJĘTY         |
+| #074 | 0908 | TAK |   75%  |   60%  |  135 | PRZYJĘTY         |
+| #075 | 1077 | TAK |   49%  |   86%  |  135 | PRZYJĘTY         |
+| #076 | 1106 | TAK |   71%  |   64%  |  135 | PRZYJĘTY         |
+| #077 | 1112 | TAK |   60%  |   75%  |  135 | PRZYJĘTY         |
+| #078 | 1195 | TAK |   56%  |   79%  |  135 | PRZYJĘTY         |
+| #079 | 0672 | TAK |   63%  |   71%  |  134 | PRZYJĘTY         |
+| #080 | 0709 | TAK |   77%  |   57%  |  134 | PRZYJĘTY         |
+| #081 | 0774 | TAK |   75%  |   59%  |  134 | PRZYJĘTY         |
+| #082 | 1143 | TAK |   77%  |   57%  |  134 | PRZYJĘTY         |
+| #083 | 1191 | TAK |   60%  |   74%  |  134 | PRZYJĘTY         |
+| #084 | 0011 | TAK |   70%  |   63%  |  133 | PRZYJĘTY         |
+| #085 | 0226 | TAK |   55%  |   78%  |  133 | PRZYJĘTY         |
+| #086 | 0240 | TAK |   69%  |   64%  |  133 | PRZYJĘTY         |
+| #087 | 0433 | TAK |   72%  |   61%  |  133 | PRZYJĘTY         |
+| #088 | 0561 | TAK |   81%  |   52%  |  133 | PRZYJĘTY         |
+| #089 | 0604 | TAK |   75%  |   58%  |  133 | PRZYJĘTY         |
+| #090 | 0662 | TAK |   56%  |   77%  |  133 | PRZYJĘTY         |
+| #091 | 0767 | TAK |   81%  |   52%  |  133 | PRZYJĘTY         |
+| #092 | 0777 | TAK |   65%  |   68%  |  133 | PRZYJĘTY         |
+| #093 | 0028 | TAK |   48%  |   84%  |  132 | PRZYJĘTY         |
+| #094 | 0576 | TAK |   49%  |   83%  |  132 | PRZYJĘTY         |
+| #095 | 0936 | TAK |   49%  |   83%  |  132 | PRZYJĘTY         |
+| #096 | 1154 | TAK |   65%  |   67%  |  132 | PRZYJĘTY         |
+| #097 | 0094 | TAK |   64%  |   67%  |  131 | PRZYJĘTY         |
+| #098 | 0138 | TAK |   80%  |   51%  |  131 | PRZYJĘTY         |
+| #099 | 0244 | TAK |   70%  |   61%  |  131 | PRZYJĘTY         |
+| #100 | 0299 | TAK |   56%  |   75%  |  131 | PRZYJĘTY         |
+| #101 | 0965 | TAK |   71%  |   60%  |  131 | PRZYJĘTY         |
+| #102 | 0154 | TAK |   60%  |   70%  |  130 | PRZYJĘTY         |
+| #103 | 0545 | TAK |   62%  |   68%  |  130 | PRZYJĘTY         |
+| #104 | 0818 | TAK |   59%  |   71%  |  130 | PRZYJĘTY         |
+| #105 | 0901 | TAK |   54%  |   76%  |  130 | PRZYJĘTY         |
+| #106 | 0970 | TAK |   74%  |   56%  |  130 | PRZYJĘTY         |
+| #107 | 1151 | TAK |   71%  |   59%  |  130 | PRZYJĘTY         |
+| #108 | 0026 | TAK |   53%  |   76%  |  129 | PRZYJĘTY         |
+| #109 | 0198 | TAK |   58%  |   71%  |  129 | PRZYJĘTY         |
+| #110 | 0318 | TAK |   64%  |   65%  |  129 | PRZYJĘTY         |
+| #111 | 0344 | TAK |   63%  |   66%  |  129 | PRZYJĘTY         |
+| #112 | 0424 | TAK |   64%  |   65%  |  129 | PRZYJĘTY         |
+| #113 | 0570 | TAK |   71%  |   58%  |  129 | PRZYJĘTY         |
+| #114 | 0650 | TAK |   62%  |   67%  |  129 | PRZYJĘTY         |
+| #115 | 0844 | TAK |   55%  |   74%  |  129 | PRZYJĘTY         |
+| #116 | 1008 | TAK |   43%  |   86%  |  129 | PRZYJĘTY         |
+| #117 | 1065 | TAK |   59%  |   70%  |  129 | PRZYJĘTY         |
+| #118 | 0002 | TAK |   59%  |   69%  |  128 | PRZYJĘTY         |
+| #119 | 0053 | TAK |   59%  |   69%  |  128 | PRZYJĘTY         |
+| #120 | 0194 | TAK |   71%  |   57%  |  128 | PRZYJĘTY         |
+| #121 | 0199 | TAK |   73%  |   55%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #122 | 0321 | TAK |   46%  |   82%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #123 | 0351 | TAK |   43%  |   85%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #124 | 0355 | TAK |   61%  |   67%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #125 | 0393 | TAK |   56%  |   72%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #126 | 0527 | TAK |   58%  |   70%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #127 | 0554 | TAK |   62%  |   66%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #128 | 0556 | TAK |   46%  |   82%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #129 | 0653 | TAK |   51%  |   77%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #130 | 0706 | TAK |   56%  |   72%  |  128 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #131 | 0055 | TAK |   63%  |   64%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #132 | 0148 | TAK |   50%  |   77%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #133 | 0216 | TAK |   70%  |   57%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #134 | 0295 | TAK |   57%  |   70%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #135 | 0333 | TAK |   60%  |   67%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #136 | 0367 | TAK |   74%  |   53%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #137 | 0506 | TAK |   69%  |   58%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #138 | 0525 | TAK |   90%  |   37%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #139 | 0589 | TAK |   60%  |   67%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #140 | 0652 | TAK |   58%  |   69%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #141 | 0842 | TAK |   67%  |   60%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #142 | 0906 | TAK |   57%  |   70%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #143 | 1034 | TAK |   70%  |   57%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #144 | 1088 | TAK |   54%  |   73%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #145 | 1165 | TAK |   54%  |   73%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #146 | 1182 | TAK |   68%  |   59%  |  127 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #147 | 0141 | TAK |   75%  |   51%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #148 | 0224 | TAK |   66%  |   60%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #149 | 0343 | TAK |   43%  |   83%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #150 | 0585 | TAK |   59%  |   67%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #151 | 0868 | TAK |   73%  |   53%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #152 | 1018 | TAK |   72%  |   54%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #153 | 1148 | TAK |   42%  |   84%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #154 | 1194 | TAK |   57%  |   69%  |  126 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #155 | 0093 | TAK |   69%  |   56%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #156 | 0256 | TAK |   73%  |   52%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #157 | 0502 | TAK |   54%  |   71%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #158 | 0565 | TAK |   55%  |   70%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #159 | 0740 | TAK |   56%  |   69%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #160 | 0771 | TAK |   41%  |   84%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #161 | 0832 | TAK |   70%  |   55%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #162 | 0946 | TAK |   69%  |   56%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #163 | 0973 | TAK |   50%  |   75%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #164 | 1022 | TAK |   52%  |   73%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #165 | 1059 | TAK |   46%  |   79%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #166 | 1074 | TAK |   46%  |   79%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #167 | 1172 | TAK |   57%  |   68%  |  125 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #168 | 0285 | TAK |   53%  |   71%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #169 | 0305 | TAK |   70%  |   54%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #170 | 0682 | TAK |   39%  |   85%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #171 | 0704 | TAK |   79%  |   45%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #172 | 0764 | TAK |   64%  |   60%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #173 | 0825 | TAK |   58%  |   66%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #174 | 0861 | TAK |   55%  |   69%  |  124 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #175 | 0127 | TAK |   43%  |   80%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #176 | 0352 | TAK |   78%  |   45%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #177 | 0439 | TAK |   61%  |   62%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #178 | 0458 | TAK |   55%  |   68%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #179 | 0478 | TAK |   70%  |   53%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #180 | 0513 | TAK |   54%  |   69%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #181 | 0615 | TAK |   58%  |   65%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #182 | 0624 | TAK |   65%  |   58%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #183 | 0895 | TAK |   36%  |   87%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #184 | 1006 | TAK |   53%  |   70%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #185 | 1087 | TAK |   43%  |   80%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #186 | 1193 | TAK |   55%  |   68%  |  123 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #187 | 0006 | TAK |   67%  |   55%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #188 | 0222 | TAK |   77%  |   45%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #189 | 0412 | TAK |   57%  |   65%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #190 | 0465 | TAK |   73%  |   49%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #191 | 0472 | TAK |   58%  |   64%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #192 | 0537 | TAK |   48%  |   74%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #193 | 0611 | TAK |   59%  |   63%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #194 | 0781 | TAK |   66%  |   56%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #195 | 0836 | TAK |   66%  |   56%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #196 | 1161 | TAK |   48%  |   74%  |  122 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #197 | 0128 | TAK |   64%  |   57%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #198 | 0451 | TAK |   85%  |   36%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #199 | 0534 | TAK |   65%  |   56%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #200 | 0648 | TAK |   50%  |   71%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #201 | 0779 | TAK |   68%  |   53%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #202 | 0915 | TAK |   57%  |   64%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #203 | 1145 | TAK |   62%  |   59%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #204 | 1177 | TAK |   55%  |   66%  |  121 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #205 | 0052 | TAK |   59%  |   61%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #206 | 0057 | TAK |   59%  |   61%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #207 | 0221 | TAK |   36%  |   84%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #208 | 0562 | TAK |   64%  |   56%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #209 | 0638 | TAK |   53%  |   67%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #210 | 0848 | TAK |   57%  |   63%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #211 | 0921 | TAK |   48%  |   72%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #212 | 0995 | TAK |   52%  |   68%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #213 | 1079 | TAK |   61%  |   59%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #214 | 1168 | TAK |   67%  |   53%  |  120 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #215 | 0181 | TAK |   71%  |   48%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #216 | 0346 | TAK |   68%  |   51%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #217 | 0364 | TAK |   59%  |   60%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #218 | 0410 | TAK |   44%  |   75%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #219 | 0416 | TAK |   49%  |   70%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #220 | 0607 | TAK |   70%  |   49%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #221 | 0655 | TAK |   47%  |   72%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #222 | 0677 | TAK |   50%  |   69%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #223 | 0686 | TAK |   64%  |   55%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #224 | 0754 | TAK |   49%  |   70%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #225 | 0833 | TAK |   60%  |   59%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #226 | 0918 | TAK |   55%  |   64%  |  119 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #227 | 0042 | TAK |   64%  |   54%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #228 | 0084 | TAK |   61%  |   57%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #229 | 0169 | TAK |   39%  |   79%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #230 | 0208 | TAK |   36%  |   82%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #231 | 0268 | TAK |   52%  |   66%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #232 | 0350 | TAK |   58%  |   60%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #233 | 0452 | TAK |   49%  |   69%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #234 | 0533 | TAK |   65%  |   53%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #235 | 0591 | TAK |   47%  |   71%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #236 | 0635 | TAK |   51%  |   67%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #237 | 0661 | TAK |   52%  |   66%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #238 | 0679 | TAK |   53%  |   65%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #239 | 0790 | TAK |   65%  |   53%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #240 | 0803 | TAK |   61%  |   57%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #241 | 0897 | TAK |   71%  |   47%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #242 | 0969 | TAK |   63%  |   55%  |  118 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #243 | 0035 | TAK |   44%  |   73%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #244 | 0106 | TAK |   51%  |   66%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #245 | 0137 | TAK |   49%  |   68%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #246 | 0189 | TAK |   46%  |   71%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #247 | 0332 | TAK |   53%  |   64%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #248 | 0542 | TAK |   55%  |   62%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #249 | 0588 | TAK |   62%  |   55%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #250 | 0614 | TAK |   56%  |   61%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #251 | 0625 | TAK |   67%  |   50%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #252 | 0636 | TAK |   65%  |   52%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #253 | 0688 | TAK |   64%  |   53%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #254 | 0710 | TAK |   49%  |   68%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #255 | 0723 | TAK |   52%  |   65%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #256 | 0733 | TAK |   77%  |   40%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #257 | 0745 | TAK |   53%  |   64%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #258 | 0806 | TAK |   51%  |   66%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #259 | 0876 | TAK |   52%  |   65%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #260 | 1152 | TAK |   53%  |   64%  |  117 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #261 | 0265 | TAK |   58%  |   58%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #262 | 0284 | TAK |   64%  |   52%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #263 | 0406 | TAK |   54%  |   62%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #264 | 0425 | TAK |   54%  |   62%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #265 | 0504 | TAK |   47%  |   69%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #266 | 0596 | TAK |   77%  |   39%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #267 | 0609 | TAK |   54%  |   62%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #268 | 0664 | TAK |   57%  |   59%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #269 | 0671 | TAK |   53%  |   63%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #270 | 0739 | TAK |   50%  |   66%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #271 | 0797 | TAK |   44%  |   72%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #272 | 0869 | TAK |   50%  |   66%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #273 | 0971 | TAK |   68%  |   48%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #274 | 0981 | TAK |   53%  |   63%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #275 | 0998 | TAK |   50%  |   66%  |  116 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #276 | 0015 | TAK |   66%  |   49%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #277 | 0168 | TAK |   65%  |   50%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #278 | 0395 | TAK |   58%  |   57%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #279 | 0431 | TAK |   69%  |   46%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #280 | 0608 | TAK |   54%  |   61%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #281 | 0768 | TAK |   68%  |   47%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #282 | 0855 | TAK |   52%  |   63%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #283 | 0893 | TAK |   46%  |   69%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #284 | 0938 | TAK |   57%  |   58%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #285 | 1051 | TAK |   48%  |   67%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #286 | 1070 | TAK |   71%  |   44%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #287 | 1096 | TAK |   43%  |   72%  |  115 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #288 | 0025 | TAK |   53%  |   61%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #289 | 0083 | TAK |   70%  |   44%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #290 | 0104 | TAK |   54%  |   60%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #291 | 0173 | TAK |   44%  |   70%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #292 | 0231 | TAK |   39%  |   75%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #293 | 0273 | TAK |   53%  |   61%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #294 | 0330 | TAK |   47%  |   67%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #295 | 0371 | TAK |   69%  |   45%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #296 | 0546 | TAK |   52%  |   62%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #297 | 0647 | TAK |   44%  |   70%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #298 | 0658 | TAK |   44%  |   70%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #299 | 0766 | TAK |   61%  |   53%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #300 | 0810 | TAK |   48%  |   66%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #301 | 0827 | TAK |   68%  |   46%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #302 | 1083 | TAK |   69%  |   45%  |  114 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #303 | 0161 | TAK |   57%  |   56%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #304 | 0177 | TAK |   45%  |   68%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #305 | 0238 | TAK |   58%  |   55%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #306 | 0258 | TAK |   52%  |   61%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #307 | 0278 | TAK |   50%  |   63%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #308 | 0281 | TAK |   49%  |   64%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #309 | 0303 | TAK |   59%  |   54%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #310 | 0331 | TAK |   62%  |   51%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #311 | 0446 | TAK |   56%  |   57%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #312 | 0459 | TAK |   65%  |   48%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #313 | 0462 | TAK |   46%  |   67%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #314 | 0603 | TAK |   58%  |   55%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #315 | 0633 | TAK |   44%  |   69%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #316 | 0708 | TAK |   67%  |   46%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #317 | 0783 | TAK |   58%  |   55%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #318 | 0791 | TAK |   46%  |   67%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #319 | 1027 | TAK |   61%  |   52%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #320 | 1153 | TAK |   52%  |   61%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #321 | 1198 | TAK |   54%  |   59%  |  113 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #322 | 0078 | TAK |   66%  |   46%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #323 | 0079 | TAK |   46%  |   66%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #324 | 0109 | TAK |   62%  |   50%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #325 | 0151 | TAK |   68%  |   44%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #326 | 0186 | TAK |   37%  |   75%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #327 | 0261 | TAK |   53%  |   59%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #328 | 0401 | TAK |   55%  |   57%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #329 | 0438 | TAK |   71%  |   41%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #330 | 0543 | TAK |   69%  |   43%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #331 | 0563 | TAK |   50%  |   62%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #332 | 0613 | TAK |   39%  |   73%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #333 | 0641 | TAK |   55%  |   57%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #334 | 0667 | TAK |   41%  |   71%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #335 | 0725 | TAK |   65%  |   47%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #336 | 0835 | TAK |   61%  |   51%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #337 | 0878 | TAK |   70%  |   42%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #338 | 0883 | TAK |   42%  |   70%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #339 | 0892 | TAK |   49%  |   63%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #340 | 0920 | TAK |   37%  |   75%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #341 | 0966 | TAK |   67%  |   45%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #342 | 1067 | TAK |   51%  |   61%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #343 | 1080 | TAK |   47%  |   65%  |  112 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #344 | 0018 | TAK |   45%  |   66%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #345 | 0027 | TAK |   56%  |   55%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #346 | 0101 | TAK |   57%  |   54%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #347 | 0134 | TAK |   53%  |   58%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #348 | 0142 | TAK |   48%  |   63%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #349 | 0152 | TAK |   80%  |   31%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #350 | 0197 | TAK |   67%  |   44%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #351 | 0236 | TAK |   66%  |   45%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #352 | 0266 | TAK |   55%  |   56%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #353 | 0379 | TAK |   67%  |   44%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #354 | 0414 | TAK |   68%  |   43%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #355 | 0436 | TAK |   44%  |   67%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #356 | 0531 | TAK |   45%  |   66%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #357 | 0644 | TAK |   57%  |   54%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #358 | 0852 | TAK |   56%  |   55%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #359 | 0924 | TAK |   51%  |   60%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #360 | 0986 | TAK |   58%  |   53%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #361 | 1020 | TAK |   72%  |   39%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #362 | 1107 | TAK |   49%  |   62%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #363 | 1114 | TAK |   67%  |   44%  |  111 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #364 | 0001 | TAK |   53%  |   57%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #365 | 0167 | TAK |   49%  |   61%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #366 | 0183 | TAK |   61%  |   49%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #367 | 0353 | TAK |   66%  |   44%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #368 | 0429 | TAK |   42%  |   68%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #369 | 0480 | TAK |   59%  |   51%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #370 | 0532 | TAK |   47%  |   63%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #371 | 0538 | TAK |   46%  |   64%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #372 | 0572 | TAK |   63%  |   47%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #373 | 0627 | TAK |   53%  |   57%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #374 | 0634 | TAK |   58%  |   52%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #375 | 0643 | TAK |   42%  |   68%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #376 | 0659 | TAK |   42%  |   68%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #377 | 0669 | TAK |   64%  |   46%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #378 | 0731 | TAK |   66%  |   44%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #379 | 0744 | TAK |   53%  |   57%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #380 | 0773 | TAK |   58%  |   52%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #381 | 0804 | TAK |   52%  |   58%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #382 | 0817 | TAK |   74%  |   36%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #383 | 0854 | TAK |   52%  |   58%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #384 | 0928 | TAK |   38%  |   72%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #385 | 1133 | TAK |   53%  |   57%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #386 | 1155 | TAK |   46%  |   64%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #387 | 1179 | TAK |   49%  |   61%  |  110 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #388 | 0029 | TAK |   53%  |   56%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #389 | 0099 | TAK |   46%  |   63%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #390 | 0102 | TAK |   51%  |   58%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #391 | 0174 | TAK |   49%  |   60%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #392 | 0178 | TAK |   50%  |   59%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #393 | 0312 | TAK |   44%  |   65%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #394 | 0398 | TAK |   59%  |   50%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #395 | 0481 | TAK |   48%  |   61%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #396 | 0492 | TAK |   51%  |   58%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #397 | 0523 | TAK |   44%  |   65%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #398 | 0536 | TAK |   43%  |   66%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #399 | 0594 | TAK |   42%  |   67%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #400 | 0823 | TAK |   42%  |   67%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #401 | 0829 | TAK |   46%  |   63%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #402 | 0903 | TAK |   34%  |   75%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #403 | 0951 | TAK |   52%  |   57%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #404 | 1053 | TAK |   48%  |   61%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #405 | 1169 | TAK |   44%  |   65%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #406 | 1176 | TAK |   41%  |   68%  |  109 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #407 | 0037 | TAK |   40%  |   68%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #408 | 0219 | TAK |   69%  |   39%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #409 | 0227 | TAK |   60%  |   48%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #410 | 0264 | TAK |   44%  |   64%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #411 | 0300 | TAK |   44%  |   64%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #412 | 0342 | TAK |   59%  |   49%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #413 | 0434 | TAK |   65%  |   43%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #414 | 0473 | TAK |   50%  |   58%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #415 | 0507 | TAK |   56%  |   52%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #416 | 0584 | TAK |   66%  |   42%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #417 | 0618 | TAK |   60%  |   48%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #418 | 0694 | TAK |   60%  |   48%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #419 | 0757 | TAK |   41%  |   67%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #420 | 0846 | TAK |   68%  |   40%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #421 | 0952 | TAK |   40%  |   68%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #422 | 1044 | TAK |   69%  |   39%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #423 | 1064 | TAK |   62%  |   46%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #424 | 1099 | TAK |   49%  |   59%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #425 | 1104 | TAK |   42%  |   66%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #426 | 1109 | TAK |   52%  |   56%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #427 | 1160 | TAK |   57%  |   51%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #428 | 1188 | TAK |   54%  |   54%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #429 | 1197 | TAK |   41%  |   67%  |  108 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #430 | 0039 | TAK |   54%  |   53%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #431 | 0095 | TAK |   76%  |   31%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #432 | 0171 | TAK |   55%  |   52%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #433 | 0176 | TAK |   43%  |   64%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #434 | 0196 | TAK |   47%  |   60%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #435 | 0205 | TAK |   48%  |   59%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #436 | 0225 | TAK |   55%  |   52%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #437 | 0246 | TAK |   65%  |   42%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #438 | 0252 | TAK |   47%  |   60%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #439 | 0316 | TAK |   42%  |   65%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #440 | 0435 | TAK |   60%  |   47%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #441 | 0548 | TAK |   38%  |   69%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #442 | 0582 | TAK |   52%  |   55%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #443 | 0583 | TAK |   61%  |   46%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #444 | 0793 | TAK |   56%  |   51%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #445 | 0905 | TAK |   66%  |   41%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #446 | 0919 | TAK |   40%  |   67%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #447 | 1014 | TAK |   66%  |   41%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #448 | 1023 | TAK |   47%  |   60%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #449 | 1036 | TAK |   61%  |   46%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #450 | 1122 | TAK |   56%  |   51%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #451 | 1159 | TAK |   64%  |   43%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #452 | 1181 | TAK |   36%  |   71%  |  107 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #453 | 0115 | TAK |   67%  |   39%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #454 | 0129 | TAK |   55%  |   51%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #455 | 0304 | TAK |   53%  |   53%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #456 | 0327 | TAK |   44%  |   62%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #457 | 0356 | TAK |   65%  |   41%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #458 | 0470 | TAK |   33%  |   73%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #459 | 0477 | TAK |   50%  |   56%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #460 | 0493 | TAK |   43%  |   63%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #461 | 0514 | TAK |   37%  |   69%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #462 | 0685 | TAK |   39%  |   67%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #463 | 0697 | TAK |   62%  |   44%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #464 | 0700 | TAK |   60%  |   46%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #465 | 0837 | TAK |   57%  |   49%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #466 | 0839 | TAK |   53%  |   53%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #467 | 0851 | TAK |   50%  |   56%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #468 | 0881 | TAK |   47%  |   59%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #469 | 0957 | TAK |   54%  |   52%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #470 | 1002 | TAK |   66%  |   40%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #471 | 1031 | TAK |   53%  |   53%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #472 | 1097 | TAK |   71%  |   35%  |  106 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #473 | 0063 | TAK |   48%  |   57%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #474 | 0159 | TAK |   54%  |   51%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #475 | 0202 | TAK |   39%  |   66%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #476 | 0341 | TAK |   37%  |   68%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #477 | 0380 | TAK |   36%  |   69%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #478 | 0510 | TAK |   49%  |   56%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #479 | 0512 | TAK |   32%  |   73%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #480 | 0621 | TAK |   38%  |   67%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #481 | 0693 | TAK |   39%  |   66%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #482 | 0945 | TAK |   55%  |   50%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #483 | 1062 | TAK |   70%  |   35%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #484 | 1100 | TAK |   64%  |   41%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #485 | 1118 | TAK |   41%  |   64%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #486 | 1136 | TAK |   48%  |   57%  |  105 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #487 | 0049 | TAK |   45%  |   59%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #488 | 0088 | TAK |   62%  |   42%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #489 | 0170 | TAK |   58%  |   46%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #490 | 0191 | TAK |   34%  |   70%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #491 | 0288 | TAK |   31%  |   73%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #492 | 0311 | TAK |   55%  |   49%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #493 | 0349 | TAK |   63%  |   41%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #494 | 0376 | TAK |   48%  |   56%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #495 | 0383 | TAK |   50%  |   54%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #496 | 0428 | TAK |   55%  |   49%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #497 | 0488 | TAK |   52%  |   52%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #498 | 0569 | TAK |   57%  |   47%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #499 | 0645 | TAK |   56%  |   48%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #500 | 0683 | TAK |   43%  |   61%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #501 | 0728 | TAK |   51%  |   53%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #502 | 0927 | TAK |   55%  |   49%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #503 | 1038 | TAK |   52%  |   52%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #504 | 1063 | TAK |   45%  |   59%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #505 | 1186 | TAK |   51%  |   53%  |  104 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #506 | 0118 | TAK |   37%  |   66%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #507 | 0119 | TAK |   63%  |   40%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #508 | 0147 | TAK |   36%  |   67%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #509 | 0175 | TAK |   56%  |   47%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #510 | 0207 | TAK |   61%  |   42%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #511 | 0354 | TAK |   52%  |   51%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #512 | 0357 | TAK |   59%  |   44%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #513 | 0598 | TAK |   42%  |   61%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #514 | 0721 | TAK |   56%  |   47%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #515 | 0734 | TAK |   36%  |   67%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #516 | 0776 | TAK |   47%  |   56%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #517 | 0811 | TAK |   53%  |   50%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #518 | 0824 | TAK |   46%  |   57%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #519 | 1111 | TAK |   63%  |   40%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #520 | 1183 | TAK |   54%  |   49%  |  103 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #521 | 0058 | TAK |   62%  |   40%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #522 | 0116 | TAK |   43%  |   59%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #523 | 0232 | TAK |   40%  |   62%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #524 | 0253 | TAK |   54%  |   48%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #525 | 0338 | TAK |   63%  |   39%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #526 | 0394 | TAK |   46%  |   56%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #527 | 0450 | TAK |   48%  |   54%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #528 | 0640 | TAK |   39%  |   63%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #529 | 0654 | TAK |   63%  |   39%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #530 | 0670 | TAK |   47%  |   55%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #531 | 0727 | TAK |   51%  |   51%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #532 | 0751 | TAK |   63%  |   39%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #533 | 0907 | TAK |   57%  |   45%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #534 | 0954 | TAK |   41%  |   61%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #535 | 1009 | TAK |   44%  |   58%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #536 | 1045 | TAK |   68%  |   34%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #537 | 1108 | TAK |   60%  |   42%  |  102 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #538 | 0249 | TAK |   55%  |   46%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #539 | 0282 | TAK |   37%  |   64%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #540 | 0292 | TAK |   64%  |   37%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #541 | 0388 | TAK |   67%  |   34%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #542 | 0419 | TAK |   46%  |   55%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #543 | 0499 | TAK |   52%  |   49%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #544 | 0535 | TAK |   45%  |   56%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #545 | 0557 | TAK |   38%  |   63%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #546 | 0668 | TAK |   45%  |   56%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #547 | 0718 | TAK |   43%  |   58%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #548 | 0720 | TAK |   57%  |   44%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #549 | 0752 | TAK |   74%  |   27%  |  101 | OBLANY (Praktyka) |
+| #550 | 0753 | TAK |   45%  |   56%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #551 | 0760 | TAK |   53%  |   48%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #552 | 0784 | TAK |   51%  |   50%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #553 | 0821 | TAK |   70%  |   31%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #554 | 0963 | TAK |   66%  |   35%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #555 | 0983 | TAK |   66%  |   35%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #556 | 1021 | TAK |   56%  |   45%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #557 | 1028 | TAK |   53%  |   48%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #558 | 1039 | TAK |   60%  |   41%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #559 | 1042 | TAK |   37%  |   64%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #560 | 1156 | TAK |   57%  |   44%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #561 | 1187 | TAK |   52%  |   49%  |  101 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #562 | 0020 | TAK |   53%  |   47%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #563 | 0048 | TAK |   42%  |   58%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #564 | 0068 | TAK |   55%  |   45%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #565 | 0074 | TAK |   50%  |   50%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #566 | 0195 | TAK |   55%  |   45%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #567 | 0361 | TAK |   54%  |   46%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #568 | 0441 | TAK |   57%  |   43%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #569 | 0617 | TAK |   51%  |   49%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #570 | 0690 | TAK |   43%  |   57%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #571 | 0742 | TAK |   48%  |   52%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #572 | 0769 | TAK |   52%  |   48%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #573 | 0782 | TAK |   45%  |   55%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #574 | 0788 | TAK |   45%  |   55%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #575 | 0875 | TAK |   64%  |   36%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #576 | 0917 | TAK |   41%  |   59%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #577 | 0968 | TAK |   51%  |   49%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #578 | 0980 | TAK |   46%  |   54%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #579 | 1003 | TAK |   63%  |   37%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #580 | 1026 | TAK |   38%  |   62%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #581 | 1147 | TAK |   41%  |   59%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #582 | 1166 | TAK |   42%  |   58%  |  100 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #583 | 0139 | TAK |   41%  |   58%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #584 | 0289 | TAK |   43%  |   56%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #585 | 0298 | TAK |   31%  |   68%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #586 | 0369 | TAK |   54%  |   45%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #587 | 0402 | TAK |   44%  |   55%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #588 | 0421 | TAK |   52%  |   47%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #589 | 0444 | TAK |   41%  |   58%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #590 | 0491 | TAK |   36%  |   63%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #591 | 0571 | TAK |   61%  |   38%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #592 | 0586 | TAK |   55%  |   44%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #593 | 0630 | TAK |   42%  |   57%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #594 | 0695 | TAK |   56%  |   43%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #595 | 0755 | TAK |   41%  |   58%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #596 | 0830 | TAK |   38%  |   61%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #597 | 0843 | TAK |   50%  |   49%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #598 | 0865 | TAK |   67%  |   32%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #599 | 0887 | TAK |   57%  |   42%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #600 | 0941 | TAK |   70%  |   29%  |   99 | OBLANY (Praktyka) |
+| #601 | 1015 | TAK |   42%  |   57%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #602 | 1060 | TAK |   51%  |   48%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #603 | 1076 | TAK |   30%  |   69%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #604 | 1085 | TAK |   36%  |   63%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #605 | 1103 | TAK |   50%  |   49%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #606 | 1135 | TAK |   48%  |   51%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #607 | 1189 | TAK |   49%  |   50%  |   99 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #608 | 0032 | TAK |   50%  |   48%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #609 | 0086 | TAK |   43%  |   55%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #610 | 0122 | TAK |   67%  |   31%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #611 | 0131 | TAK |   54%  |   44%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #612 | 0203 | TAK |   53%  |   45%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #613 | 0247 | TAK |   52%  |   46%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #614 | 0251 | TAK |   30%  |   68%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #615 | 0276 | TAK |   53%  |   45%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #616 | 0319 | TAK |   34%  |   64%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #617 | 0326 | TAK |   50%  |   48%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #618 | 0460 | TAK |   42%  |   56%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #619 | 0555 | TAK |   42%  |   56%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #620 | 0593 | TAK |   45%  |   53%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #621 | 0741 | TAK |   50%  |   48%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #622 | 0747 | TAK |   58%  |   40%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #623 | 0770 | TAK |   52%  |   46%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #624 | 0862 | TAK |   70%  |   28%  |   98 | OBLANY (Praktyka) |
+| #625 | 0934 | TAK |   46%  |   52%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #626 | 1134 | TAK |   51%  |   47%  |   98 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #627 | 0123 | TAK |   31%  |   66%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #628 | 0260 | TAK |   53%  |   44%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #629 | 0263 | TAK |   38%  |   59%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #630 | 0359 | TAK |   50%  |   47%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #631 | 0423 | TAK |   54%  |   43%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #632 | 0453 | TAK |   33%  |   64%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #633 | 0616 | TAK |   47%  |   50%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #634 | 0663 | TAK |   47%  |   50%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #635 | 0678 | TAK |   64%  |   33%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #636 | 0702 | TAK |   58%  |   39%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #637 | 0743 | TAK |   52%  |   45%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #638 | 0772 | TAK |   56%  |   41%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #639 | 0809 | TAK |   66%  |   31%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #640 | 0814 | TAK |   49%  |   48%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #641 | 0879 | TAK |   52%  |   45%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #642 | 0953 | TAK |   34%  |   63%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #643 | 1016 | TAK |   37%  |   60%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #644 | 1072 | TAK |   46%  |   51%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #645 | 1091 | TAK |   31%  |   66%  |   97 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #646 | 0038 | TAK |   57%  |   39%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #647 | 0069 | TAK |   45%  |   51%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #648 | 0100 | TAK |   56%  |   40%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #649 | 0124 | TAK |   54%  |   42%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #650 | 0165 | TAK |   46%  |   50%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #651 | 0230 | TAK |   38%  |   58%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #652 | 0314 | TAK |   54%  |   42%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #653 | 0360 | TAK |   50%  |   46%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #654 | 0389 | TAK |   58%  |   38%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #655 | 0432 | TAK |   49%  |   47%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #656 | 0466 | TAK |   55%  |   41%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #657 | 0573 | TAK |   59%  |   37%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #658 | 0717 | TAK |   53%  |   43%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #659 | 0722 | TAK |   49%  |   47%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #660 | 0746 | TAK |   51%  |   45%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #661 | 0792 | TAK |   44%  |   52%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #662 | 0845 | TAK |   44%  |   52%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #663 | 0863 | TAK |   32%  |   64%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #664 | 0914 | TAK |   35%  |   61%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #665 | 0930 | TAK |   51%  |   45%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #666 | 1005 | TAK |   50%  |   46%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #667 | 1025 | TAK |   37%  |   59%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #668 | 1057 | TAK |   45%  |   51%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #669 | 1084 | TAK |   36%  |   60%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #670 | 1092 | TAK |   52%  |   44%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #671 | 1095 | TAK |   53%  |   43%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #672 | 1128 | TAK |   75%  |   21%  |   96 | OBLANY (Praktyka) |
+| #673 | 1144 | TAK |   37%  |   59%  |   96 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #674 | 0019 | TAK |   48%  |   47%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #675 | 0050 | TAK |   57%  |   38%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #676 | 0121 | TAK |   39%  |   56%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #677 | 0146 | TAK |   57%  |   38%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #678 | 0185 | TAK |   68%  |   27%  |   95 | OBLANY (Praktyka) |
+| #679 | 0243 | TAK |   50%  |   45%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #680 | 0301 | TAK |   44%  |   51%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #681 | 0309 | TAK |   34%  |   61%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #682 | 0337 | TAK |   37%  |   58%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #683 | 0339 | TAK |   70%  |   25%  |   95 | OBLANY (Praktyka) |
+| #684 | 0345 | TAK |   32%  |   63%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #685 | 0390 | TAK |   46%  |   49%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #686 | 0422 | TAK |   57%  |   38%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #687 | 0442 | TAK |   45%  |   50%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #688 | 0463 | TAK |   40%  |   55%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #689 | 0484 | TAK |   52%  |   43%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #690 | 0490 | TAK |   58%  |   37%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #691 | 0657 | TAK |   42%  |   53%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #692 | 0715 | TAK |   49%  |   46%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #693 | 0849 | TAK |   53%  |   42%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #694 | 0864 | TAK |   53%  |   42%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #695 | 0885 | TAK |   53%  |   42%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #696 | 0923 | TAK |   38%  |   57%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #697 | 1196 | TAK |   62%  |   33%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #698 | 1199 | TAK |   48%  |   47%  |   95 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #699 | 0051 | TAK |   31%  |   63%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #700 | 0059 | TAK |   55%  |   39%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #701 | 0098 | TAK |   45%  |   49%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #702 | 0120 | TAK |   42%  |   52%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #703 | 0182 | TAK |   60%  |   34%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #704 | 0362 | TAK |   41%  |   53%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #705 | 0373 | TAK |   38%  |   56%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #706 | 0381 | TAK |   38%  |   56%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #707 | 0457 | TAK |   51%  |   43%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #708 | 0540 | TAK |   45%  |   49%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #709 | 0813 | TAK |   34%  |   60%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #710 | 0841 | TAK |   45%  |   49%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #711 | 0874 | TAK |   59%  |   35%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #712 | 0996 | TAK |   30%  |   64%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #713 | 1019 | TAK |   31%  |   63%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #714 | 1130 | TAK |   34%  |   60%  |   94 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #715 | 0016 | TAK |   62%  |   31%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #716 | 0030 | TAK |   52%  |   41%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #717 | 0056 | TAK |   55%  |   38%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #718 | 0064 | TAK |   45%  |   48%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #719 | 0180 | TAK |   45%  |   48%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #720 | 0193 | TAK |   52%  |   41%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #721 | 0206 | TAK |   50%  |   43%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #722 | 0248 | TAK |   51%  |   42%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #723 | 0368 | TAK |   42%  |   51%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #724 | 0386 | TAK |   47%  |   46%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #725 | 0387 | TAK |   53%  |   40%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #726 | 0691 | TAK |   39%  |   54%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #727 | 0796 | TAK |   55%  |   38%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #728 | 0822 | TAK |   57%  |   36%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #729 | 0853 | TAK |   53%  |   40%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #730 | 0899 | TAK |   41%  |   52%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #731 | 0909 | TAK |   42%  |   51%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #732 | 0932 | TAK |   54%  |   39%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #733 | 0943 | TAK |   50%  |   43%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #734 | 1013 | TAK |   53%  |   40%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #735 | 1017 | TAK |   52%  |   41%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #736 | 1040 | TAK |   32%  |   61%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #737 | 1069 | TAK |   60%  |   33%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #738 | 1129 | TAK |   60%  |   33%  |   93 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #739 | 0005 | TAK |   54%  |   38%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #740 | 0091 | TAK |   46%  |   46%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #741 | 0157 | TAK |   51%  |   41%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #742 | 0286 | TAK |   40%  |   52%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #743 | 0287 | TAK |   33%  |   59%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #744 | 0329 | TAK |   47%  |   45%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #745 | 0334 | TAK |   40%  |   52%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #746 | 0385 | TAK |   55%  |   37%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #747 | 0404 | TAK |   32%  |   60%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #748 | 0426 | TAK |   38%  |   54%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #749 | 0581 | TAK |   53%  |   39%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #750 | 0703 | TAK |   56%  |   36%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #751 | 0799 | TAK |   34%  |   58%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #752 | 0800 | TAK |   37%  |   55%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #753 | 0838 | TAK |   50%  |   42%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #754 | 0858 | TAK |   33%  |   59%  |   92 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #755 | 0085 | TAK |   49%  |   42%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #756 | 0307 | TAK |   44%  |   47%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #757 | 0348 | TAK |   62%  |   29%  |   91 | OBLANY (Praktyka) |
+| #758 | 0411 | TAK |   63%  |   28%  |   91 | OBLANY (Praktyka) |
+| #759 | 0495 | TAK |   44%  |   47%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #760 | 0528 | TAK |   37%  |   54%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #761 | 0547 | TAK |   46%  |   45%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #762 | 0568 | TAK |   36%  |   55%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #763 | 0684 | TAK |   38%  |   53%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #764 | 0698 | TAK |   34%  |   57%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #765 | 0729 | TAK |   66%  |   25%  |   91 | OBLANY (Praktyka) |
+| #766 | 0758 | TAK |   58%  |   33%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #767 | 0761 | TAK |   46%  |   45%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #768 | 0828 | TAK |   47%  |   44%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #769 | 0857 | TAK |   59%  |   32%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #770 | 0889 | TAK |   42%  |   49%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #771 | 0904 | TAK |   49%  |   42%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #772 | 0944 | TAK |   52%  |   39%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #773 | 0985 | TAK |   37%  |   54%  |   91 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #774 | 0003 | TAK |   47%  |   43%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #775 | 0012 | TAK |   50%  |   40%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #776 | 0054 | TAK |   45%  |   45%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #777 | 0184 | TAK |   54%  |   36%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #778 | 0382 | TAK |   36%  |   54%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #779 | 0384 | TAK |   42%  |   48%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #780 | 0558 | TAK |   37%  |   53%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #781 | 0599 | TAK |   61%  |   29%  |   90 | OBLANY (Praktyka) |
+| #782 | 0687 | TAK |   34%  |   56%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #783 | 0807 | TAK |   60%  |   30%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #784 | 0886 | TAK |   52%  |   38%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #785 | 0891 | TAK |   48%  |   42%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #786 | 1098 | TAK |   34%  |   56%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #787 | 1101 | TAK |   46%  |   44%  |   90 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #788 | 0072 | TAK |   55%  |   34%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #789 | 0210 | TAK |   58%  |   31%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #790 | 0290 | TAK |   45%  |   44%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #791 | 0315 | TAK |   36%  |   53%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #792 | 0505 | TAK |   30%  |   59%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #793 | 0522 | TAK |   66%  |   23%  |   89 | OBLANY (Praktyka) |
+| #794 | 0526 | TAK |   77%  |   12%  |   89 | OBLANY (Praktyka) |
+| #795 | 0544 | TAK |   38%  |   51%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #796 | 0620 | TAK |   38%  |   51%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #797 | 0673 | TAK |   60%  |   29%  |   89 | OBLANY (Praktyka) |
+| #798 | 0692 | TAK |   53%  |   36%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #799 | 0867 | TAK |   57%  |   32%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #800 | 0967 | TAK |   49%  |   40%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #801 | 1035 | TAK |   65%  |   24%  |   89 | OBLANY (Praktyka) |
+| #802 | 1041 | TAK |   35%  |   54%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #803 | 1066 | TAK |   49%  |   40%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #804 | 1113 | TAK |   37%  |   52%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #805 | 1119 | TAK |   37%  |   52%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #806 | 1170 | TAK |   42%  |   47%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #807 | 1173 | TAK |   51%  |   38%  |   89 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #808 | 0296 | TAK |   39%  |   49%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #809 | 0347 | TAK |   47%  |   41%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #810 | 0409 | TAK |   41%  |   47%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #811 | 0486 | TAK |   45%  |   43%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #812 | 0665 | TAK |   38%  |   50%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #813 | 0750 | TAK |   39%  |   49%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #814 | 0847 | TAK |   31%  |   57%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #815 | 0877 | TAK |   38%  |   50%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #816 | 0937 | TAK |   38%  |   50%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #817 | 0955 | TAK |   44%  |   44%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #818 | 0984 | TAK |   53%  |   35%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #819 | 1000 | TAK |   46%  |   42%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #820 | 1089 | TAK |   43%  |   45%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #821 | 1192 | TAK |   37%  |   51%  |   88 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #822 | 0010 | TAK |   56%  |   31%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #823 | 0023 | TAK |   54%  |   33%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #824 | 0125 | TAK |   68%  |   19%  |   87 | OBLANY (Praktyka) |
+| #825 | 0163 | TAK |   65%  |   22%  |   87 | OBLANY (Praktyka) |
+| #826 | 0166 | TAK |   36%  |   51%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #827 | 0214 | TAK |   72%  |   15%  |   87 | OBLANY (Praktyka) |
+| #828 | 0275 | TAK |   39%  |   48%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #829 | 0440 | TAK |   36%  |   51%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #830 | 0699 | TAK |   55%  |   32%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #831 | 0856 | TAK |   35%  |   52%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #832 | 0890 | TAK |   37%  |   50%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #833 | 1007 | TAK |   40%  |   47%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #834 | 1068 | TAK |   44%  |   43%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #835 | 1082 | TAK |   44%  |   43%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #836 | 1102 | TAK |   55%  |   32%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #837 | 1125 | TAK |   51%  |   36%  |   87 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #838 | 0009 | TAK |   49%  |   37%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #839 | 0067 | TAK |   38%  |   48%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #840 | 0107 | TAK |   41%  |   45%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #841 | 0108 | TAK |   64%  |   22%  |   86 | OBLANY (Praktyka) |
+| #842 | 0179 | TAK |   58%  |   28%  |   86 | OBLANY (Praktyka) |
+| #843 | 0340 | TAK |   47%  |   39%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #844 | 0396 | TAK |   45%  |   41%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #845 | 0407 | TAK |   52%  |   34%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #846 | 0475 | TAK |   45%  |   41%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #847 | 0559 | TAK |   60%  |   26%  |   86 | OBLANY (Praktyka) |
+| #848 | 0612 | TAK |   59%  |   27%  |   86 | OBLANY (Praktyka) |
+| #849 | 0622 | TAK |   37%  |   49%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #850 | 0911 | TAK |   35%  |   51%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #851 | 0931 | TAK |   39%  |   47%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #852 | 0989 | TAK |   31%  |   55%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #853 | 1024 | TAK |   35%  |   51%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #854 | 1075 | TAK |   64%  |   22%  |   86 | OBLANY (Praktyka) |
+| #855 | 1078 | TAK |   73%  |   13%  |   86 | OBLANY (Praktyka) |
+| #856 | 1094 | TAK |   46%  |   40%  |   86 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #857 | 0004 | TAK |   54%  |   31%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #858 | 0071 | TAK |   37%  |   48%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #859 | 0132 | TAK |   52%  |   33%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #860 | 0133 | TAK |   49%  |   36%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #861 | 0262 | TAK |   51%  |   34%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #862 | 0279 | TAK |   39%  |   46%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #863 | 0374 | TAK |   38%  |   47%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #864 | 0392 | TAK |   40%  |   45%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #865 | 0420 | TAK |   53%  |   32%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #866 | 0487 | TAK |   59%  |   26%  |   85 | OBLANY (Praktyka) |
+| #867 | 0501 | TAK |   59%  |   26%  |   85 | OBLANY (Praktyka) |
+| #868 | 0805 | TAK |   31%  |   54%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #869 | 0929 | TAK |   46%  |   39%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #870 | 0982 | TAK |   39%  |   46%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #871 | 1121 | TAK |   34%  |   51%  |   85 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #872 | 1200 | TAK |   58%  |   27%  |   85 | OBLANY (Praktyka) |
+| #873 | 0113 | TAK |   51%  |   33%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #874 | 0158 | TAK |   38%  |   46%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #875 | 0358 | TAK |   47%  |   37%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #876 | 0403 | TAK |   35%  |   49%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #877 | 0605 | TAK |   54%  |   30%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #878 | 0628 | TAK |   50%  |   34%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #879 | 0637 | TAK |   35%  |   49%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #880 | 0808 | TAK |   46%  |   38%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #881 | 1047 | TAK |   42%  |   42%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #882 | 1048 | TAK |   48%  |   36%  |   84 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #883 | 0077 | TAK |   42%  |   41%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #884 | 0080 | TAK |   44%  |   39%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #885 | 0228 | TAK |   41%  |   42%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #886 | 0325 | TAK |   32%  |   51%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #887 | 0372 | TAK |   36%  |   47%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #888 | 0399 | TAK |   71%  |   12%  |   83 | OBLANY (Praktyka) |
+| #889 | 0461 | TAK |   39%  |   44%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #890 | 0467 | TAK |   33%  |   50%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #891 | 0476 | TAK |   40%  |   43%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #892 | 0517 | TAK |   45%  |   38%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #893 | 0519 | TAK |   35%  |   48%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #894 | 0580 | TAK |   44%  |   39%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #895 | 0789 | TAK |   52%  |   31%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #896 | 1055 | TAK |   52%  |   31%  |   83 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #897 | 0073 | TAK |   51%  |   31%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #898 | 0135 | TAK |   50%  |   32%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #899 | 0211 | TAK |   48%  |   34%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #900 | 0218 | TAK |   52%  |   30%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #901 | 0291 | TAK |   38%  |   44%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #902 | 0551 | TAK |   41%  |   41%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #903 | 0787 | TAK |   44%  |   38%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #904 | 0812 | TAK |   51%  |   31%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #905 | 0913 | TAK |   41%  |   41%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #906 | 0926 | TAK |   44%  |   38%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #907 | 0992 | TAK |   51%  |   31%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #908 | 1037 | TAK |   58%  |   24%  |   82 | OBLANY (Praktyka) |
+| #909 | 1050 | TAK |   38%  |   44%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #910 | 1123 | TAK |   42%  |   40%  |   82 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #911 | 0040 | TAK |   34%  |   47%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #912 | 0066 | TAK |   56%  |   25%  |   81 | OBLANY (Praktyka) |
+| #913 | 0144 | TAK |   37%  |   44%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #914 | 0277 | TAK |   44%  |   37%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #915 | 0313 | TAK |   33%  |   48%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #916 | 0415 | TAK |   41%  |   40%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #917 | 0497 | TAK |   44%  |   37%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #918 | 0503 | TAK |   43%  |   38%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #919 | 0590 | TAK |   50%  |   31%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #920 | 0736 | TAK |   33%  |   48%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #921 | 0786 | TAK |   41%  |   40%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #922 | 0802 | TAK |   48%  |   33%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #923 | 0873 | TAK |   50%  |   31%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #924 | 0962 | TAK |   32%  |   49%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #925 | 1004 | TAK |   65%  |   16%  |   81 | OBLANY (Praktyka) |
+| #926 | 1120 | TAK |   43%  |   38%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #927 | 1146 | TAK |   31%  |   50%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #928 | 1164 | TAK |   33%  |   48%  |   81 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #929 | 0062 | TAK |   58%  |   22%  |   80 | OBLANY (Praktyka) |
+| #930 | 0162 | TAK |   56%  |   24%  |   80 | OBLANY (Praktyka) |
+| #931 | 0705 | TAK |   59%  |   21%  |   80 | OBLANY (Praktyka) |
+| #932 | 0748 | TAK |   40%  |   40%  |   80 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #933 | 0794 | TAK |   49%  |   31%  |   80 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #934 | 0898 | TAK |   56%  |   24%  |   80 | OBLANY (Praktyka) |
+| #935 | 0940 | TAK |   53%  |   27%  |   80 | OBLANY (Praktyka) |
+| #936 | 0974 | TAK |   33%  |   47%  |   80 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #937 | 1043 | TAK |   59%  |   21%  |   80 | OBLANY (Praktyka) |
+| #938 | 1073 | TAK |   54%  |   26%  |   80 | OBLANY (Praktyka) |
+| #939 | 0022 | TAK |   42%  |   37%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #940 | 0033 | TAK |   30%  |   49%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #941 | 0034 | TAK |   60%  |   19%  |   79 | OBLANY (Praktyka) |
+| #942 | 0045 | TAK |   69%  |   10%  |   79 | OBLANY (Praktyka) |
+| #943 | 0090 | TAK |   49%  |   30%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #944 | 0112 | TAK |   52%  |   27%  |   79 | OBLANY (Praktyka) |
+| #945 | 0145 | TAK |   40%  |   39%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #946 | 0164 | TAK |   53%  |   26%  |   79 | OBLANY (Praktyka) |
+| #947 | 0269 | TAK |   52%  |   27%  |   79 | OBLANY (Praktyka) |
+| #948 | 0306 | TAK |   40%  |   39%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #949 | 0323 | TAK |   57%  |   22%  |   79 | OBLANY (Praktyka) |
+| #950 | 0377 | TAK |   48%  |   31%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #951 | 0430 | TAK |   30%  |   49%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #952 | 0443 | TAK |   44%  |   35%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #953 | 0469 | TAK |   51%  |   28%  |   79 | OBLANY (Praktyka) |
+| #954 | 0566 | TAK |   57%  |   22%  |   79 | OBLANY (Praktyka) |
+| #955 | 0602 | TAK |   33%  |   46%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #956 | 0726 | TAK |   57%  |   22%  |   79 | OBLANY (Praktyka) |
+| #957 | 0834 | TAK |   39%  |   40%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #958 | 0840 | TAK |   47%  |   32%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #959 | 0870 | TAK |   59%  |   20%  |   79 | OBLANY (Praktyka) |
+| #960 | 0964 | TAK |   50%  |   29%  |   79 | OBLANY (Praktyka) |
+| #961 | 0987 | TAK |   35%  |   44%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #962 | 1093 | TAK |   47%  |   32%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #963 | 1175 | TAK |   31%  |   48%  |   79 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #964 | 1180 | TAK |   53%  |   26%  |   79 | OBLANY (Praktyka) |
+| #965 | 0060 | TAK |   34%  |   44%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #966 | 0140 | TAK |   59%  |   19%  |   78 | OBLANY (Praktyka) |
+| #967 | 0320 | TAK |   42%  |   36%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #968 | 0464 | TAK |   50%  |   28%  |   78 | OBLANY (Praktyka) |
+| #969 | 0496 | TAK |   36%  |   42%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #970 | 0560 | TAK |   35%  |   43%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #971 | 0595 | TAK |   34%  |   44%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #972 | 0631 | TAK |   51%  |   27%  |   78 | OBLANY (Praktyka) |
+| #973 | 0660 | TAK |   38%  |   40%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #974 | 0719 | TAK |   50%  |   28%  |   78 | OBLANY (Praktyka) |
+| #975 | 1001 | TAK |   39%  |   39%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #976 | 1116 | TAK |   43%  |   35%  |   78 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #977 | 0044 | TAK |   49%  |   28%  |   77 | OBLANY (Praktyka) |
+| #978 | 0126 | TAK |   34%  |   43%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #979 | 0737 | TAK |   32%  |   45%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #980 | 0749 | TAK |   38%  |   39%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #981 | 0801 | TAK |   42%  |   35%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #982 | 0884 | TAK |   53%  |   24%  |   77 | OBLANY (Praktyka) |
+| #983 | 0902 | TAK |   38%  |   39%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #984 | 0990 | TAK |   58%  |   19%  |   77 | OBLANY (Praktyka) |
+| #985 | 0997 | TAK |   42%  |   35%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #986 | 1054 | TAK |   45%  |   32%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #987 | 1131 | TAK |   30%  |   47%  |   77 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #988 | 1178 | TAK |   56%  |   21%  |   77 | OBLANY (Praktyka) |
+| #989 | 0114 | TAK |   36%  |   40%  |   76 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #990 | 0201 | TAK |   42%  |   34%  |   76 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #991 | 0213 | TAK |   36%  |   40%  |   76 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #992 | 0365 | TAK |   47%  |   29%  |   76 | OBLANY (Praktyka) |
+| #993 | 0445 | TAK |   41%  |   35%  |   76 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #994 | 0912 | TAK |   47%  |   29%  |   76 | OBLANY (Praktyka) |
+| #995 | 0977 | TAK |   39%  |   37%  |   76 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #996 | 0239 | TAK |   36%  |   39%  |   75 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #997 | 0552 | TAK |   49%  |   26%  |   75 | OBLANY (Praktyka) |
+| #998 | 0735 | TAK |   37%  |   38%  |   75 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #999 | 0880 | TAK |   39%  |   36%  |   75 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1000 | 0947 | TAK |   30%  |   45%  |   75 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1001 | 1058 | TAK |   43%  |   32%  |   75 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1002 | 0155 | TAK |   53%  |   21%  |   74 | OBLANY (Praktyka) |
+| #1003 | 0234 | TAK |   63%  |   11%  |   74 | OBLANY (Praktyka) |
+| #1004 | 0259 | TAK |   41%  |   33%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1005 | 0310 | TAK |   31%  |   43%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1006 | 0324 | TAK |   47%  |   27%  |   74 | OBLANY (Praktyka) |
+| #1007 | 0363 | TAK |   38%  |   36%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1008 | 0489 | TAK |   49%  |   25%  |   74 | OBLANY (Praktyka) |
+| #1009 | 0550 | TAK |   39%  |   35%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1010 | 0831 | TAK |   41%  |   33%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1011 | 0910 | TAK |   54%  |   20%  |   74 | OBLANY (Praktyka) |
+| #1012 | 0933 | TAK |   30%  |   44%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1013 | 0991 | TAK |   48%  |   26%  |   74 | OBLANY (Praktyka) |
+| #1014 | 1052 | TAK |   40%  |   34%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1015 | 1071 | TAK |   30%  |   44%  |   74 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1016 | 0087 | TAK |   49%  |   24%  |   73 | OBLANY (Praktyka) |
+| #1017 | 0215 | TAK |   32%  |   41%  |   73 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1018 | 0270 | TAK |   44%  |   29%  |   73 | OBLANY (Praktyka) |
+| #1019 | 0271 | TAK |   35%  |   38%  |   73 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1020 | 0297 | TAK |   47%  |   26%  |   73 | OBLANY (Praktyka) |
+| #1021 | 0619 | TAK |   56%  |   17%  |   73 | OBLANY (Praktyka) |
+| #1022 | 0656 | TAK |   41%  |   32%  |   73 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1023 | 0759 | TAK |   44%  |   29%  |   73 | OBLANY (Praktyka) |
+| #1024 | 0999 | TAK |   59%  |   14%  |   73 | OBLANY (Praktyka) |
+| #1025 | 1056 | TAK |   31%  |   42%  |   73 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1026 | 1167 | TAK |   38%  |   35%  |   73 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1027 | 1184 | TAK |   49%  |   24%  |   73 | OBLANY (Praktyka) |
+| #1028 | 0136 | TAK |   36%  |   36%  |   72 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1029 | 0254 | TAK |   54%  |   18%  |   72 | OBLANY (Praktyka) |
+| #1030 | 0322 | TAK |   39%  |   33%  |   72 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1031 | 0592 | TAK |   54%  |   18%  |   72 | OBLANY (Praktyka) |
+| #1032 | 0629 | TAK |   50%  |   22%  |   72 | OBLANY (Praktyka) |
+| #1033 | 0896 | TAK |   51%  |   21%  |   72 | OBLANY (Praktyka) |
+| #1034 | 0958 | TAK |   47%  |   25%  |   72 | OBLANY (Praktyka) |
+| #1035 | 0047 | TAK |   50%  |   21%  |   71 | OBLANY (Praktyka) |
+| #1036 | 0105 | TAK |   40%  |   31%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1037 | 0209 | TAK |   42%  |   29%  |   71 | OBLANY (Praktyka) |
+| #1038 | 0302 | TAK |   36%  |   35%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1039 | 0471 | TAK |   40%  |   31%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1040 | 0521 | TAK |   41%  |   30%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1041 | 0626 | TAK |   35%  |   36%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1042 | 1185 | TAK |   34%  |   37%  |   71 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1043 | 0065 | TAK |   38%  |   32%  |   70 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1044 | 0606 | TAK |   49%  |   21%  |   70 | OBLANY (Praktyka) |
+| #1045 | 0979 | TAK |   32%  |   38%  |   70 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1046 | 1137 | TAK |   60%  |   10%  |   70 | OBLANY (Praktyka) |
+| #1047 | 0007 | TAK |   45%  |   24%  |   69 | OBLANY (Praktyka) |
+| #1048 | 0192 | TAK |   33%  |   36%  |   69 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1049 | 0530 | TAK |   34%  |   35%  |   69 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1050 | 0942 | TAK |   36%  |   33%  |   69 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1051 | 0993 | TAK |   34%  |   35%  |   69 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1052 | 1174 | TAK |   44%  |   25%  |   69 | OBLANY (Praktyka) |
+| #1053 | 0707 | TAK |   33%  |   35%  |   68 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1054 | 0819 | TAK |   31%  |   37%  |   68 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1055 | 1049 | TAK |   47%  |   21%  |   68 | OBLANY (Praktyka) |
+| #1056 | 0024 | TAK |   34%  |   33%  |   67 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1057 | 0130 | TAK |   36%  |   31%  |   67 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1058 | 0328 | TAK |   46%  |   21%  |   67 | OBLANY (Praktyka) |
+| #1059 | 0820 | TAK |   32%  |   35%  |   67 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1060 | 1046 | TAK |   55%  |   12%  |   67 | OBLANY (Praktyka) |
+| #1061 | 1090 | TAK |   38%  |   29%  |   67 | OBLANY (Praktyka) |
+| #1062 | 0061 | TAK |   51%  |   15%  |   66 | OBLANY (Praktyka) |
+| #1063 | 0378 | TAK |   60%  |    6%  |   66 | OBLANY (Praktyka) |
+| #1064 | 0498 | TAK |   52%  |   14%  |   66 | OBLANY (Praktyka) |
+| #1065 | 1139 | TAK |   40%  |   26%  |   66 | OBLANY (Praktyka) |
+| #1066 | 1171 | TAK |   30%  |   36%  |   66 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1067 | 0117 | TAK |   57%  |    8%  |   65 | OBLANY (Praktyka) |
+| #1068 | 0241 | TAK |   31%  |   34%  |   65 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1069 | 0479 | TAK |   45%  |   20%  |   65 | OBLANY (Praktyka) |
+| #1070 | 0666 | TAK |   50%  |   15%  |   65 | OBLANY (Praktyka) |
+| #1071 | 0956 | TAK |   38%  |   27%  |   65 | OBLANY (Praktyka) |
+| #1072 | 0272 | TAK |   38%  |   26%  |   64 | OBLANY (Praktyka) |
+| #1073 | 0674 | TAK |   31%  |   33%  |   64 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1074 | 0689 | TAK |   49%  |   15%  |   64 | OBLANY (Praktyka) |
+| #1075 | 0732 | TAK |   33%  |   31%  |   64 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1076 | 0894 | TAK |   41%  |   23%  |   64 | OBLANY (Praktyka) |
+| #1077 | 0900 | TAK |   36%  |   28%  |   64 | OBLANY (Praktyka) |
+| #1078 | 0949 | TAK |   34%  |   30%  |   64 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1079 | 0988 | TAK |   45%  |   19%  |   64 | OBLANY (Praktyka) |
+| #1080 | 0553 | TAK |   38%  |   24%  |   62 | OBLANY (Praktyka) |
+| #1081 | 0916 | TAK |   32%  |   30%  |   62 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1082 | 1124 | TAK |   43%  |   19%  |   62 | OBLANY (Praktyka) |
+| #1083 | 0200 | TAK |   40%  |   21%  |   61 | OBLANY (Praktyka) |
+| #1084 | 0714 | TAK |   31%  |   30%  |   61 | NIEPRZYJĘTY (BRAK MIEJSC) |
+| #1085 | 0160 | TAK |   42%  |   18%  |   60 | OBLANY (Praktyka) |
+| #1086 | 0223 | TAK |   54%  |    5%  |   59 | OBLANY (Praktyka) |
+| #1087 | 1110 | TAK |   43%  |   16%  |   59 | OBLANY (Praktyka) |
+| #1088 | 0041 | TAK |   32%  |   26%  |   58 | OBLANY (Praktyka) |
+| #1089 | 0994 | TAK |   34%  |   24%  |   58 | OBLANY (Praktyka) |
+| #1090 | 0317 | TAK |   37%  |   20%  |   57 | OBLANY (Praktyka) |
+| #1091 | 0366 | TAK |   30%  |   27%  |   57 | OBLANY (Praktyka) |
+| #1092 | 0541 | TAK |   33%  |   24%  |   57 | OBLANY (Praktyka) |
+| #1093 | 0681 | TAK |   44%  |   13%  |   57 | OBLANY (Praktyka) |
+| #1094 | 1190 | TAK |   35%  |   22%  |   57 | OBLANY (Praktyka) |
+| #1095 | 0454 | TAK |   31%  |   25%  |   56 | OBLANY (Praktyka) |
+| #1096 | 0579 | TAK |   35%  |   21%  |   56 | OBLANY (Praktyka) |
+| #1097 | 0280 | TAK |   31%  |   24%  |   55 | OBLANY (Praktyka) |
+| #1098 | 0408 | TAK |   32%  |   23%  |   55 | OBLANY (Praktyka) |
+| #1099 | 0646 | TAK |   30%  |   25%  |   55 | OBLANY (Praktyka) |
+| #1100 | 0676 | TAK |   51%  |    4%  |   55 | OBLANY (Praktyka) |
+| #1101 | 0713 | TAK |   40%  |   15%  |   55 | OBLANY (Praktyka) |
+| #1102 | 0871 | TAK |   32%  |   22%  |   54 | OBLANY (Praktyka) |
+| #1103 | 1061 | TAK |   31%  |   22%  |   53 | OBLANY (Praktyka) |
+| #1104 | 0220 | TAK |   32%  |   19%  |   51 | OBLANY (Praktyka) |
+| #1105 | 0935 | TAK |   41%  |   10%  |   51 | OBLANY (Praktyka) |
+| #1106 | 0217 | TAK |   35%  |   14%  |   49 | OBLANY (Praktyka) |
+| #1107 | 0939 | TAK |   41%  |    7%  |   48 | OBLANY (Praktyka) |
+| #1108 | 1030 | TAK |   31%  |   17%  |   48 | OBLANY (Praktyka) |
+| #1109 | 0096 | TAK |   35%  |    9%  |   44 | OBLANY (Praktyka) |
+| #1110 | 0448 | TAK |   30%  |   14%  |   44 | OBLANY (Praktyka) |
+| #1111 | 1115 | TAK |   31%  |   13%  |   44 | OBLANY (Praktyka) |
+| #1112 | 0110 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1113 | 0150 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1114 | 0274 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1115 | 0417 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1116 | 0482 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1117 | 0730 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1118 | 0959 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1119 | 1132 | TAK |   29%  |    0%  |   29 | OBLANY (Teoria)   |
+| #1120 | 0400 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1121 | 0455 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1122 | 0511 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1123 | 0564 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1124 | 0701 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1125 | 0712 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1126 | 0765 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1127 | 0816 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1128 | 0860 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1129 | 0961 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1130 | 0972 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1131 | 1126 | TAK |   28%  |    0%  |   28 | OBLANY (Teoria)   |
+| #1132 | 0187 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1133 | 0335 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1134 | 0524 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1135 | 0872 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1136 | 0882 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1137 | 0888 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1138 | 0922 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1139 | 1142 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1140 | 1158 | TAK |   27%  |    0%  |   27 | OBLANY (Teoria)   |
+| #1141 | 0242 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1142 | 0245 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1143 | 0577 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1144 | 0587 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1145 | 0815 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1146 | 0826 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1147 | 0975 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1148 | 1029 | TAK |   26%  |    0%  |   26 | OBLANY (Teoria)   |
+| #1149 | 0237 | TAK |   25%  |    0%  |   25 | OBLANY (Teoria)   |
+| #1150 | 0785 | TAK |   25%  |    0%  |   25 | OBLANY (Teoria)   |
+| #1151 | 0076 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1152 | 0092 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1153 | 0103 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1154 | 0516 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1155 | 0651 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1156 | 0778 | TAK |   24%  |    0%  |   24 | OBLANY (Teoria)   |
+| #1157 | 0485 | TAK |   23%  |    0%  |   23 | OBLANY (Teoria)   |
+| #1158 | 0756 | TAK |   23%  |    0%  |   23 | OBLANY (Teoria)   |
+| #1159 | 0866 | TAK |   23%  |    0%  |   23 | OBLANY (Teoria)   |
+| #1160 | 0515 | TAK |   22%  |    0%  |   22 | OBLANY (Teoria)   |
+| #1161 | 0696 | TAK |   22%  |    0%  |   22 | OBLANY (Teoria)   |
+| #1162 | 0449 | TAK |   20%  |    0%  |   20 | OBLANY (Teoria)   |
+| #1163 | 0610 | TAK |   20%  |    0%  |   20 | OBLANY (Teoria)   |
+| #1164 | 0639 | TAK |   20%  |    0%  |   20 | OBLANY (Teoria)   |
+| #1165 | 0031 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1166 | 0081 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1167 | 0089 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1168 | 0229 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1169 | 0574 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1170 | 0675 | TAK |   19%  |    0%  |   19 | OBLANY (Teoria)   |
+| #1171 | 0013 | TAK |   18%  |    0%  |   18 | OBLANY (Teoria)   |
+| #1172 | 0447 | TAK |   18%  |    0%  |   18 | OBLANY (Teoria)   |
+| #1173 | 0483 | TAK |   18%  |    0%  |   18 | OBLANY (Teoria)   |
+| #1174 | 0082 | TAK |   17%  |    0%  |   17 | OBLANY (Teoria)   |
+| #1175 | 0762 | TAK |   17%  |    0%  |   17 | OBLANY (Teoria)   |
+| #1176 | 0437 | TAK |   16%  |    0%  |   16 | OBLANY (Teoria)   |
+| #1177 | 0680 | TAK |   12%  |    0%  |   12 | OBLANY (Teoria)   |
+| #1178 | 1149 | TAK |   12%  |    0%  |   12 | OBLANY (Teoria)   |
+| #1179 | 0632 | TAK |   11%  |    0%  |   11 | OBLANY (Teoria)   |
+| #1180 | 0795 | TAK |   10%  |    0%  |   10 | OBLANY (Teoria)   |
+| #1181 | 0642 | TAK |    6%  |    0%  |    6 | OBLANY (Teoria)   |
+| #1182 | 0043 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1183 | 0070 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1184 | 0149 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1185 | 0156 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1186 | 0204 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1187 | 0283 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1188 | 0293 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1189 | 0405 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1190 | 0413 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1191 | 0567 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1192 | 0578 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1193 | 0597 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1194 | 0623 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1195 | 0948 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1196 | 0950 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1197 | 1105 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1198 | 1117 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1199 | 1138 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
+| #1200 | 1150 | NIE |    0%  |    0%  |    0 | BRAK MATURY       |
 ====================================================================
-STATYSTYKA: Miejsc: 2, Przyjęto: 2.
+STATYSTYKA: Miejsc: 120, Przyjęto: 120.

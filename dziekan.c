@@ -53,7 +53,6 @@ void sprzatanie(int signal) {
     }
 
     printf("%s[Dziekan] Zasoby zwolnione.%s\n", KOLOR_ZOLTY, KOLOR_RESET);
-
     //Zakoncz proces jesli wywolano przez sygnal (Ctrl+C)
     if (signal != 0) {
         printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
@@ -84,7 +83,6 @@ void zaradz_ewakuacje(int sig) {
 
     if (wspolna_pamiec != NULL)
         wspolna_pamiec->ewakuacja = 1;
-
     if (kill(0, SIGUSR1) == -1) {
         perror("Blad kill (ewakuacja)");
     }
@@ -99,31 +97,41 @@ int porownaj_kandydatow(const void *a, const void *b) {
         return 1;
     if (k1->status == STATUS_ZAKONCZYL && k2->status != STATUS_ZAKONCZYL)
         return -1;
-    
     int suma1 = k1->ocena_teoria + k1->ocena_praktyka;
     int suma2 = k2->ocena_teoria + k2->ocena_praktyka;
     return suma2 - suma1;
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
     srand(time(NULL));
+
+    // Walidacja danych
+    if (argc < 2) {
+        fprintf(stderr, "Błąd: Nie podano liczby kandydatów!\n");
+        exit(1);
+    }
+    int liczba_chetnych = atoi(argv[1]);
+    if (liczba_chetnych <= 0 || liczba_chetnych > MAX_KANDYDATOW) {
+        fprintf(stderr, "Błąd: Liczba kandydatów musi być z zakresu 1-%d\n", MAX_KANDYDATOW);
+        exit(1);
+    }
 
     //SIGINT(CTRL+C)
     if (signal(SIGINT, sprzatanie) == SIG_ERR) { 
-        perror("Signal error"); 
+        perror("Signal error");
         exit(1); 
     }
     
     //SIGTSTP(CTRL+Z)
     if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { 
-        perror("Signal error"); 
+        perror("Signal error");
         exit(1); 
     }
 
     //SIGUSR1(dziekan nie reaguje na wlasny sygnal ewakuacji)
     if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { 
-        perror("Signal error"); 
+        perror("Signal error");
         exit(1); 
     }
     
@@ -144,12 +152,11 @@ int main() {
     
     printf("=========================================\n");
     loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] ROZPOCZYNAM EGZAMIN (Liczba miejsc: %d)\n", MIEJSCA_NA_UCZELNI);
-    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Liczba kandydatów: %d\n", MAX_KANDYDATOW);
+    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Liczba kandydatów: %d\n", liczba_chetnych);
     printf(">> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<\n");
     printf("=========================================\n");
 
     loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Tworzenie pamięci dzielonej...\n");
-
     id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600 | IPC_CREAT);
     if (id_pamieci == -1) report_error_and_exit("Błąd shmget");
 
@@ -157,23 +164,21 @@ int main() {
     if (wspolna_pamiec == (void*) -1) report_error_and_exit("Błąd shmat");
 
     //Inicjalizacja pamieci
-    wspolna_pamiec->liczba_kandydatow = MAX_KANDYDATOW;
+    wspolna_pamiec->liczba_kandydatow = liczba_chetnych;
     wspolna_pamiec->ewakuacja = 0;
     wspolna_pamiec->studenci_zakonczeni = 0;
 
-    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Rejestracja kandydatow w systemie...\n"); 
-    for (int i = 0; i < MAX_KANDYDATOW; i++) {
+    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Rejestracja kandydatow w systemie...\n");
+    for (int i = 0; i < liczba_chetnych; i++) {
         wspolna_pamiec->studenci[i].id_kandydata = i + 1;
         wspolna_pamiec->studenci[i].ocena_teoria = 0;
         wspolna_pamiec->studenci[i].ocena_praktyka = 0;
         wspolna_pamiec->studenci[i].pid = 0;
         wspolna_pamiec->studenci[i].status = STATUS_NOWY;
-
-        //2% nie ma matury
+        //2% nie ma matury         
         if (losuj(1, 100) <= 2) {
             wspolna_pamiec->studenci[i].zdana_matura = 0;
             wspolna_pamiec->studenci[i].status = STATUS_ODRZUCONY_MATURA;
-            // Tutaj uzywamy loguj na czerwono!
             loguj(id_semaforow, KOLOR_CZERWONY, " -> Kandydat %d: BRAK MATURY (Odrzucony)\n", i+1);
         } else {
             wspolna_pamiec->studenci[i].zdana_matura = 1;
@@ -195,37 +200,33 @@ int main() {
     id_kolejki = msgget(klucz, 0600 | IPC_CREAT);
     if (id_kolejki == -1) 
         report_error_and_exit("Blad msgget");
-
     //Tworzenie procesow komisji
     pid_t pid_ka = fork();
     if (pid_ka == 0) { 
         execl("./komisja", "komisja", "A", NULL); 
-        exit(1); 
+        exit(1);
     }
     else if (pid_ka == -1) { 
-        perror("Blad fork Komisja A"); 
+        perror("Blad fork Komisja A");
         sprzatanie(1); 
     }
 
     pid_t pid_kb = fork();
     if (pid_kb == 0) { 
-        execl("./komisja", "komisja", "B", NULL); 
+        execl("./komisja", "komisja", "B", NULL);
         exit(1); 
     }
     else if (pid_kb == -1) { 
-        perror("Blad fork Komisja B"); 
+        perror("Blad fork Komisja B");
         sprzatanie(1); 
     }
 
     //Uruchamianie procesow kandydatow
-    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", MAX_KANDYDATOW);
-    
+    loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", liczba_chetnych);
     printf("ID   | PID   | STATUS WEJSCIA\n");
     printf("-----|-------|---------------\n");
-
-     for (int i = 0; i < MAX_KANDYDATOW; i++) {
+    for (int i = 0; i < liczba_chetnych; i++) {
         pid_t pid = fork();
-
         if (pid < 0) {
             perror("Blad fork");
             exit(1);
@@ -239,25 +240,23 @@ int main() {
         } else {
             wspolna_pamiec->studenci[i].pid = pid;
             
-            // Blokujemy dostep do stdout, wymuszamy RESET koloru (bialy)
-            semafor_operacja_z_id(id_semaforow, SEM_STDOUT, -1);
+            semafor_operacja(id_semaforow, SEM_STDOUT, -1);
             printf("%s", KOLOR_RESET); 
             if (wspolna_pamiec->studenci[i].zdana_matura == 0) {
                 printf("%04d | %5d | ODRZUCONY (Brak matury)\n", i+1, pid);
             } else {
                 printf("%04d | %5d | WPUSZCZONY NA EGZAMIN\n", i+1, pid);
             }
-            semafor_operacja_z_id(id_semaforow, SEM_STDOUT, 1);
+            semafor_operacja(id_semaforow, SEM_STDOUT, 1);
         }
 
-        if (i % 10 == 0) 
+        if (i % 10 == 0) {}
             usleep(250000);
     }
 
     int studenci_obsluzeni = 0;
-    while (studenci_obsluzeni < MAX_KANDYDATOW) {
+    while (studenci_obsluzeni < liczba_chetnych) {
         pid_t w = wait(NULL);
-        
         if (w == -1) {
             if (errno == ECHILD) break;
             if (errno == EINTR) continue; 
@@ -279,9 +278,8 @@ int main() {
     wait(NULL);
 
     loguj(id_semaforow, KOLOR_ZOLTY, "\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
-
     //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
-    qsort(wspolna_pamiec->studenci, MAX_KANDYDATOW, sizeof(KandydatDane), porownaj_kandydatow);
+    qsort(wspolna_pamiec->studenci, liczba_chetnych, sizeof(KandydatDane), porownaj_kandydatow);
 
     FILE *plik = fopen("wyniki.txt", "w");
     if (plik == NULL) {
@@ -298,7 +296,7 @@ int main() {
     printf("========================================================================================\n");
 
     int licznik_przyjetych = 0;
-    for (int i = 0; i < MAX_KANDYDATOW; i++) {
+    for (int i = 0; i < liczba_chetnych; i++) {
         KandydatDane *k = &wspolna_pamiec->studenci[i];
         int suma = k->ocena_teoria + k->ocena_praktyka;
         char status_str[40];
@@ -327,7 +325,8 @@ int main() {
         if (plik != NULL) {
             fprintf(plik, "| #%03d | %04d | %-3s |  %3d%%  |  %3d%%  |  %3d | %-17s |\n",
                 i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
-                k->ocena_teoria, k->ocena_praktyka, suma, status_str);
+                k->ocena_teoria, 
+                k->ocena_praktyka, suma, status_str);
         }
 
         printf("| #%03d | %04d |  %-4s  |  %3d%%  |  %3d%%  |    %3d    | %-27s |\n",
@@ -346,6 +345,9 @@ int main() {
             perror("Blad fclose(wyniki.txt)");
         }
     }
+
+    printf(KOLOR_ZIELONY "[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): %d\n" KOLOR_RESET, 
+           wspolna_pamiec->studenci_zakonczeni);
 
     sprzatanie(0);
     return 0;
