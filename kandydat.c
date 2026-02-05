@@ -15,16 +15,17 @@ typedef struct {
 //Funkcja konczaca proces kandydata
 void zakoncz_proces(int sig) {
     if (sig == SIGUSR1) {
-        loguj(sem_id_global, KOLOR_CZERWONY, "\n!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n", moj_id_global + 1);
+        char buf[256];
+        int len = snprintf(buf, sizeof(buf), "%s\n!!! [Kandydat %d] SLYSZE ALARM! UCIEKAM! !!!\n%s", KOLOR_CZERWONY, moj_id_global + 1, KOLOR_RESET);
+        write(STDOUT_FILENO, buf, len);
         
         if (pamiec_global != NULL) {
-            if (shmdt(pamiec_global) == -1) {
-                perror("[Kandydat] Blad shmdt przy ewakuacji");
-            }
+            shmdt(pamiec_global);
         }
         exit(0);
     }
-    
+
+    //Normalne zakonczenie
     if (pamiec_global != NULL) {
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, -1);
         pamiec_global->studenci_zakonczeni++;
@@ -34,7 +35,6 @@ void zakoncz_proces(int sig) {
             perror("Blad shmdt");
         }
     }
-
     exit(0);    
 }
 
@@ -51,9 +51,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     Komunikat msg_wysylana, msg_odebrana;
     pid_t moj_pid = getpid();
     int szczegoly = 1;
-
-    int liczba_egzaminatorow = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? 5 : 3;
-    
+    int liczba_egzaminatorow = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? 5 : 3;    
     char *kolor_sali = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
 
     if (szczegoly) 
@@ -83,7 +81,8 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     msg_wysylana.mtype = typ_komisji_msg;
     msg_wysylana.nadawca_pid = moj_pid;
     msg_wysylana.dane = moj_id_global;
-    
+
+    //Wysylanie zgloszenia
     if (msgsnd(msg_id_global, &msg_wysylana, sizeof(msg_wysylana)-sizeof(long), 0) == -1) {
         semafor_operacja(sem_id_global, sem_krzeslo, 1);
         semafor_operacja(sem_id_global, sem_sala, 1);
@@ -94,6 +93,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     
     if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Czekam az komisja przygotuje pytania...\n", moj_id_global + 1);
 
+    //Czekanie na pytania
     if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_pid, 0) == -1) {
         if (errno != EINTR) perror("Blad msgrcv pytania");
         return -1;
@@ -115,7 +115,6 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     int wylosowane_pytania[liczba_pytan];
 
     if (szczegoly) {
-        // Czekanie na pytania to mysl kandydata - Niebieski
         loguj(sem_id_global, KOLOR_NIEBIESKI, "[%s] [Kandydat %d] Czekam na pytania...\n", nazwa_sali, moj_id_global + 1);
     }
 
@@ -157,6 +156,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
 
     if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Odpowiedzi zakonczone. Przekazuje komisji do oceny...\n", moj_id_global + 1);
     
+    //Wysylanie odpowiedzi
     msg_wysylana.mtype = typ_komisji_msg;
     msg_wysylana.nadawca_pid = moj_pid;
     msg_wysylana.dane = 0; 
@@ -164,6 +164,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
 
     if (szczegoly) { loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Czekam na werdykt...\n", moj_id_global + 1); }
 
+    //Oczekiwanie na ocene koncowa
     if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_pid, 0) == -1) {
          if (errno != EINTR) perror("Blad msgrcv wynik");
          return -1;
@@ -172,7 +173,7 @@ int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* naz
     int ocena_oficjalna = msg_odebrana.dane;
 
     if (szczegoly) {
-        // Werdykt ustala przewodniczacy - kolor sali
+        // Werdykt ustala przewodniczacy
         loguj(sem_id_global, kolor_sali, "[%s] [Kandydat %d] Przewodniczący ustalił ocenę końcową: %d%%\n", 
                nazwa_sali, moj_id_global + 1, ocena_oficjalna);
     }
@@ -207,10 +208,11 @@ int main(int argc, char *argv[]) {
     }
     moj_id_global = moj_id;
 
-    //SIGTSTP(CTRL+Z)
-    if (signal(SIGTSTP, SIG_IGN) == SIG_ERR) { 
-        perror("Signal error"); 
-        exit(1); }
+    //SIGINT(CTRL+C)
+    if (signal(SIGINT, SIG_IGN) == SIG_ERR) { 
+        perror("Signal error SIGINT"); 
+        exit(1); 
+    }
 
     // SIGUSR1-ewakuacja (wyslij przez dziekana)
     if (signal(SIGUSR1, zakoncz_proces) == SIG_ERR) { 

@@ -12,9 +12,16 @@ union semun {
     unsigned short *array;
 };
 
-//Funkcja sprzatajaca(Ctrl+C, koniec programu)
+//Funkcja sprzatajaca
 void sprzatanie(int signal) {
-    printf("\n%s[Dziekan] Rozpoczynam sprzatanie zasobow...%s\n", KOLOR_ZOLTY, KOLOR_RESET);
+    if (signal != 0) {
+        printf("\n%s[Dziekan] Otrzymano sygnał kończący %d. Zarządzam natychmiastowe wyjście...%s\n", KOLOR_ZOLTY, signal, KOLOR_RESET);
+        kill(0, SIGUSR1); 
+    }
+    //Oczekiwanie na wszystkie dzieci
+    while (wait(NULL) > 0); 
+
+    printf("\n%s[Dziekan] Wszyscy wyszli. Rozpoczynam sprzatanie zasobow...%s\n", KOLOR_ZOLTY, KOLOR_RESET);
 
     //Odlaczenie pamieci dzielonej
     if (wspolna_pamiec != NULL) {
@@ -43,7 +50,7 @@ void sprzatanie(int signal) {
         }
     }
 
-    //Usuwniecie kolejki komunikatow
+    //Usuniecie kolejki komunikatow
     if (id_kolejki != -1) {
         if (msgctl(id_kolejki, IPC_RMID, NULL) == -1) {
              perror("Blad usuwania kolejki komunikatow");
@@ -53,7 +60,7 @@ void sprzatanie(int signal) {
     }
 
     printf("%s[Dziekan] Zasoby zwolnione.%s\n", KOLOR_ZOLTY, KOLOR_RESET);
-    //Zakoncz proces jesli wywolano przez sygnal (Ctrl+C)
+    //Zakoncz proces jesli wywolano przez sygnal
     if (signal != 0) {
         printf("[Dziekan] Zakonczono przez sygnal %d.\n", signal);
         exit(0);
@@ -73,16 +80,15 @@ void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
     }
 }
 
-//Funkcja uruchamiajaca ewakuacje(Ctrl+Z)
+//Funkcja uruchamiajaca ewakuacje(Ctrl+C)
 void zaradz_ewakuacje(int sig) {
-    if (id_semaforow != -1) {
-        loguj(id_semaforow, KOLOR_CZERWONY, "\n!!! ALARM !!! OGLASZAM EWAKUACJE !!! (Sygnal %d)\n", sig);
-    } else {
-        printf("!!! ALARM EWAKUACJA !!!\n");
-    }
+    char buf[256];
+    int len = snprintf(buf, sizeof(buf), "%s\n!!! ALARM !!! OGLASZAM EWAKUACJE !!! (Sygnal %d)\n%s", KOLOR_CZERWONY, sig, KOLOR_RESET);
+    write(STDOUT_FILENO, buf, len);
 
     if (wspolna_pamiec != NULL)
         wspolna_pamiec->ewakuacja = 1;
+
     if (kill(0, SIGUSR1) == -1) {
         perror("Blad kill (ewakuacja)");
     }
@@ -112,23 +118,18 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     int liczba_chetnych = atoi(argv[1]);
+
     if (liczba_chetnych <= 0 || liczba_chetnych > MAX_KANDYDATOW) {
         fprintf(stderr, "Błąd: Liczba kandydatów musi być z zakresu 1-%d\n", MAX_KANDYDATOW);
         exit(1);
     }
 
     //SIGINT(CTRL+C)
-    if (signal(SIGINT, sprzatanie) == SIG_ERR) { 
-        perror("Signal error");
+    if (signal(SIGINT, zaradz_ewakuacje) == SIG_ERR) { 
+        perror("Signal error SIGINT");
         exit(1); 
     }
     
-    //SIGTSTP(CTRL+Z)
-    if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { 
-        perror("Signal error");
-        exit(1); 
-    }
-
     //SIGUSR1(dziekan nie reaguje na wlasny sygnal ewakuacji)
     if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { 
         perror("Signal error");
@@ -175,6 +176,7 @@ int main(int argc, char *argv[]) {
         wspolna_pamiec->studenci[i].ocena_praktyka = 0;
         wspolna_pamiec->studenci[i].pid = 0;
         wspolna_pamiec->studenci[i].status = STATUS_NOWY;
+        
         //2% nie ma matury         
         if (losuj(1, 100) <= 2) {
             wspolna_pamiec->studenci[i].zdana_matura = 0;
@@ -188,7 +190,6 @@ int main(int argc, char *argv[]) {
         if (wspolna_pamiec->studenci[i].zdana_matura == 1 && losuj(1, 100) <= 2) {
             wspolna_pamiec->studenci[i].powtarza_egzamin = 1;
             wspolna_pamiec->studenci[i].ocena_teoria = 30 + losuj(0, 70);
-            // Tutaj np. na niebiesko/cyjan
             loguj(id_semaforow, KOLOR_CYJAN, " -> Kandydat %d: POWTARZA (Zaliczona teoria: %d%%)\n", i+1, wspolna_pamiec->studenci[i].ocena_teoria);
         } else {
             wspolna_pamiec->studenci[i].powtarza_egzamin = 0;
@@ -200,6 +201,7 @@ int main(int argc, char *argv[]) {
     id_kolejki = msgget(klucz, 0600 | IPC_CREAT);
     if (id_kolejki == -1) 
         report_error_and_exit("Blad msgget");
+
     //Tworzenie procesow komisji
     pid_t pid_ka = fork();
     if (pid_ka == 0) { 
@@ -221,16 +223,23 @@ int main(int argc, char *argv[]) {
         sprzatanie(1); 
     }
 
-    //Uruchamianie procesow kandydatow
     loguj(id_semaforow, KOLOR_ZOLTY, "[Dziekan] Otwieram drzwi uczelni dla %d kandydatow...\n", liczba_chetnych);
     printf("ID   | PID   | STATUS WEJSCIA\n");
     printf("-----|-------|---------------\n");
+
+    //Tworzenie procesow potomnych(kandydatow)
     for (int i = 0; i < liczba_chetnych; i++) {
+        if (wspolna_pamiec->ewakuacja == 1) {
+            printf(KOLOR_CZERWONY "[Dziekan] Ewakuacja w toku! Przestaję wpuszczać nowych studentów.\n" KOLOR_RESET);
+            break; 
+        }
+        //Klonowanie dziekana
         pid_t pid = fork();
         if (pid < 0) {
             perror("Blad fork");
             exit(1);
         }
+
         if (pid == 0) {
             char id_str[10];
             sprintf(id_str, "%d", i);
@@ -278,6 +287,7 @@ int main(int argc, char *argv[]) {
     wait(NULL);
 
     loguj(id_semaforow, KOLOR_ZOLTY, "\n[Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...\n");
+
     //Sortowanie rankingu studentow(od najelspzego do najgorszego wyniku)
     qsort(wspolna_pamiec->studenci, liczba_chetnych, sizeof(KandydatDane), porownaj_kandydatow);
 
@@ -301,7 +311,7 @@ int main(int argc, char *argv[]) {
         int suma = k->ocena_teoria + k->ocena_praktyka;
         char status_str[40];
 
-        //Okreslenie statusu kandydata
+        //Okreslenie statusu kandydata na podstawie danych z pamieci dzielonej
         if (wspolna_pamiec->ewakuacja == 1 && k->status != STATUS_ZAKONCZYL) {
             strcpy(status_str, "EWAKUACJA");
         }else if (k->zdana_matura == 0) {
@@ -335,19 +345,18 @@ int main(int argc, char *argv[]) {
     }
 
     printf("====================================================================\n");
+    printf(KOLOR_ZIELONY "ILOSC KANDYDATOW: %d\n" KOLOR_RESET, wspolna_pamiec->studenci_zakonczeni);
     loguj(id_semaforow, KOLOR_ZIELONY, "STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
     loguj(id_semaforow, KOLOR_ZOLTY, "Raport zapisano w pliku 'wyniki.txt'.\n");
 
     if (plik != NULL) {
         fprintf(plik, "====================================================================\n");
+        fprintf(plik, "ILOSC KANDYDATOW: %d\n", wspolna_pamiec->studenci_zakonczeni);
         fprintf(plik, "STATYSTYKA: Miejsc: %d, Przyjęto: %d.\n", MIEJSCA_NA_UCZELNI, licznik_przyjetych);
         if (fclose(plik) == EOF) {
             perror("Blad fclose(wyniki.txt)");
         }
     }
-
-    printf(KOLOR_ZIELONY "[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): %d\n" KOLOR_RESET, 
-           wspolna_pamiec->studenci_zakonczeni);
 
     sprzatanie(0);
     return 0;

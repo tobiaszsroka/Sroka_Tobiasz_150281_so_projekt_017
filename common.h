@@ -1,6 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
-#define _POSIX_C_SOURCE 200809L // Wlacza obsluge czasu (CLOCK_REALTIME)
+#define _POSIX_C_SOURCE 200809L
 #define _DEFAULT_SOURCE 
 
 #include <stdio.h>
@@ -33,7 +33,7 @@
 #define KOLOR_MAGENTA  "\033[1;35m" // Komisja A
 #define KOLOR_CYJAN    "\033[1;36m" // Komisja B
 
-//Limity
+//Limity SYSTEMOWE
 #define MAX_KANDYDATOW 1200
 #define MIEJSCA_NA_UCZELNI 120
 #define MAX_W_SALI_A 3
@@ -41,7 +41,7 @@
 #define LICZBA_PYTAN_A 5
 #define LICZBA_PYTAN_B 3
 
-//Statusy semaforow
+//Indeksy semaforow
 #define SEM_DOSTEP_PAMIEC 0
 #define SEM_SALA_A 1
 #define SEM_SALA_B 2
@@ -58,13 +58,13 @@
 #define STATUS_ZDAL_TEORIE 4
 #define STATUS_ZAKONCZYL 5
 
-//Typy komunikatow dla komisj
+//Typy komunikatow dla komisji
 #define MSG_TYP_KOMISJA_A 1
 #define MSG_TYP_KOMISJA_B 2
 #define ETAP_PYTANIA 1
 #define ETAP_OCENA 2
 
-//Struktura kandydata
+//Struktura kandydata w pamieci dzielonej
 typedef struct {
     pid_t pid;
     int id_kandydata;
@@ -79,15 +79,15 @@ typedef struct {
 typedef struct {
     KandydatDane studenci[MAX_KANDYDATOW];
     int liczba_kandydatow;
-    int ewakuacja;
-    int studenci_zakonczeni;
+    int ewakuacja; // Flaga ewakuacji (dostępna dla wszystkich procesów)
+    int studenci_zakonczeni; // Licznik atomowy (chroniony semaforem
 } PamiecDzielona;
 
-//Struktura komunikatu: mtype = 1 (do Komisji A), 2 (do Komisji B), PID (do Studenta)
+//Struktura komunikatów IPC
 typedef struct {
-    long mtype;     
-    int nadawca_pid;  
-    int dane;         
+    long mtype; //Adresat
+    int nadawca_pid; //Nadawca
+    int dane; //Tresc 
 } Komunikat;
 
 //---Funkcje pomocnicze---
@@ -98,12 +98,12 @@ void report_error_and_exit(const char *msg) {
     exit(EXIT_FAILURE);
 }
 
-//Pomocnik do operacji na semaforach
+//Wrapper na semop (Operacje P i V)
 static void semafor_operacja(int sem_id, int sem_num, int op) {
     struct sembuf bufor;
     bufor.sem_num = sem_num;
     bufor.sem_op = op;
-    bufor.sem_flg = SEM_UNDO; // <--- SEM_UNDO!
+    bufor.sem_flg = SEM_UNDO; //Zapobiega blokadzie jesli proces padnie
     
     while (semop(sem_id, &bufor, 1) == -1) {
         if (errno != EINTR && errno != EIDRM && errno != EINVAL) {

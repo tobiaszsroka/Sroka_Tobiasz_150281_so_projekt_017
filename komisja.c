@@ -20,18 +20,22 @@ void wyslij_komunikat(int id_kolejki, long typ_adresata, int dane) {
     }
 }
 
+//Osluga ewakuacji(CTRL+C)
 void obsluga_ewakuacji(int sig) {
     if (sig == SIGUSR1) {
-        // Ustalamy kolor komisji w handlerze
-        char *kolor_komisji = (strcmp(typ_komisji_global, "A") == 0) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
-
+        char buf[256];
+        int len;
+       
         if (pamiec != NULL && pamiec->ewakuacja == 1) {
-            // Ewakuacja -> CZERWONY
-            loguj(sem_id_global, KOLOR_CZERWONY, "\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n", typ_komisji_global);
+            len = snprintf(buf, sizeof(buf),  "%s\n!!! [Komisja %s] OTRZYMANO SYGNAL EWAKUACJI (SIGUSR1) !!!\n%s", KOLOR_CZERWONY, typ_komisji_global, KOLOR_RESET);
+            write(STDOUT_FILENO, buf, len);
         } else {
-            // Normalny koniec -> KOLOR KOMISJI
-            loguj(sem_id_global, kolor_komisji, "[Komisja %s] Dziekan zarządził koniec egzaminów. Zamykam biuro.\n", typ_komisji_global);
+            char *kolor_komisji = (strcmp(typ_komisji_global, "A") == 0) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
+
+            len = snprintf(buf, sizeof(buf), "%s[Komisja %s] Dziekan zarządził koniec egzaminów. Zamykam biuro.\n%s", kolor_komisji, typ_komisji_global, KOLOR_RESET);
+            write(STDOUT_FILENO, buf, len);
         }
+
         czy_pracowac = 0;
         exit(0);
     }
@@ -51,7 +55,7 @@ int main(int argc, char *argv[]) {
     char *typ_komisji = argv[1];
     typ_komisji_global = typ_komisji;
 
-    // Wybor koloru w zaleznosci od typu komisji (A=Magenta, B=Zielony dla kontrastu)
+    // Wybor koloru w zaleznosci od typu komisji
     char *moj_kolor = (strcmp(typ_komisji, "A") == 0) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
 
     //Konczy prace komisji
@@ -60,10 +64,10 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    //(CTRL+Z) ignoruj
-    if (signal(SIGTSTP, SIG_IGN) == SIG_ERR) {
-        perror("Blad signal SIGTSTP");
-        exit(1);
+    //SIGINT(CTRL+C)
+    if (signal(SIGINT, SIG_IGN) == SIG_ERR) { 
+        perror("Signal error SIGINT"); 
+        exit(1); 
     }
 
     srand(time(NULL) ^ getpid());
@@ -82,7 +86,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    // Przypisanie do zmiennej globalnej (usunieto typ 'PamiecDzielona*' zeby nie przyslaniac globalnej)
+    // Przypisanie do zmiennej globalnej
     pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (pamiec == (void*) -1) {
         perror("[Komisja] Blad shmat");
@@ -118,7 +122,7 @@ int main(int argc, char *argv[]) {
              break;
         }
 
-        //Czekamy na wiadomosc od studenta
+        //Czekamy na wiadomosc od kandydata
         if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_kanal_nasluchu, 0) == -1) {
             if (errno == EINTR) continue;
             if (errno == EIDRM) break;   
@@ -133,11 +137,13 @@ int main(int argc, char *argv[]) {
         loguj(sem_id_global, moj_kolor, "[Komisja %s] Przygotowuje pytania dla [kandydata %d] (PID %d)...\n", typ_komisji, id_studenta + 1, pid_studenta);
         usleep(losuj(10000, 50000)); 
 
+        //Wysylamy pytania
         wyslij_komunikat(id_kolejki, pid_studenta, ETAP_PYTANIA);
 
-        //Czekamy na odpowiedzi studenta
+        //Czekamy na odpowiedzi na pytania przez kandydata
         if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_kanal_nasluchu, 0) == -1) {
-            if (errno != EINTR) perror("[Komisja] Blad msgrcv (odpowiedz)");
+            if (errno != EINTR) 
+            perror("[Komisja] Blad msgrcv (odpowiedz)");
             break;
         }
 
@@ -164,6 +170,7 @@ int main(int argc, char *argv[]) {
         
         semafor_operacja(sem_id_global, SEM_DOSTEP_PAMIEC, 1);
 
+        //Wysylamy oceny
         wyslij_komunikat(id_kolejki, pid_studenta, ocena_finalna);
         loguj(sem_id_global, moj_kolor, "[Komisja %s] [Kandydat %d] PID %d oceniony na: %d%%\n", typ_komisji, id_studenta + 1, pid_studenta, ocena_finalna);
     }
