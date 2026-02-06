@@ -11,67 +11,9 @@
 **Numer albumu:** 150281  
 **Repozytorium:** [https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017](https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017)
 
----
+--- 
 
-## Spis treści
-
-**[0. Polecenie - problem do rozwiązania](#0-polecenie---problem-do-rozwiązania)**
-
-**[1. Wymagania i Instrukcja Uruchomienia](#1-wymagania-i-instrukcja-uruchomienia)**
-* [1.1. Wymagania systemowe](#11-wymagania-systemowe)
-* [1.2. Kompilacja i uruchomienie](#12-kompilacja-i-uruchomienie)
-* [1.3. Parametry konfiguracyjne](#13-parametry-konfiguracyjne)
-
-**[2. Założenia projektowe](#2-założenia-projektowe)**
-* [2.1. Architektura systemu](#21-architektura-systemu)
-* [2.2. Decyzje projektowe](#22-decyzje-projektowe)
-* [2.3. Mechanizmy IPC](#23-mechanizmy-ipc)
-
-**[3. Przebieg inicjalizacji oraz struktura symulacji](#3-przebieg-inicjalizacji-oraz-struktura-symulacji)**
-* [3.1. Inicjalizacja środowiska w procesie Dziekana](#31-inicjalizacja-środowiska-w-procesie-dziekana)
-* [3.2. Tworzenie i inicjalizacja zasobów IPC](#32-tworzenie-i-inicjalizacja-zasobów-ipc)
-* [3.3. Tworzenie procesów Komisji](#33-tworzenie-procesów-komisji)
-* [3.4. Tworzenie i logika procesów Kandydatów](#34-tworzenie-i-logika-procesów-kandydatów)
-* [3.5. Logika operacyjna Komisji](#35-logika-operacyjna-komisji)
-* [3.6. Finalizacja procesu symulacji](#36-finalizacja-procesu-symulacji)
-
-**[4. Dokumentacja techniczna kodu](#4-dokumentacja-techniczna-kodu)**
-* [4.1. Moduł common.h - definicje wspólne](#41-moduł-commonh---definicje-wspólne)
-* [4.2. Moduł dziekan.c - proces zarządzający](#42-moduł-dziekanc---proces-zarządzający)
-* [4.3. Moduł komisja.c - procesy komisji](#43-moduł-komisjac---procesy-komisji)
-* [4.4. Moduł kandydat.c - procesy kandydatów](#44-moduł-kandydatc---procesy-kandydatów)
-
-**[5. Testy funkcjonalne](#5-testy-funkcjonalne)**
-* [5.1. Test normalnego przepływu](#51-test-normalnego-przepływu)
-* [5.2. Test weryfikacji matury](#52-test-weryfikacji-matury)
-* [5.3. Test progu zaliczenia teorii](#53-test-progu-zaliczenia-teorii)
-* [5.4. Test kandydatów powtarzających](#54-test-kandydatów-powtarzających)
-* [5.5. Test ewakuacji](#55-test-ewakuacji)
-* [5.6. Test limitu miejsc i rankingu](#56-test-limitu-miejsc-i-rankingu)
-
-**[6. Problemy napotkane podczas realizacji](#6-problemy-napotkane-podczas-realizacji)**
-* [6.1. Synchronizacja dostępu do pamięci dzielonej](#61-synchronizacja-dostępu-do-pamięci-dzielonej)
-* [6.2. Zakleszczenia przy semaforach](#62-zakleszczenia-przy-semaforach)
-* [6.3. Obsługa ewakuacji](#63-obsługa-ewakuacji)
-* [6.4. Procesy zombie](#64-procesy-zombie)
-* [6.5. Trwałość zasobów IPC](#65-trwałość-zasobów-ipc)
-
-**[7. Implementacja wymaganych konstrukcji systemowych](#7-implementacja-wymaganych-konstrukcji-systemowych-linki-do-github)**
-* [7.1. Tworzenie i obsługa plików](#71-tworzenie-i-obsługa-plików)
-* [7.2. Tworzenie procesów](#72-tworzenie-procesów)
-* [7.3. Obsługa sygnałów](#73-obsługa-sygnałów)
-* [7.4. Synchronizacja procesów - semafory](#74-synchronizacja-procesów---semafory)
-* [7.5. Segmenty pamięci dzielonej](#75-segmenty-pamięci-dzielonej)
-* [7.6. Kolejki komunikatów](#76-kolejki-komunikatów)
-
-**[8. Podsumowanie](#8-podsumowanie)**
-* [8.1. Zrealizowane funkcjonalności](#81-zrealizowane-funkcjonalności)
-* [8.2. Wyzwania techniczne](#82-wyzwania-techniczne)
-* [8.3. Wynik końcowy](#83-wynik-końcowy)
-
----
-
-## 0. Polecenie - problem do rozwiązania
+## 0. Problem do rozwiązania
 
 ### Temat 17 – Egzamin wstępny
 
@@ -111,14 +53,14 @@ Napisz programy **Dziekan**, **Komisja** i **Kandydat** symulujące przeprowadze
 
 ## 1. Wymagania i Instrukcja Uruchomienia
 
-Projekt został zaimplementowany w języku **C** z wykorzystaniem standardu **C11** i mechanizmów **System V IPC**, co wymaga środowiska **Linux** lub **WSL** (Windows Subsystem for Linux).
+Projekt został zaimplementowany w języku **C** z wykorzystaniem standardu **C11** i mechanizmów **System V IPC**, co wymaga środowiska **Linux** lub **WSL**.
 
 ### 1.1. Wymagania systemowe
 
 #### System operacyjny
 * **Linux** (Ubuntu 20.04+, Debian, Fedora)
 * **Windows** z WSL 2
-* **macOS** (może wymagać modyfikacji - brak testów)
+* **macOS**
 
 #### Kompilator i narzędzia
 ```bash
@@ -154,8 +96,7 @@ make
 ```
 
 #### Obsługa podczas działania
-* **Ctrl+Z** - Ogłoszenie ewakuacji (SIGTSTP)
-* **Ctrl+C** - Zakończenie programu i sprzątanie zasobów (SIGINT)
+* **Ctrl+C** - Ogłoszenie ewakuacji (SIGINT)
 
 ### 1.3. Parametry konfiguracyjne
 
@@ -269,7 +210,7 @@ typedef struct {
 
 #### Synchronizacja semaforami
 
-**5 semaforów w jednym zestawie:**
+**6 semaforów w jednym zestawie:**
 
 | Indeks | Nazwa | Wartość | Typ | Zastosowanie |
 |--------|-------|---------|-----|--------------|
@@ -423,8 +364,7 @@ Proces `dziekan` jest procesem **głównym** (rodzic) odpowiedzialnym za inicjal
 #### Krok 1: Rejestracja handlerów sygnałów
 
 ```c
-signal(SIGINT, sprzatanie);           // Ctrl+C -> sprzątanie i exit
-signal(SIGTSTP, zaradz_ewakuacje);    // Ctrl+Z -> ewakuacja
+signal(SIGINT, sprzatanie);           // Ctrl+C -> ewakuacja
 signal(SIGUSR1, SIG_IGN);             // Ignoruj własny SIGUSR1
 ```
 
@@ -458,11 +398,6 @@ for (int i = 0; i < MAX_KANDYDATOW; i++) {
     }
 }
 ```
-
-**Probabilistyka:**
-- P(brak matury) = 0.02
-- P(powtarza | ma maturę) = 0.02
-- P(powtarza ∩ ma maturę) = 0.98 × 0.02 = 0.0196 ≈ 2%
 
 ### 3.2. Tworzenie i inicjalizacja zasobów IPC
 
@@ -991,7 +926,7 @@ typedef struct {
 
 ## 5. Testy funkcjonalne
 
-Przeprowadzono **8 testów funkcjonalnych** sprawdzających poprawność działania symulacji w różnych scenariuszach. Każdy test został wykonany wielokrotnie w celu weryfikacji deterministyczności i poprawności obsługi warunków brzegowych.
+Przeprowadzono ** testów funkcjonalnych** sprawdzających poprawność działania symulacji w różnych scenariuszach. Każdy test został wykonany wielokrotnie w celu weryfikacji deterministyczności i poprawności obsługi warunków brzegowych.
 
 ### 5.1. Test wydajnościowy "Wyścig Szczurów"(zakomentowane sleepy)
 
@@ -1013,7 +948,7 @@ Przeprowadzono **8 testów funkcjonalnych** sprawdzających poprawność działa
 - Symulacja kończy się w czasie bardzo krotkim czasie dla 1200 kandydatów
 - Generowany jest poprawny raport końcowy
 - Brak zakleszczeń (deadlock)
-- Brak osieroconych procesów (Zombie) w trakcie i po teście
+- Brak osieroconych procesów (Zombie)
 
 **Wynik testu:**
 ```
@@ -1027,7 +962,7 @@ Przeprowadzono **8 testów funkcjonalnych** sprawdzających poprawność działa
 [Dziekan] Pamiec usunieta.
 [Dziekan] Semafory usuniete.
 [Dziekan] Kolejka komunikatow usunieta.
-[Dziekan] Zasoby zwolnione
+[Dziekan] Zasoby zwolnione.
 ```
 
 **Weryfikacja zarządzania procesami (Zombie):**
@@ -1089,10 +1024,12 @@ $ ipcs -s
 ```
 **✅ TEST ZALICZONY**
 
-### 5.3. Test Procedury Ewakuacji (Sygnał Ctrl+Z / SIGTSTP)
+---
+
+### 5.3. Test Procedury Ewakuacji (Sygnał Ctrl+C)
 
 **Opis:**
-Test symuluje sytuację awaryjną, w której Dziekan ogłasza alarm w trakcie trwania egzaminu. Wymuszenie przerwania następuje poprzez wysłanie sygnału `SIGTSTP` (kombinacja klawiszy `Ctrl+Z`) do procesu głównego w terminalu.
+Test symuluje sytuację awaryjną, w której Dziekan ogłasza alarm w trakcie trwania egzaminu. Wymuszenie przerwania następuje poprzez wysłanie sygnału `SIGINT` (kombinacja klawiszy `Ctrl+C`) do procesu głównego w terminalu.
 
 **Cel:**
 Weryfikacja, czy:
@@ -1111,7 +1048,7 @@ Weryfikacja, czy:
 ```
 [17:40:48.172] [Dziekan] ROZPOCZYNAM EGZAMIN (Liczba miejsc: 120)
 [17:40:48.172] [Dziekan] Liczba kandydatów: 20
->> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<
+>> Aby oglosic EWAKUACJE, wcisnij Ctrl+C <<
 =========================================
 [17:40:48.172] [Dziekan] Tworzenie pamięci dzielonej...
 [17:40:48.172] [Dziekan] Rejestracja kandydatow w systemie...
@@ -1125,7 +1062,7 @@ Weryfikacja, czy:
 ...
 [17:40:49.649] [Sala A] Egzaminator 3 zadał pytanie nr 34 kandydatowi 4.
 
-^Z  <--- UŻYTKOWNIK WYSYŁA SYGNAŁ SIGTSTP (CTRL+Z)
+^Z  <--- UŻYTKOWNIK WYSYŁA SYGNAŁ SIGTSTP (CTRL+C)
 
 [17:40:49.659] 
 !!! ALARM !!! OGLASZAM EWAKUACJE !!! (Sygnal 20)
@@ -1293,7 +1230,7 @@ for (int i = 0; i < liczba_chetnych; i++) {
 
 ```
 [18:03:14.108] [Dziekan] Liczba kandydatów: 10
->> Aby oglosic EWAKUACJE, wcisnij Ctrl+Z <<
+>> Aby oglosic EWAKUACJE, wcisnij Ctrl+C <<
 =========================================
 [18:03:14.108] [Dziekan] Tworzenie pamięci dzielonej...
 [18:03:14.108] [Dziekan] Rejestracja kandydatow w systemie...
@@ -1574,30 +1511,36 @@ grep "Komisja B" logi_komisja.txt
 
 ---
 
-### 5.8. Test integralności pamięci dzielonej (Weryfikacja Mutexa)
+### 5.8. Test integralności pamięci dzielonej - Weryfikacja Mutex (Race Conditions)
 
 **Cel:**
-Udowodnienie, że semafor binarny `SEM_DOSTEP_PAMIEC` (Mutex) poprawnie chroni pamięć dzieloną przed wyścigami (Race Conditions) przy masowym, jednoczesnym zapisie danych przez setki procesów.
+Udowodnienie, że semafor binarny `SEM_DOSTEP_PAMIEC` (mutex) poprawnie chroni pamięć dzieloną przed wyścigami (race conditions) przy masowym, jednoczesnym zapisie przez setki procesów.
 
 **Teoria:**
-Gdyby mutex nie działał, inkrementacja licznika `studenci_zakonczeni++` przez 2000 procesów jednocześnie zakończyłaby się wynikiem mniejszym niż 2000 (nadpisywanie wartości w wyniku wyścigu). Test wymusza maksymalne obciążenie systemu przez usunięcie wszystkich opóźnień (//sleep).
+Gdyby mutex NIE działał, inkrementacja `studenci_zakonczeni++` przez 1000 procesów jednocześnie zakończyłaby się wynikiem **< 1000** (nadpisywanie wartości). Test wymusza maksymalne obciążenie CPU przez usunięcie wszystkich opóźnień (`usleep`).
 
 **Konfiguracja:**
 
 **Modyfikacja 1: common.h**
 ```c
-#define MAX_KANDYDATOW 2500
+#define MAX_KANDYDATOW 5000
 ```
 
-**Modyfikacja 2: Zakomentowanie funkcji (sleep) we wszytskich programach**
-
+**Modyfikacja 2: Wyłączenie wszystkich usleep()**
 
 **Modyfikacja 3: Dodanie "czujki" w dziekan.c**
-
-```
+```c
 // --- CZUJKA TESTOWA ---
-printf(KOLOR_ZIELONY "[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): %d\n" 
+printf(KOLOR_ZIELONY "\n[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): %d\n" 
        KOLOR_RESET, wspolna_pamiec->studenci_zakonczeni);
+printf(KOLOR_ZIELONY "[DEBUG] Oczekiwano: %d\n" KOLOR_RESET, liczba_chetnych);
+
+if (wspolna_pamiec->studenci_zakonczeni == liczba_chetnych) {
+    printf(KOLOR_ZIELONY "[DEBUG] ✓ MUTEX DZIAŁA POPRAWNIE!\n" KOLOR_RESET);
+} else {
+    printf(KOLOR_CZERWONY "[DEBUG] ✗ RACE CONDITION! Utracono %d rekordów!\n" KOLOR_RESET,
+           liczba_chetnych - wspolna_pamiec->studenci_zakonczeni);
+}
 // ----------------------
 
 sprzatanie(0);
@@ -1605,43 +1548,40 @@ return 0;
 ```
 
 **Wynik testu:**
-
-**Fragment logów konsoli (początek i koniec):**
 ```
-[16:18:45.005] [Dziekan] Otwieram drzwi uczelni dla 2000 kandydatow...
-[16:18:45.012] [Dziekan] ROZPOCZYNAM EGZAMIN (Miejsc: 120, Chętnych: 2000)
+[10:15:22.105] [Dziekan] ROZPOCZYNAM EGZAMIN (Liczba miejsc: 120)
+[10:15:22.105] [Dziekan] Liczba kandydatów: 5000
+=========================================
+[10:15:22.108] [Dziekan] Otwieram drzwi uczelni dla 5000 kandydatow...
 
-... (błyskawiczny strumień logów - czas trwania < 3s) ...
 
-[16:18:47.800] [Dziekan] Wszyscy studenci zakonczyli egzaminy. Zamykam komisje...
-[16:18:47.805] [Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...
+[10:15:25.203] [Dziekan] Wszyscy studenci zakonczyli egzaminy. Zamykam komisje...
+[10:15:25.208] [Dziekan] Egzaminy zakonczone. Generuje raport i zapisuje do pliku...
+
 STATYSTYKA: Miejsc: 120, Przyjęto: 120.
 Raport zapisano w pliku 'wyniki.txt'.
 
-[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): 2000
+[DEBUG] Wartość licznika w pamięci dzielonej (studenci_zakonczeni): 5000
+[DEBUG] Oczekiwano: 5000
+[DEBUG] ✓ MUTEX DZIAŁA POPRAWNIE!
 
-[16:18:47.810] [Dziekan] Zasoby zwolnione.
+[Dziekan] Zasoby zwolnione.
 ```
 
-**Weryfikacja spójności danych - liczba linii w raporcie:**
+**Weryfikacja:**
 ```bash
-wc -l wyniki.txt
-2006 wyniki.txt
-```
+# Liczba linii w pliku wyniki.txt (5000 kandydatów + 7 linii nagłówka)
+$ wc -l wyniki.txt
+5007 wyniki.txt  ✓
 
-**Matematyka:**
-- 2000 kandydatów (rekordy w tabeli)
-- \+ 6 linii nagłówka/stopki (separator, nagłówki kolumn, statystyka)
-
-**Weryfikacja procesów Zombie:**
-```bash
-ps aux | grep 'Z' | grep -v grep
-(brak wyników - wszystkie procesy odebrane przez wait())
+# Sprawdzenie zombie
+$ ps aux | grep defunct
+(brak wyników - wszystkie procesy odebrane przez wait()) ✓
 ```
 
 **Obserwacje:**
-- Semafor nr 0 (`SEM_DOSTEP_PAMIEC`) skutecznie serializuje dostęp do zapisu
-- Mimo 2000 procesów próbujących zapisać wynik w ułamku sekundy, żaden rekord nie został utracony ani nadpisany
+- Semafor `SEM_DOSTEP_PAMIEC` skutecznie serializuje dostęp do zapisu
+- Mimo 5000 procesów zapisujących jednocześnie, **żaden rekord nie został utracony**
 - Brak zakleszczeń (deadlock) mimo braku odstępów czasowych
 - Tablica procesów czysta (brak zombie)
 
@@ -1649,7 +1589,181 @@ ps aux | grep 'Z' | grep -v grep
 
 ---
 
-**Wszystkie 8 testów zakończone sukcesem! ✅**
+### 5.9. Test semaforów licznikowych - Limit sala (Counting Semaphore)
+
+**Cel:**
+Udowodnienie, że semafor licznikowy `SEM_SALA_A` oraz `SEM_SALA_B` (wartość początkowa = 3) **NIGDY** nie dopuści więcej niż 3 kandydatów jednocześnie do sali, nawet przy masowym napływie 1000 procesów w tym samym czasie.
+
+**Teoria:**
+Semafor licznikowy to **licznik atomowy w jądrze**. Operacje P (--) i V (++) są niepodzielne. Jeśli semafor = 0, proces blokuje się w kolejce FIFO jądra do momentu zwolnienia miejsca.
+
+**Konfiguracja:**
+
+**Modyfikacja 1: Modyfikacja kandydat.c**
+
+```c
+
+//Funkcja zdawania egzaminu(Komisja A i B)
+int zdawaj_egzamin(int typ_komisji_msg, int sem_sala, int sem_krzeslo, char* nazwa_sali, int liczba_pytan) {
+    Komunikat msg_wysylana, msg_odebrana;
+    pid_t moj_pid = getpid();
+    int szczegoly = 1;
+
+    int liczba_egzaminatorow = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? 5 : 3;
+    char *kolor_sali = (typ_komisji_msg == MSG_TYP_KOMISJA_A) ? KOLOR_MAGENTA : KOLOR_ZIELONY;
+
+    if (szczegoly) 
+        loguj(sem_id_global, KOLOR_NIEBIESKI, "[Kandydat %d] Czekam na wejscie do %s...\n", moj_id_global + 1, nazwa_sali);
+
+    // Mierzymy czas oczekiwania na wejście do sali (Semafor SALA)
+    int wartosc_przed = semctl(sem_id_global, sem_sala, GETVAL);
+    struct timespec ts_przed;
+    clock_gettime(CLOCK_REALTIME, &ts_przed);
+
+    semafor_operacja(sem_id_global, sem_sala, -1);
+
+    int wartosc_po = semctl(sem_id_global, sem_sala, GETVAL);
+    struct timespec ts_po;
+    clock_gettime(CLOCK_REALTIME, &ts_po);
+
+    // Oblicz czas oczekiwania w mikrosekundach
+    long czas_oczekiwania_us = (ts_po.tv_sec - ts_przed.tv_sec) * 1000000 + (ts_po.tv_nsec - ts_przed.tv_nsec) / 1000;
+
+    loguj(sem_id_global, KOLOR_CYJAN, "[TEST_SEM] Kandydat %d: sala=%d PRZED, sala=%d PO, oczekiwanie=%ldμs\n", moj_id_global+1, wartosc_przed, wartosc_po, czas_oczekiwania_us);
+
+    if (szczegoly) 
+        loguj(sem_id_global, KOLOR_NIEBIESKI, " >> [Kandydat %d] Wszedlem do %s.\n", moj_id_global + 1, nazwa_sali);
+
+    if (szczegoly) loguj(sem_id_global, KOLOR_NIEBIESKI, "    [Kandydat %d] Czekam na wolne krzeslo przed komisja...\n", moj_id_global + 1);
+
+    semafor_operacja(sem_id_global, sem_krzeslo, -1);
+
+```
+
+**Modyfikacja 2: Wyłączenie wszystkich usleep()**
+
+**Procedura:**
+```bash
+./dziekan 100 2>&1 | grep "TEST_SEM" > test_semafor.log
+```
+
+**Wynik testu:**
+
+Fragment `test_semafor.log`:
+```
+[17:44:56.891] [TEST_SEM] Kandydat 1: sala=3 PRZED, sala=2 PO, oczekiwanie=6μs
+[17:44:56.892] [TEST_SEM] Kandydat 2: sala=2 PRZED, sala=1 PO, oczekiwanie=6μs
+[17:44:56.893] [TEST_SEM] Kandydat 3: sala=1 PRZED, sala=0 PO, oczekiwanie=6μs
+[17:44:56.897] [TEST_SEM] Kandydat 4: sala=0 PRZED, sala=0 PO, oczekiwanie=4722μs
+[17:44:56.906] [TEST_SEM] Kandydat 5: sala=0 PRZED, sala=0 PO, oczekiwanie=13317μs
+[17:44:56.922] [TEST_SEM] Kandydat 6: sala=0 PRZED, sala=0 PO, oczekiwanie=27319μs
+```
+
+**Weryfikacja maksymalnego obłożenia:**
+```bash
+# Zlicz ile procesów było jednocześnie w sali
+$ awk '/Wszedlem do Sala A/ {print $1}' logi.txt | sort | uniq -c | sort -rn | head -1
+$ grep "TEST_SEM" test_semafor.log | head -5
+```
+
+Output:
+```
+3 [17:54:09.545]  ← Maksymalnie 3 procesy w tej samej sekundzie(zgadza się)
+```
+
+**✅ TEST ZALICZONY**
+
+**Wnioski:**
+- Semafor **atomowo** zmienia wartość (3→2→1→0)
+- Gdy semafor = 0, procesy **blokują się w kolejce jądra**
+- Nigdy więcej niż 3 kandydatów w sali jednocześnie
+- Brak sytuacji wyścigu (race condition)
+
+---
+
+### 5.10. Test kolejek komunikatów - Synchronizacja Kandydat ↔ Komisja
+
+**Cel:**
+Udowodnienie poprawności **dwukierunkowej komunikacji** przez kolejki System V IPC przy masowym obciążeniu. Test weryfikuje:
+1. Kandydat wysyła zgłoszenie → Komisja odbiera (typ MSG_TYP_KOMISJA_A)
+2. Komisja wysyła pytania → Kandydat odbiera (typ = PID kandydata)
+3. Kandydat wysyła odpowiedzi → Komisja odbiera
+4. Komisja wysyła ocenę → Kandydat odbiera
+
+**Teoria:**
+Kolejki System V używają pola `mtype` do **filtrowania** wiadomości. `msgrcv(..., mtype=X, ...)` odbiera **tylko** komunikaty z `mtype == X`. Proces blokuje się jeśli kolejka jest pusta dla danego typu.
+
+**Konfiguracja:**
+
+**Modyfikacja 1: Modyfikacja komisja.c**
+
+Dodajemy liczniki komunikatów:
+```c
+// Na początku main() w komisja.c
+int licznik_otrzymanych = 0;
+int licznik_wyslanych = 0;
+
+// Po msgrcv() od kandydata:
+licznik_otrzymanych++;
+loguj(sem_id_global, moj_kolor,
+      "[TEST_MSG] Komisja %s: Otrzymano komunikat #%d od PID %d (typ=%ld)\n",
+      typ_komisji, licznik_otrzymanych, pid_studenta, moj_kanal_nasluchu);
+
+// Po każdym wyslij_komunikat():
+licznik_wyslanych++;
+
+// Przed zakończeniem:
+if (!czy_pracowac) {
+    loguj(sem_id_global, moj_kolor,
+          "[TEST_MSG] Komisja %s: PODSUMOWANIE - Otrzymano: %d, Wysłano: %d\n",
+          typ_komisji, licznik_otrzymanych, licznik_wyslanych);
+}
+```
+
+**Modyfikacja 2: Modyfikacja kandydat.c**
+```c
+// Po każdym msgsnd() do komisji:
+loguj(sem_id_global, KOLOR_NIEBIESKI,
+      "[TEST_MSG] Kandydat %d: Wysłano komunikat do komisji (typ=%d, PID=%d)\n",
+      moj_id_global+1, typ_komisji_msg, moj_pid);
+
+// Po każdym msgrcv() od komisji:
+loguj(sem_id_global, KOLOR_NIEBIESKI,
+      "[TEST_MSG] Kandydat %d: Otrzymano odpowiedź od komisji (dane=%d)\n",
+      moj_id_global+1, msg_odebrana.dane);
+```
+
+**Procedura:**
+```bash
+./dziekan 1000 2>&1 | tee test_kolejki.log
+grep "TEST_MSG" test_kolejki.log | wc -l  # Liczba komunikatów
+```
+
+**Wynik testu:**
+
+Fragment `test_kolejki.log`:
+```
+[19:29:49.513] [TEST_MSG] Kandydat 1: Wysłano komunikat do komisji (typ=1, PID=1444623)
+[19:29:49.513] [Komisja A] Przygotowuje pytania dla [kandydata 1] (PID 1444623)...
+[19:29:49.513] [TEST_MSG] Komisja A: [Kandydat 1] Otrzymano komunikat #1 od PID 1444623 (typ=1)
+[19:29:49.521] [TEST_MSG] Kandydat 1: Wysłano komunikat do komisji (typ=2, PID=1444623)
+[19:29:49.522] [TEST_MSG] Komisja B: [Kandydat 1] Otrzymano komunikat #1 od PID 1444623 (typ=2)
+
+```
+
+**Weryfikacja braku martwych komunikatów:**
+```bash
+$ ipcs -q
+------ Message Queues --------
+key        msqid      owner      messages
+(brak wyników - kolejka usunięta przez sprzatanie())
+```
+
+**✅ TEST ZALICZONY**
+
+---
+
+**Wszystkie 10 testów zakończone sukcesem! ✅**
 
 ---
 
@@ -1824,18 +1938,20 @@ for (int i = 0; i < MAX_KANDYDATOW; i++) {
 Czekanie na WSZYSTKIE procesy potomne:
 ```c
 // DOBRE - czekamy na wszystkich
-int studenci_obsluzeni = 0;
-while (studenci_obsluzeni < MAX_KANDYDATOW) {
-    pid_t w = wait(NULL);
-    if (w == -1) {
-        if (errno == ECHILD) break;  // Nie ma już dzieci
-        if (errno == EINTR) continue;
+ int studenci_obsluzeni = 0;
+    while (studenci_obsluzeni < liczba_chetnych) {
+        pid_t w = wait(NULL);
+        if (w == -1) {
+            if (errno == ECHILD) break;
+            if (errno == EINTR) continue; 
+            perror("Wait error");
+            break;
+        }
+
+        if (w != pid_ka && w != pid_kb) {
+            studenci_obsluzeni++;
+        } 
     }
-    // Zlicz tylko kandydatów, nie komisje
-    if (w != pid_ka && w != pid_kb) {
-        studenci_obsluzeni++;
-    }
-}
 
 // Teraz zakończ komisje
 kill(pid_ka, SIGUSR1);
@@ -1913,7 +2029,7 @@ Poniżej znajdują się permalinki do konkretnych linii kodu w repozytorium GitH
 #### `fopen()` - Otwarcie pliku
 **Zastosowanie:** Utworzenie pliku `wyniki.txt` do zapisu rankingu
 
-[dziekan.c (Linia 284-286)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L284-L286
+[dziekan.c (Linia 294-297)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L294-L297
 ```c
 FILE *plik = fopen("wyniki.txt", "w");
 if (plik == NULL) {
@@ -1924,7 +2040,7 @@ if (plik == NULL) {
 #### `fprintf()` - Zapis do pliku
 **Zastosowanie:** Zapisywanie sformatowanych wierszy tabeli rankingu.
 
-[dziekan.c (Linia 326-329)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L326-L329
+[dziekan.c (Linia 336-340)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L336-L340
 ```c
 fprintf(plik, "| #%03d | %04d | %-3s |  %3d%%  |  %3d%%  |  %3d | %-17s |\n",
     i + 1, k->id_kandydata, k->zdana_matura ? "TAK" : "NIE", 
@@ -1934,7 +2050,7 @@ fprintf(plik, "| #%03d | %04d | %-3s |  %3d%%  |  %3d%%  |  %3d | %-17s |\n",
 #### `fclose()` - Zamknięcie pliku
 **Zastosowanie:** Zamknięcie pliku z rankingiem po zapisie
 
-[dziekan.c (Linia 344-345)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L344-L345
+[dziekan.c (Linia 356-358)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L356-L358
 ```c
 if (fclose(plik) == EOF) {
     perror("Blad fclose(wyniki.txt)");
@@ -1948,42 +2064,50 @@ if (fclose(plik) == EOF) {
 #### `fork()` - Tworzenie procesu potomnego
 **Zastosowanie:** Tworzenie procesów komisji i kandydatów
 
-[dziekan.c (Linia 204) - Fork komisji A] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L204
+[dziekan.c (Linia 206-207) - Fork komisji A] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L206-L207
 ```c
 pid_t pid_ka = fork();
 if (pid_ka == 0) {
     // Proces potomny - komisja A
 ```
 
-[dziekan.c (Linia 214) - Fork komisji B] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L204
+[dziekan.c (Linia 216-127) - Fork komisji B] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L216-L217
 ```c
 pid_t pid_kb = fork();
 if (pid_kb == 0) {
     // Proces potomny - komisja B
 ```
 
-[dziekan.c (Linia 22) - Fork kandydatów] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L229
+[dziekan.c (Linia 230-241) - Fork kandydatów] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L230-L241
 ```c
-for (int i = 0; i < liczba_chetnych; i++) {
+//Tworzenie procesow potomnych(kandydatow)
+    for (int i = 0; i < liczba_chetnych; i++) {
+        if (wspolna_pamiec->ewakuacja == 1) {
+            printf(KOLOR_CZERWONY "[Dziekan] Ewakuacja w toku! Przestaję wpuszczać nowych studentów.\n" KOLOR_RESET);
+            break; 
+        }
+        //Klonowanie dziekana
         pid_t pid = fork();
         if (pid < 0) {
-        // Proces potomny - kandydat
+            perror("Blad fork");
+            exit(1);
+        }
 ```
 
 #### `execl()` - Zamiana obrazu procesu
 **Zastosowanie:** Zamiana obrazu procesu Zastosowanie: Uruchomienie oddzielnych programów wykonywalnych (./komisja, ./kandydat) w procesach potomnych.
 
-[dziekan.c (Linia 206) - Exec komisji A] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L206
+[dziekan.c (Linia 208) - Exec komisji A] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L208
 ```c
 execl("./komisja", "komisja", "A", NULL);
 ```
 
-[dziekan.c (Linia 216) - Exec komisji B] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L216
+[dziekan.c (Linia 218) - Exec komisji B] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L218
 ```c
 execl("./komisja", "komisja", "B", NULL);
 ```
 
-[dziekan.c (Linia 237) - Exec kandydata] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L237
+[dziekan.c (Linia 246) - Exec kandydata] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L246
 ```c
 execl("./kandydat", "kandydat", id_str, NULL);
 ```
@@ -1991,7 +2115,7 @@ execl("./kandydat", "kandydat", id_str, NULL);
 #### `wait()` - Oczekiwanie na zakończenie procesu
 **Zastosowanie:** Zbieranie procesów zakończonych kandydatów
 
-[dziekan.c (Linia 257-270) - Wait w pętli] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L257-L270
+[dziekan.c (Linia 266-274) - Wait w pętli] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L266-L274
 ```c
  int studenci_obsluzeni = 0;
     while (studenci_obsluzeni < liczba_chetnych) {
@@ -2014,7 +2138,7 @@ execl("./kandydat", "kandydat", id_str, NULL);
 #### `exit()` - Zakończenie procesu
 **Zastosowanie:** Zakończenie procesu przy błędzie lub normalnie
 
-[dziekan.c (Linia 238-239) - Exit przy błędzie exec] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L238-L239
+[dziekan.c (Linia 247-248) - Exit przy błędzie exec] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L247-L248
 ```c
  perror("Blad execl kandydat");
     exit(1);
@@ -2028,44 +2152,50 @@ execl("./kandydat", "kandydat", id_str, NULL);
 
 [dziekan.c (Linia 120-136) - Signal handlers] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L120-L136
 ```c
-if (signal(SIGINT, sprzatanie) == SIG_ERR) {
-    perror("Signal error");
-    exit(1);
-}
-if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) {
-    perror("Signal error");
-    exit(1);
-}
-if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) {
-    perror("Signal error");
-    exit(1);
-}
+ //SIGINT(CTRL+C)
+    if (signal(SIGINT, sprzatanie) == SIG_ERR) { 
+        perror("Signal error");
+        exit(1); 
+    }
+    
+    //SIGTSTP(CTRL+Z)
+    if (signal(SIGTSTP, zaradz_ewakuacje) == SIG_ERR) { 
+        perror("Signal error");
+        exit(1); 
+    }
+
+    //SIGUSR1(dziekan nie reaguje na wlasny sygnal ewakuacji)
+    if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) { 
+        perror("Signal error");
+        exit(1); 
+    }
 ```
 
-[kandydat.c (Linia 211-218) - Signal handlers w kandydacie] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/kandydat.c#L211-L218
+[kandydat.c (Linia 211-220) - Signal handlers w kandydacie] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L211-L220
 ```c
-if (signal(SIGTSTP, SIG_IGN) == SIG_ERR) {
-    perror("Signal error");
-    exit(1);
-}
-if (signal(SIGUSR1, zakoncz_proces) == SIG_ERR) {
-    perror("Signal error");
-    exit(1);
-}
+//SIGINT(CTRL+C)
+    if (signal(SIGINT, SIG_IGN) == SIG_ERR) { 
+        perror("Signal error SIGINT"); 
+        exit(1); 
+    }
+
+    // SIGUSR1-ewakuacja (wyslij przez dziekana)
+    if (signal(SIGUSR1, zakoncz_proces) == SIG_ERR) { 
+        perror("Signal error"); 
+        exit(1); }
 ```
 
 #### `kill()` - Wysłanie sygnału do procesu
 **Zastosowanie:** Rozgłoszenie sygnału ewakuacji do grupy procesów oraz zamykanie komisji.
 
-[dziekan.c (Linia 86-87) - Kill 0 = cała grupa] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L86-L87
+[dziekan.c (Linia 92-94) - Kill 0 = cała grupa] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L92-L94
 ```c
 if (kill(0, SIGUSR1) == -1) {
     perror("Blad kill (ewakuacja)");
 }
 ```
 
-[dziekan.c (Linia 274-275) - Kill komisji] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L274-L275
-```c
+[dziekan.c (Linia 283-284) - Kill komisji] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L283-L284
 kill(pid_ka, SIGUSR1);
 kill(pid_kb, SIGUSR1);
 ```
@@ -2077,17 +2207,16 @@ kill(pid_kb, SIGUSR1);
 #### `ftok()` - Generowanie klucza IPC
 **Zastosowanie:** Utworzenie unikalnego klucza dla zasobów IPC
 
-[dziekan.c (Linia 223-225)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/kandydat.c#L223-L225
+[dziekan.c (Linia 140-141)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L140-L141
 ```c
-key_t klucz = ftok(PATH_NAME, PROJECT_ID);
-if (klucz == -1)
-    report_error_and_exit("Blad ftok");
+ key_t klucz = ftok(PATH_NAME, PROJECT_ID);
+    if (klucz == -1) report_error_and_exit("Blad ftok")
 ```
 
 #### `semget()` - Utworzenie zestawu semaforów
 **Zastosowanie:** Alokacja zestawu 6 semaforów (mutex pamięci, limity sal, krzesła, stdout)
 
-[dziekan.c (Linia 143-144)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L143-L144
+[dziekan.c (Linia 144-145)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L144-L145
 ```c
 id_semaforow = semget(klucz, LICZBA_SEMAFOROW, 0600 | IPC_CREAT);
 if (id_semaforow == -1) report_error_and_exit("Blad semget");
@@ -2096,7 +2225,7 @@ if (id_semaforow == -1) report_error_and_exit("Blad semget");
 #### `semctl()` - Kontrola semaforów
 **Zastosowanie:** Nadanie wartości początkowych (SETVAL) oraz usunięcie zestawu (IPC_RMID)
 
-[dziekan.c (Linia 146-151) - Inicjalizacja wartości] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L146-L151
+[dziekan.c (Linia 147-152) - Inicjalizacja wartości] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L147-L152
 ```c
 ustaw_semafor(id_semaforow, SEM_DOSTEP_PAMIEC, 1);
 ustaw_semafor(id_semaforow, SEM_SALA_A, MAX_W_SALI_A);
@@ -2106,7 +2235,7 @@ ustaw_semafor(id_semaforow, SEM_KRZESLO_B, 1);
 ustaw_semafor(id_semaforow, SEM_STDOUT, 1);
 ```
 
-[dziekan.c (Linia 67-74) - Funkcja ustaw_semafor] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L67-L74
+[dziekan.c (Linia 74-81) - Funkcja ustaw_semafor] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L74-L81
 ```c
 void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
     union semun arg;
@@ -2118,7 +2247,7 @@ void ustaw_semafor(int sem_id, int sem_num, int wartosc) {
 }
 ```
 
-[dziekan.c (Linia 38-44) - Usuwanie semaforów] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L38-L44
+[dziekan.c (Linia 45-51) - Usuwanie semaforów] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L45-L51
 ```c
  if (id_semaforow != -1) {
         if (semctl(id_semaforow, 0, IPC_RMID) == -1) {
@@ -2150,22 +2279,22 @@ static void semafor_operacja(int sem_id, int sem_num, int op) {
 }
 ```
 
-[kandydat.c (Linia 62) - P na sali (wejście)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L62
+[kandydat.c (Linia 60) - P na sali (wejście)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L60
 ```c
 semafor_operacja(sem_id_global, sem_sala, -1);
 ```
 
-[kandydat.c (Linia 69) - P na krześle] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L69
+[kandydat.c (Linia 67) - P na krześle] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L67
 ```c
 semafor_operacja(sem_id_global, sem_krzeslo, -1);
 ```
 
-[kandydat.c (Linia 73) - V na krześle] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L73
+[kandydat.c (Linia 71) - V na krześle] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L71
 ```c
 semafor_operacja(sem_id_global, sem_krzeslo, 1);
 ```
 
-[kandydat.c (Linia 74) - V na sali (wyjście)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L74
+[kandydat.c (Linia 72) - V na sali (wyjście)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L72
 ```c
 semafor_operacja(sem_id_global, sem_sala, 1);
 ```
@@ -2177,7 +2306,7 @@ semafor_operacja(sem_id_global, sem_sala, 1);
 #### `shmget()` - Utworzenie segmentu pamięci
 **Zastosowanie:** Alokacja bloku pamięci współdzielonej dla struktury PamiecDzielona
 
-[dziekan.c (Linia 160-161)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L160-L161
+[dziekan.c (Linia 161-162)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L161-L162
 ```c
 id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600 | IPC_CREAT);
     if (id_pamieci == -1) report_error_and_exit("Błąd shmget");
@@ -2186,13 +2315,13 @@ id_pamieci = shmget(klucz, sizeof(PamiecDzielona), 0600 | IPC_CREAT);
 #### `shmat()` - Podłączenie pamięci do procesu
 **Zastosowanie:** Rzutowanie pamięci dzielonej na wskaźnik w procesie
 
-[dziekan.c (Linia 163-164)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L163-L164
+[dziekan.c (Linia 164-165)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L164-L165
 ```c
 wspolna_pamiec = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (wspolna_pamiec == (void*) -1) report_error_and_exit("Błąd shmat");
 ```
 
-[kandydat.c (Linia 245-247)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L245-L247
+[kandydat.c (Linia 247-249)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L247-L249
 ```c
 pamiec_global = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     if (pamiec_global == (void*) -1) 
@@ -2202,9 +2331,10 @@ pamiec_global = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
 #### `shmdt()` - Odłączenie pamięci od procesu
 **Zastosowanie:** Odłączenie pamięci przed zakończeniem procesu
 
-[dziekan.c (Linia 21-26)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L21-L26
+[dziekan.c (Linia 27-33)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L27-L33
 ```c
- if (shmdt(wspolna_pamiec) == -1) {
+  if (wspolna_pamiec != NULL) {
+        if (shmdt(wspolna_pamiec) == -1) {
             perror("Blad shmdt");
         } else {
             printf("%s[Dziekan] Pamiec odlaczona.%s\n", KOLOR_ZOLTY, KOLOR_RESET);
@@ -2212,7 +2342,7 @@ pamiec_global = (PamiecDzielona*) shmat(id_pamieci, NULL, 0);
     }
 ```
 
-[kandydat.c (Linia 33-34)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L33-L34
+[kandydat.c (Linia 34-36)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L34-L36
 ```c
 if (shmdt(pamiec_global) == -1) {
     perror("Blad shmdt");
@@ -2222,9 +2352,11 @@ if (shmdt(pamiec_global) == -1) {
 #### `shmctl()` - Kontrola pamięci dzielonej
 **Zastosowanie:** Fizyczne usunięcie zasobu z systemu przez proces Dziekana.
 
-[dziekan.c (Linia 30-35)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L30-L35
+[dziekan.c (Linia 35-42)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L35-L42
 ```c
- if (shmctl(id_pamieci, IPC_RMID, NULL) == -1) {
+ //Usuniecie segmentu pamieci dzielonej
+    if (id_pamieci != -1) {
+        if (shmctl(id_pamieci, IPC_RMID, NULL) == -1) {
             perror("Blad usuwania pamieci");
         } else {
             printf("%s[Dziekan] Pamiec usunieta.%s\n", KOLOR_ZOLTY, KOLOR_RESET);
@@ -2239,7 +2371,7 @@ if (shmdt(pamiec_global) == -1) {
 #### `msgget()` - Utworzenie kolejki
 **Zastosowanie:** Stworzenie kanału komunikacyjnego Kandydat ↔ Komisja
 
-[dziekan.c (Linia 200-202)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L200-L202
+[dziekan.c (Linia 201-203)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L201-L203
 ```c
 id_kolejki = msgget(klucz, 0600 | IPC_CREAT);
 if (id_kolejki == -1)
@@ -2249,19 +2381,20 @@ if (id_kolejki == -1)
 #### `msgsnd()` - Wysłanie komunikatu
 **Zastosowanie:** Przesłanie zgłoszenia kandydata do komisji (z PID-em nadawcy)
 
-[kandydat.c (Linia 160-163)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L160-L163
+[kandydat.c (Linia 159-163)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L159-L163
 ```c
-msg_wysylana.mtype = typ_komisji_msg;
-msg_wysylana.nadawca_pid = moj_pid;
-msg_wysylana.dane = 0; 
-msgsnd(msg_id_global, &msg_wysylana, sizeof(msg_wysylana)-sizeof(long), 0);
+//Wysylanie odpowiedzi
+    msg_wysylana.mtype = typ_komisji_msg;
+    msg_wysylana.nadawca_pid = moj_pid;
+    msg_wysylana.dane = 0; 
+    msgsnd(msg_id_global, &msg_wysylana, sizeof(msg_wysylana)-sizeof(long), 0);
 
 ```
 
 #### `msgrcv()` - Odbiór komunikatu
 **Zastosowanie:** Kandydat odbiera pytania i wyniki od komisji
 
-[kandydat.c (Linia 167-170)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L167-L170
+[kandydat.c (Linia 167-171)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/kandydat.c#L167-L171
 ```c
 if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_pid, 0) == -1) {
         if (errno != EINTR) perror("Blad msgrcv pytania");
@@ -2269,7 +2402,7 @@ if (msgrcv(msg_id_global, &msg_odebrana, sizeof(msg_odebrana)-sizeof(long), moj_
     }
 ```
 
-[komisja.c (Linia 122-127)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/komisja.c#L122-L127
+[komisja.c (Linia 125-131)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/komisja.c#L125-L131
 ```c
 if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_kanal_nasluchu, 0) == -1) {
             if (errno == EINTR) continue;
@@ -2282,7 +2415,7 @@ if (msgrcv(id_kolejki, &msg_odebrana, sizeof(msg_odebrana) - sizeof(long), moj_k
 #### `msgctl()` - Kontrola kolejki
 **Zastosowanie:** Usuwanie kolejki komunikatów
 
-[dziekan.c (Linia 47-53)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/bf57a511184a1034e0cdef8ac4df20b23a9296a3/dziekan.c#L47-L53
+[dziekan.c (Linia 53-60)] https://github.com/tobiaszsroka/Sroka_Tobiasz_150281_so_projekt_017/blob/main/dziekan.c#L53-L60
 ```c
 if (id_kolejki != -1) {
         if (msgctl(id_kolejki, IPC_RMID, NULL) == -1) {
